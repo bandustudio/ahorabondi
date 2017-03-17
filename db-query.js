@@ -1,9 +1,9 @@
-function fetchNearestCops(db, coordinates, callback) {
+function fetchNearestCarriers(db, coordinates, callback) {
 
-    db.collection("policeData").createIndex({
+    db.collection("carriers").createIndex({
         "location": "2dsphere"
     }, function() {
-        db.collection("policeData").find({
+        db.collection("carriers").find({
             location: {
                 $near: {
                     $geometry: {
@@ -23,15 +23,15 @@ function fetchNearestCops(db, coordinates, callback) {
     });
 }
 
-function fetchCopDetails(db, userId, callback) {
-    db.collection("policeData").findOne({
+function fetchCarrierDetails(db, userId, callback) {
+    db.collection("carriers").findOne({
         userId: userId
     }, function(err, results) {
         if (err) {
             console.log(err)
         } else {
             callback({
-                copId: results.userId,
+                carrierId: results.userId,
                 displayName: results.displayName,
                 phone: results.phone,
                 location: results.location
@@ -40,12 +40,12 @@ function fetchCopDetails(db, userId, callback) {
     });
 }
 
-function saveRequest(db, requestId, requestTime, location, citizenId, status, callback) {
-    db.collection("requestsData").insert({
+function saveRequest(db, requestId, requestTime, location, userId, status, callback) {
+    db.collection("requests").insert({
         "_id": requestId,
         requestTime: requestTime,
         location: location,
-        citizenId: citizenId,
+        userId: userId,
         status: status
     }, function(err, results) {
         if (err) {
@@ -56,13 +56,13 @@ function saveRequest(db, requestId, requestTime, location, citizenId, status, ca
     });
 }
 
-function updateRequest(db, issueId, copId, status, callback) {
-    db.collection("requestsData").update({
+function updateRequest(db, issueId, carrierId, status, callback) {
+    db.collection("requests").update({
         "_id": issueId
     }, {
         $set: {
             status: status,
-            copId: copId
+            carrierId: carrierId
         }
     }, function(err, results) {
         if (err) {
@@ -74,7 +74,7 @@ function updateRequest(db, issueId, copId, status, callback) {
 }
 
 function fetchRequests(db, callback) {
-    var collection = db.collection("requestsData");
+    var collection = db.collection("requests");
     //Using stream to process lots of records
     var stream = collection.find({}, {
         requestTime: 1,
@@ -83,18 +83,18 @@ function fetchRequests(db, callback) {
         _id: 0
     }).stream();
 
-    var requestsData = [];
+    var requests = [];
 
     stream.on("data", function(request) {
-        requestsData.push(request);
+        requests.push(request);
     });
     stream.on('end', function() {
-        callback(requestsData);
+        callback(requests);
     });
 }
 
-exports.fetchNearestCops = fetchNearestCops;
-exports.fetchCopDetails = fetchCopDetails;
+exports.fetchNearestCarriers = fetchNearestCarriers;
+exports.fetchCarrierDetails = fetchCarrierDetails;
 exports.saveRequest = saveRequest;
 exports.updateRequest = updateRequest;
 exports.fetchRequests = fetchRequests;
