@@ -73,7 +73,7 @@
         //Listen for a 'request-accepted' event
         socket.on('location', function(data) {
             console.log(data)
-            L.marker([data.location.latitude, data.location.longitude], {
+            L.marker([data.location.lat, data.location.lng], {
                 icon: L.icon({
                     iconUrl: '/images/carrier.png',
                     iconSize: [60, 28]
