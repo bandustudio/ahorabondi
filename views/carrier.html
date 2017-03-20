@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Carrier
         <%= userId %>
     </title>
@@ -62,7 +63,7 @@
         , carrierHelper = {
             isLabelByStatus : function(status){
                 if(status=='waiting')
-                    return "Esperando Trabajo"
+                    return "Esperando Envío"
                 if(status=='engaged')
                     return "Trabajando"
                 if(status=='offline')

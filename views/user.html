@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Usuario
         <%= userId %>
     </title>
@@ -19,18 +20,13 @@
     <div class="container-fluid">
         <div class="col-lg-4">
             <div class="alert">
-                <div class="h5" style="padding-left: 5%">
-                    <h5 id="notification"> Esperando envíos...</h5>
-                    <div class="form">
-                        <input type="text" class="form-control hidden-lg-down" placeholder="Destino" />
-                        <button class="btn btn-success" onclick="requestForHelp()">
-                            Solicitar envío
-                        </button>                    
-                    </div>
-                </div>
-                <div id="carrierDetails"></div>
+                <input type="text" class="form-control hidden-lg-down" placeholder="Destino" />
+                <button class="btn btn-success" onclick="requestForHelp()">
+                    Solicitar envío
+                </button>                    
             </div>
         </div>
+        <div id="carrierDetails"></div>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
