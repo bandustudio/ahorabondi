@@ -1,39 +1,39 @@
+function geoFindMe() {
+  //var output = document.getElementById("out");
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, hidePosition);
-    } else { 
-        alert("Geolocation is not supported by this browser. Now we trying to get your location through your IP address.");
-    }
-}
+  if (!navigator.geolocation){
+    //output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+    alert("Geolocation is not supported by your browser")
+    return;
+  }
 
-function showPosition(position) {
+  function success(position) {
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
     pos = {
-        lat: parseFloat(position.coords.latitude),
-        lng: parseFloat(position.coords.longitude)
+        lat: parseFloat(latitude),
+        lng: parseFloat(longitude)
     };
+
+    /*
+    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+
+    var img = new Image();
+    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
+
+    output.appendChild(img);
+    */
+  }
+
+  function error() {
+    //output.innerHTML = "Unable to retrieve your location";
+    alert("Unable to retrieve your location")
+  }
+
+  //output.innerHTML = "<p>Locating…</p>";
+
+  navigator.geolocation.getCurrentPosition(success, error);
 }
 
-function hidePosition(position) {
-    alert('User denied the access of the position. Now we trying to get your location through your IP address.');
-    ipPosition();
-}
-
-function ipPosition(){
-    $.get("http://ipinfo.io", function (response) {
-        var loc = response.loc.split(',');
-        pos = {
-            lat: parseFloat(loc[0]),
-            lng: parseFloat(loc[1])
-        };
-    }, "jsonp");
-}
-
-function acceptJob() {
-    console.log("accept!!")
-    //On clicking the button, emit a 'request-accepted' event/signal and send relevant info back to server
-    socket.emit('request-accepted', {
-        requestDetails: requestDetails,
-        carrierDetails: carrierDetails
-    });
-}
+geoFindMe();
