@@ -147,7 +147,7 @@
                     if(!lastpos || pos.lat != lastpos.lat && pos.lng != lastpos.lng){
                         $('.pos').html(pos.lat + ' ,' + pos.lng)
                         marker.setLatLng([pos.lat, pos.lng]).update()
-                        map.setView([pos.lat,pos.lng], 15);
+                        map.setView([pos.lat,pos.lng], 17);
                         socket.emit('location',{carrier: '<%= userId %>', position:pos})
                     }
                     lastpos = pos
