@@ -148,7 +148,7 @@
                         $('.pos').html(pos.lat + ' ,' + pos.lng)
                         marker.setLatLng([pos.lat, pos.lng]).update()
                         map.setView([pos.lat,pos.lng], 17);
-                        socket.emit('location',{carrier: '<%= userId %>', position:pos})
+                        socket.emit('location',{carrier: '<%= userId %>', location:pos})
                     }
                     lastpos = pos
                 }
