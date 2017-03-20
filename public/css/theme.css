@@ -4,6 +4,10 @@ body {
 .container-fluid {
 	background: transparent
 }
+.alert {
+	display: flex;
+}
+
 #map {
 	position: absolute;
 	width: 100%;

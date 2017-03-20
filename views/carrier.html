@@ -17,16 +17,13 @@
     </div>
     <div class="container-fluid">
         <div class="col-lg-4">
-            <div class="alert">
-                <div class="h5" style="padding-left: 5%">
-                    <h5 id="notification"> Esperando envíos...</h5>
-                    <button class="btn btn-success hidden-lg-down" onclick="acceptJob()">
-                        Aceptar Envío
-                    </button>
-                </div>
-                <div id="carrierDetails"></div>
-            </div>
+            <div class="form hidden-lg-down">
+                <button class="btn btn-success" onclick="acceptJob()">
+                    Aceptar Envío
+                </button>
+            </form>            
         </div>
+        <div id="carrierDetails"></div>
     </div>
     </body>
 
@@ -41,13 +38,11 @@
     <script src="/js/location.js"></script>
 
     <script id="details" type="text/x-jsrender">
-        <div class="alert alert-info">
-            <div><strong>Agente</strong> : {{:displayName}}</div>
-            <div><strong>Estado</strong> : {{:status}}</div>
-            <div><strong>Patente</strong> : {{:plate}}</div>
-            <!--div><strong>Tel</strong> : {{:phone}}</div>
-            <div><strong>Dirección</strong> : {{:location.address}}</div-->
-            <div><strong>Posición</strong> : <span class="pos">{{:location.latitude}} {{:location.longitude}}</span></div>
+        <div class="alert">
+            <div><strong>Agente</strong> : {{:displayName}}</div>&nbsp;
+            <div><strong>Estado</strong> : {{:~isLabelByStatus(status)}} {{:userMsg}}</div>&nbsp;
+            <div><strong>Patente</strong> : {{:plate}}</div>&nbsp;
+            <div><strong>Posición</strong> : <span class="pos">{{:location.latitude}} {{:location.longitude}}</span></div>&nbsp;
         </div>
     </script>
     <script type="text/javascript">
@@ -64,6 +59,20 @@
         , marker
         , pos = null
         , lastpos = null
+        , carrierHelper = {
+            isLabelByStatus : function(status){
+                if(status=='waiting')
+                    return "Esperando Trabajo"
+                if(status=='engaged')
+                    return "Trabajando"
+                if(status=='offline')
+                    return "Desconectado"
+                if(status=='online')
+                    return "Conectado"
+                if(status=='idle')
+                    return "Break"
+            }
+        }
         , acceptJob = function () {
             //On clicking the button, emit a 'request-accepted' event/signal and send relevant info back to server
             socket.emit('request-accepted', {
@@ -93,7 +102,7 @@
                         latitude: carrierDetails.location.coordinates[1]
                     }
 
-                    $('#carrierDetails').html($.templates("#details").render(carrierDetails))
+                    $('#carrierDetails').html($.templates("#details").render(carrierDetails, carrierHelper))
                     
                     L.mapbox.accessToken = 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A';
                     //Load the map and set it to a carrier's lat-lng
