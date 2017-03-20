@@ -33,7 +33,8 @@ function geoFindMe() {
 
   //output.innerHTML = "<p>Locating…</p>";
 
-  navigator.geolocation.getCurrentPosition(success, error);
+  //navigator.geolocation.getCurrentPosition(success, error);
+  navigator.geolocation.watchPosition(success, error);
 }
 
 geoFindMe();
