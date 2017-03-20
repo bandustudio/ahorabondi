@@ -1,4 +1,15 @@
-# Code for my blog post - [How to build your own Uber-for-X App](https://medium.freecodecamp.com/how-to-build-your-own-uber-for-x-app-33237955e253#.hhddn3s2m)
+### Uber POC
+
+# A Node + Mongodb + Socket.io API delivery system project. Based on the example published in "Code for my blog" post - [How to build your own Uber-for-X App](https://medium.freecodecamp.com/how-to-build-your-own-uber-for-x-app-33237955e253#.hhddn3s2m)
+
+### Online Demo (https://uberpoc.devmeta.net/):
+
+[Monitor] (https://uberpoc.devmeta.net/data.html)
+, [User 1] (https://uberpoc.devmeta.net/user.html?UserId=user1)
+, [User 2] (https://uberpoc.devmeta.net/user.html?UserId=user2)
+, [Carrier 01] (https://uberpoc.devmeta.net/carrier.html?userId=01)
+, [Carrier 02] (https://uberpoc.devmeta.net/carrier.html?userId=02)
+, [Carrier 03] (https://uberpoc.devmeta.net/carrier.html?userId=03)
 
 ### How to install:
 
