@@ -10,7 +10,7 @@ function fetchNearestCarriers(db, coordinates, callback) {
                         type: "Point",
                         coordinates: coordinates
                     },
-                    $maxDistance: 2000
+                    $maxDistance: 20000
                 }
             }
         }).toArray(function(err, results) {
@@ -32,7 +32,10 @@ function fetchCarrierDetails(db, userId, callback) {
         } else {
             callback({
                 carrierId: results.userId,
+                status: results.status,
+                plate: results.plate,
                 displayName: results.displayName,
+                customMsg: results.customMsg,
                 phone: results.phone,
                 location: results.location
             });
@@ -68,7 +71,7 @@ function updateRequest(db, issueId, carrierId, status, callback) {
         if (err) {
             console.log(err);
         } else {
-            callback("Issue updated")
+            callback(results)
         }
     });
 }
@@ -88,6 +91,7 @@ function fetchRequests(db, callback) {
     stream.on("data", function(request) {
         requests.push(request);
     });
+
     stream.on('end', function() {
         callback(requests);
     });

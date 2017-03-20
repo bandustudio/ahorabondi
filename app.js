@@ -1,13 +1,12 @@
-var http = require("http");
-var express = require("express");
-var consolidate = require("consolidate"); //1
-var _ = require("underscore");
-var bodyParser = require('body-parser');
+var http = require("http")
+, express = require("express")
+, consolidate = require("consolidate")
+, _ = require("underscore")
+, bodyParser = require('body-parser')
+, routes = require('./routes')
+, mongoClient = require("mongodb").MongoClient
+, app = express()
 
-var routes = require('./routes'); //File that contains our endpoints
-var mongoClient = require("mongodb").MongoClient;
-
-var app = express();
 app.use(bodyParser.urlencoded({
     extended: true,
 }));
@@ -18,14 +17,12 @@ app.use(bodyParser.json({
 
 app.set('views', 'views'); //Set the folder-name from where you serve the html page. 
 app.use(express.static('./public')); //setting the folder name (public) where all the static files like css, js, images etc are made available
-
 app.set('view engine', 'html');
 app.engine('html', consolidate.underscore); //Use underscore to parse templates when we do res.render
 
-var server = http.Server(app);
-var portNumber = 8000; //for locahost:8000
-
-var io = require('socket.io')(server); //Creating a new socket.io instance by passing the HTTP server object
+var server = http.Server(app)
+, portNumber = 8000
+, io = require('socket.io')(server) //Creating a new socket.io instance by passing the HTTP server object
 
 server.listen(portNumber, function() { //Runs the server on port 8000
     console.log('Server listening at port ' + portNumber);

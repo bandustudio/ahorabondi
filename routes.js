@@ -26,6 +26,13 @@ function initialize(app, db, socket, io) {
         });
     });
 
+    //Listen to a 'position' event from connected users
+    socket.on('location', function(data) {
+        console.log("location")
+        console.log(data)
+        io.sockets.emit("location",data)
+    })
+
     //Listen to a 'request-for-help' event from connected users
     socket.on('request-for-help', function(eventData) {
         /*
@@ -73,7 +80,6 @@ function initialize(app, db, socket, io) {
             //After updating the request, emit a 'request-accepted' event to the user and send carrier details
             io.sockets.in(eventData.requestDetails.userId).emit('request-accepted', eventData.carrierDetails);
         })
-
     });
 
     //Fetch all requests
