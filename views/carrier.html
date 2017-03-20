@@ -142,6 +142,7 @@
             });
 
             setInterval(function(){
+                $('.pos').html("waiting..." + JSON.stringify(pos))
                 if(pos){
                     if(!lastpos || pos.lat != lastpos.lat && pos.lng != lastpos.lng){
                         $('.pos').html(pos.lat + ' ,' + pos.lng)
