@@ -1,40 +1,12 @@
-function geoFindMe() {
-  //var output = document.getElementById("out");
-
+function geoFindMe(success, error) {
   if (!navigator.geolocation){
-    //output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
     alert("Geolocation is not supported by your browser")
     return;
   }
 
-  function success(position) {
-    var latitude  = position.coords.latitude;
-    var longitude = position.coords.longitude;
-
-    pos = {
-        lat: parseFloat(latitude),
-        lng: parseFloat(longitude)
-    };
-
-    /*
-    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-
-    var img = new Image();
-    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
-
-    output.appendChild(img);
-    */
-  }
-
   function error() {
-    //output.innerHTML = "Unable to retrieve your location";
     alert("Unable to retrieve your location")
   }
 
-  //output.innerHTML = "<p>Locating…</p>";
-
-  //navigator.geolocation.getCurrentPosition(success, error);
   navigator.geolocation.watchPosition(success, error);
 }
-
-geoFindMe();
