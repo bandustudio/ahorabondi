@@ -57,6 +57,7 @@
         , lastpos
         , pos 
         , marker
+        , markers = []
         , requestDetails = {
             userId: userId,
             location: {
@@ -73,12 +74,16 @@
         //Listen for a 'request-accepted' event
         socket.on('location', function(data) {
             console.log(data)
-            L.marker([data.location.lat, data.location.lng], {
-                icon: L.icon({
-                    iconUrl: '/images/carrier.png',
-                    iconSize: [60, 28]
-                })
-            }).addTo(map);            
+            if(markers[data.carrier]){
+                markers[data.carrier].setPosition(new LatLng(data.location.lat, data.location.lng))
+            } else {
+                markers[data.carrier] = L.marker([data.location.lat, data.location.lng], {
+                    icon: L.icon({
+                        iconUrl: '/images/carrier.png',
+                        iconSize: [60, 28]
+                    })
+                }).addTo(map);            
+            }
         })
 
         socket.on('request-accepted', function(data) {

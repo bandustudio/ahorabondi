@@ -66,7 +66,6 @@
         , pos = null
         , lastpos = null
         , acceptJob = function () {
-            console.log("accept!!")
             //On clicking the button, emit a 'request-accepted' event/signal and send relevant info back to server
             socket.emit('request-accepted', {
                 requestDetails: requestDetails,
