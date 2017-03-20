@@ -72,7 +72,7 @@
         socket.on('location', function(data) {
             console.log(data)
             if(markers[data.carrier]){
-                markers[data.carrier].setPosition(new LatLng(data.location.lat, data.location.lng))
+                markers[data.carrier].setLatLng(new L.LatLng(data.location.lat, data.location.lng))
             } else {
                 markers[data.carrier] = L.marker([data.location.lat, data.location.lng], {
                     icon: L.icon({
