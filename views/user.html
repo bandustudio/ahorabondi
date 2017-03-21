@@ -98,7 +98,6 @@
 
         //Listen for a 'request-accepted' event
         socket.on('location', function(data) {
-            console.log(data)
 
             if(markers[data.carrier]){
                 markers[data.carrier].setLatLng(new L.LatLng(data.location.lat, data.location.lng))

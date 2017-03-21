@@ -125,13 +125,13 @@
 
                     var i = 0;
                     H.geo(function(position) {
-                        i++;
-                        var latitude  = position.coords.latitude;
-                        var longitude    = position.coords.longitude;
+                        i++
+                        var latitude = position.coords.latitude
+                        var longitude = position.coords.longitude
 
                         $('.pos').html(latitude + ' ' + longitude + ' d : ' + i )
                         marker.setLatLng([latitude, longitude]).update()
-                        map.setView([latitude,longitude], 17);
+                        map.setView([latitude,longitude], 15)
                         socket.emit('location',{carrier: '<%= userId %>', colorId: carrierDetails.colorId, location:{lat:latitude,lng:longitude}})
 
                     })

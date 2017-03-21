@@ -11,7 +11,7 @@ var H = {
 	}
 	, icon : function(data){
 	    console.log(data.colorId)
-	    const properties = ["#46e166","#fc0d1b","#583470","#57366f"]
+	    const properties = ["#fc0d1b","#46e166","#583470","#57366f"]
 	    const bgcolor = properties[data.colorId] || '#583470'
 	    const className = 'check'
 	    const markerHtmlStyles = `
