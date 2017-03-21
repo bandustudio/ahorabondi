@@ -8,18 +8,18 @@
         <%= userId %>
     </title>
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
-    <link href='/css/theme.css' rel='stylesheet' />
     <link href='/css/bootstrap.min.css' rel='stylesheet' />
     <link href='/css/tether.min.css' rel='stylesheet' />
+    <link href='/css/theme.css' rel='stylesheet' />
 </head>
 
 <body data-userId="<%= userId %>">
     <div id='map'>
     </div>
     <div class="container-fluid">
-        <div class="col-lg-4">
+        <div class="col-lg-11">
             <div class="form hidden-lg-down">
-                <button class="btn btn-success" onclick="acceptJob()">
+                <button class="btn btn-success hidden-lg-down" onclick="acceptJob()">
                     Aceptar Envío
                 </button>
             </form>            
@@ -40,10 +40,10 @@
 
     <script id="details" type="text/x-jsrender">
         <div class="alert">
-            <div><strong>Agente</strong> : {{:displayName}}</div>&nbsp;
-            <div><strong>Estado</strong> : {{:~isLabelByStatus(status)}} {{:userMsg}}</div>&nbsp;
-            <div><strong>Patente</strong> : {{:plate}}</div>&nbsp;
-            <div><strong>Posición</strong> : <span class="pos">{{:location.latitude}} {{:location.longitude}}</span></div>&nbsp;
+            <div><strong>Agente</strong> {{:displayName}}</div>&nbsp;
+            <div><strong>Estado</strong> {{:~isLabelByStatus(status)}} <br>{{:customMsg}}</div>&nbsp;
+            <div><strong>Patente</strong> {{:plate}}</div>&nbsp;
+            <div><strong>Posición</strong> <span class="pos">{{:location.latitude}} {{:location.longitude}}</span></div>&nbsp;
         </div>
     </script>
     <script type="text/javascript">

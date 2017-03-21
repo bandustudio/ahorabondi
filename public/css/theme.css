@@ -8,6 +8,9 @@ body {
 	display: flex;
 }
 
+.container-fluid > .form {
+	padding: 10px;
+}
 #map {
 	position: absolute;
 	width: 100%;
