@@ -14,10 +14,7 @@
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
-
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js"></script>
 
 <script type="text/javascript">
@@ -33,7 +30,6 @@
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-            console.log(data);
             var map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/dark-v9',

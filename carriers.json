@@ -1,5 +1,6 @@
 {
     "userId" : "01",
+    "colorId" : 1,
     "displayName" : "Carrier 1",
     "customMsg" : "",
     "phone" : "01",
@@ -19,6 +20,7 @@
 }
 {
     "userId" : "02",
+    "colorId" : 1,    
     "displayName" : "Carrier 2",
     "customMsg" : "",
     "phone" : "02",
@@ -39,6 +41,7 @@
 }
 {
     "userId" : "03",
+    "colorId" : 1,    
     "displayName" : "Carrier 3",
     "customMsg" : "👆 Piquete en 9 de julio y Corrientes",
     "phone" : "03",
@@ -58,6 +61,7 @@
 }
 {
     "userId" : "04",
+    "colorId" : 1,    
     "displayName" : "Carrier 4",
     "customMsg" : "😞 Yendo a casa de emergencia. Vuevo en dos horas.",
     "phone" : "04",
@@ -77,6 +81,7 @@
 }
 {
     "userId" : "05",
+    "colorId" : 1,    
     "displayName" : "Carrier 5",
     "customMsg" : "👋💦💦 Inundado en San Juan y Boedo",
     "phone" : "05",
@@ -96,6 +101,7 @@
 }
 {
     "userId" : "06",
+    "colorId" : 1,    
     "displayName" : "Carrier 6",
     "customMsg" : "🍴 Arranco a las 14.",
     "phone" : "06",
@@ -116,6 +122,7 @@
 }
 {
     "userId" : "07",
+    "colorId" : 1,    
     "displayName" : "Carrier 7",
     "customMsg" : "👊 Buenas noches y manejen con precaución.",
     "phone" : "07",

@@ -14,13 +14,14 @@
 </head>
 
 <body data-userId="<%= userId %>">
-
+    <div id="notification" class="container-fluid">
+    </div>
     <div id='map'>
     </div>
     <div class="container-fluid">
-        <div class="col-lg-11 col-xs-12">
+        <div class="col-lg-12">
             <div class="alert">
-                <input type="text" class="form-control hidden-lg-down" placeholder="Destino" />
+                <!--input type="text" class="form-control hidden-lg-down" placeholder="Destino" /-->
                 <button class="btn btn-success" onclick="requestForHelp()">
                     Solicitar envío
                 </button>                    
@@ -28,6 +29,22 @@
         </div>
         <div id="carrierDetails"></div>
     </div>
+
+    <script id="mensajeroencamino" type="text/x-jsrender">
+        <h3>Un mensajero está llegando a tu dirección</h3>
+        <div class="alert">
+            <dd><strong>Mensajero</strong> {{:displayName}}</dd>
+            <dd><strong>Patente</strong> {{:plate}}</dd>
+            <dd><strong>Estado</strong> {{:~isLabelByStatus(status)}} <br>{{:customMsg}}</dd>
+            <dd><strong>Posición</strong> <span>{{:location.latitude}} {{:location.longitude}}</span></dd>
+            <button class="btn btn-success" onclick="acceptJob()">
+                Aceptar
+            </button>   
+            <button class="btn btn-danger" onclick="cancelJob()">
+                Cancelar
+            </button>   
+        </div>    
+    </script>
 
     <script src="/socket.io/socket.io.js"></script>
 
@@ -37,7 +54,7 @@
     <script src="/js/tether.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jsrender.min.js"></script>
-    <script src="/js/location.js"></script>
+    <script src="/js/helpers.js"></script>
 
     <script type="text/javascript">
         var socket = io()
@@ -57,11 +74,22 @@
         , markers = []
         , requestDetails = {
             userId: userId,
+            colorId:1,
             location: {
                 address: "Av. de Mayo 720 C1070AAP CABA, Argentina",
                 latitude: -34.608724,
                 longitude: -58.376867
             }
+        }
+        , acceptJob = function () {
+            //On clicking the button, emit a 'request-accepted' event/signal and send relevant info back to server
+            $("#notification").fadeOut('fast')
+        }
+        , cancelJob = function () {
+            //On clicking the button, emit a 'request-accepted' event/signal and send relevant info back to server
+            socket.emit('request-canceled', {
+                requestDetails: requestDetails
+            });
         }
 
         function requestForHelp() { //When button is clicked, emit an event
@@ -70,15 +98,20 @@
 
         //Listen for a 'request-accepted' event
         socket.on('location', function(data) {
+            console.log(data)
+
             if(markers[data.carrier]){
                 markers[data.carrier].setLatLng(new L.LatLng(data.location.lat, data.location.lng))
             } else {
+
+                markers[data.carrier] = L.marker([data.location.lat, data.location.lng],{icon:H.icon(data)}).addTo(map)
+                /*
                 markers[data.carrier] = L.marker([data.location.lat, data.location.lng], {
                     icon: L.icon({
                         iconUrl: '/images/carrier.png',
                         iconSize: [60, 28]
                     })
-                }).addTo(map);            
+                }).addTo(map)*/
             }
         })
 
@@ -88,15 +121,21 @@
             carrierDetails = data; //Save carrier details
 
             //Display Carrier details
-            document.getElementById("notification").innerHTML = "Un mensajero está llegando a tu dirección \n" + JSON.stringify(carrierDetails);
+            $('#notification').html($.templates("#mensajeroencamino").render(carrierDetails, H.carrier)).fadeIn('fast')
+
+            //document.getElementById("notification").innerHTML = "Un mensajero está llegando a tu dirección \n" + JSON.stringify(carrierDetails);
 
             //Show carrier location on the map
+            L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude],{icon:H.icon(data)}).addTo(map)
+
+            /*
             L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude], {
                 icon: L.icon({
                     iconUrl: '/images/carrier.png',
                     iconSize: [60, 28]
                 })
-            }).addTo(map);
+            }).addTo(map);*/
+
         });
 
         L.mapbox.accessToken = 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A';
@@ -106,7 +145,7 @@
         map.setView([-34.608724, -58.376867], 15);
 
         //Display a default marker
-        marker = L.marker([-34.608724, -58.376867]).addTo(map);
+        marker = L.marker([-34.608724, -58.376867], {icon:H.icon({colorId:2})}).addTo(map);
 
         //Use MapBox geo-coding API
         map.addControl(L.mapbox.geocoderControl('mapbox.places', {
@@ -130,7 +169,7 @@
             marker.setLatLng([data.feature.center[1], data.feature.center[0]]);
         }));
 
-        geoFindMe(function(position) {
+        H.geo(function(position) {
             var latitude  = position.coords.latitude;
             var longitude = position.coords.longitude;
 

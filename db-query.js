@@ -32,6 +32,7 @@ function fetchCarrierDetails(db, userId, callback) {
         } else {
             callback({
                 carrierId: results.userId,
+                colorId: results.colorId,
                 status: results.status,
                 plate: results.plate,
                 displayName: results.displayName,

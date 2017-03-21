@@ -28,8 +28,6 @@ function initialize(app, db, socket, io) {
 
     //Listen to a 'position' event from connected users
     socket.on('location', function(data) {
-        console.log("location")
-        console.log(data)
         io.sockets.emit("location",data)
     })
 

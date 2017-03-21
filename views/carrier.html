@@ -14,16 +14,11 @@
 </head>
 
 <body data-userId="<%= userId %>">
+    <div id="notification" class="container-fluid">
+    </div>
     <div id='map'>
     </div>
     <div class="container-fluid">
-        <div class="col-lg-12">
-            <div class="form hidden-lg-down">
-                <button class="btn btn-success hidden-lg-down" onclick="acceptJob()">
-                    Aceptar Envío
-                </button>
-            </form>            
-        </div>
         <div id="carrierDetails"></div>
     </div>
     </body>
@@ -36,11 +31,23 @@
     <script src="/js/tether.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jsrender.min.js"></script>
-    <script src="/js/location.js"></script>
+    <script src="/js/helpers.js"></script>
 
+    <script id="nuevoenvio" type="text/x-jsrender">
+        <h3>Tienes un nuevo Envío</h3>
+        <div class="alert">
+            <dd><strong>Mensajero</strong> {{:displayName}}</dd>
+            <dd><strong>Patente</strong> {{:plate}}</dd>
+            <dd><strong>Estado</strong> {{:~isLabelByStatus(status)}} <br>{{:customMsg}}</dd>
+            <dd><strong>Posición</strong> <span>{{:location.latitude}} {{:location.longitude}}</span></dd>
+            <button class="btn btn-success" onclick="acceptJob()">
+                Aceptar Envío
+            </button>   
+        </div>
+    </script>
     <script id="details" type="text/x-jsrender">
         <div class="alert">
-            <dd><strong>Proveedor</strong> {{:displayName}}</dd>
+            <dd><strong>Mensajero</strong> {{:displayName}}</dd>
             <dd><strong>Patente</strong> {{:plate}}</dd>
             <dd><strong>Estado</strong> {{:~isLabelByStatus(status)}} <br>{{:customMsg}}</dd>
             <dd><strong>Posición</strong> <span class="pos">{{:location.latitude}} {{:location.longitude}}</span></dd>
@@ -60,26 +67,14 @@
         , marker
         , pos = null
         , lastpos = null
-        , carrierHelper = {
-            isLabelByStatus : function(status){
-                if(status=='waiting')
-                    return "Esperando Envío"
-                if(status=='engaged')
-                    return "Trabajando"
-                if(status=='offline')
-                    return "Desconectado"
-                if(status=='online')
-                    return "Conectado"
-                if(status=='idle')
-                    return "Break"
-            }
-        }
         , acceptJob = function () {
             //On clicking the button, emit a 'request-accepted' event/signal and send relevant info back to server
             socket.emit('request-accepted', {
                 requestDetails: requestDetails,
                 carrierDetails: carrierDetails
             });
+
+            $("#notification").fadeOut('fast')
         }
 
         $(function(){
@@ -103,7 +98,7 @@
                         latitude: carrierDetails.location.coordinates[1]
                     }
 
-                    $('#carrierDetails').html($.templates("#details").render(carrierDetails, carrierHelper))
+                    $('#carrierDetails').html($.templates("#details").render(carrierDetails, H.carrier))
                     
                     L.mapbox.accessToken = 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A';
                     //Load the map and set it to a carrier's lat-lng
@@ -111,7 +106,7 @@
                     map.setView([carrierDetails.location.latitude, carrierDetails.location.longitude], 15);
 
                     //Display a default marker
-                    marker = L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude]).addTo(map);
+                    marker = L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude], {icon:H.icon(carrierDetails)}).addTo(map);
 
                     //Use MapBox geo-coding API
                     map.addControl(L.mapbox.geocoderControl('mapbox.places', {
@@ -129,7 +124,7 @@
                     }));
 
                     var i = 0;
-                    geoFindMe(function(position) {
+                    H.geo(function(position) {
                         i++;
                         var latitude  = position.coords.latitude;
                         var longitude    = position.coords.longitude;
@@ -137,7 +132,7 @@
                         $('.pos').html(latitude + ' ' + longitude + ' d : ' + i )
                         marker.setLatLng([latitude, longitude]).update()
                         map.setView([latitude,longitude], 17);
-                        socket.emit('location',{carrier: '<%= userId %>', location:{lat:latitude,lng:longitude}})
+                        socket.emit('location',{carrier: '<%= userId %>', colorId: carrierDetails.colorId, location:{lat:latitude,lng:longitude}})
 
                     })
 
@@ -152,15 +147,19 @@
                 requestDetails = data; //Save request details
 
                 //display user info
-                document.getElementById("notification").innerHTML = "Tenés un nuevo envío! \n" + JSON.stringify(requestDetails);
+                $('#notification').html($.templates("#nuevoenvio").render(requestDetails, H.carrier)).fadeIn(600)
+
+                //$("notification").html("Tenés un nuevo envío! \n" + JSON.stringify(requestDetails)).fadeIn('fast');
 
                 //Show user location on the map
-                L.marker([requestDetails.location.latitude, requestDetails.location.longitude], {
+                L.marker([requestDetails.location.latitude, requestDetails.location.longitude] , {
                     icon: L.icon({
                         iconUrl: '/images/user.png',
                         iconSize: [50, 50]
                     })
-                }).addTo(map);
+                }).addTo(map)
+
+                //$('form, form *').removeClass("hidden-lg-down").fadeIn('slow')
             });
         })
 
