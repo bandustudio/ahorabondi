@@ -26,7 +26,7 @@ var H = {
 	        border: 2px solid #FFFFFF`
 
 	    const icon = L.divIcon({
-	      'icon',
+	      //'icon',
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
