@@ -10,7 +10,6 @@ var H = {
 	  });
 	}
 	, icon : function(data){
-	    console.log(data.colorId)
 	    const properties = ["#fc0d1b","#46e166","#583470","#57366f"]
 	    const bgcolor = properties[data.colorId] || '#583470'
 	    const className = 'check'
@@ -27,7 +26,7 @@ var H = {
 	        border: 2px solid #FFFFFF`
 
 	    const icon = L.divIcon({
-	      className,
+	      'icon',
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
