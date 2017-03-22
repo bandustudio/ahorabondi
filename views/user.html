@@ -5,6 +5,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>TUENVIO - User <%= userId %></title>
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,200' rel='stylesheet' type='text/css'>  
     <link href='/css/theme.css' rel='stylesheet' />
     <link href='/css/bootstrap.min.css' rel='stylesheet' />
     <link href='/css/tether.min.css' rel='stylesheet' />    
@@ -28,14 +29,14 @@
     <script id="eligedestino" type="text/x-jsrender">
         <div class="title">
             <h3>Quieres llevar algo hasta acá?</h3>
-            <small>Puedes cancelar y refinar la selección.</small>
+            <p>Puedes cancelar y refinar la selección.</p>
         </div>
         <div class="message">
         {{if !features}}
             <dd>Sin resultados</dd>
             <dd><input type="text" class="form-control" id="eligedestino_text" placeholder="Av. Rivadavia 1234, CABA" /></dd>
         {{else}}
-            <dd><input type="text" class="form-control" id="eligedestino_text" placeholder="{{:features[0].properties.address}}" /></dd>
+            <dd><input type="text" class="form-control" id="eligedestino_text" value="{{:features[0].properties.address}}" /></dd>
             {{for features}}
                 <dd class="eligedestino_option">{{:properties.address}} - {{:place_name}}</dd>
             {{/for}}
