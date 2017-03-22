@@ -1,12 +1,15 @@
 var H = {
+	mb : {
+		accesstoken : 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A'
+	},
 	geo : function(success, error) {
 	  if (!navigator.geolocation){
-	    alert("Geolocation is not supported by your browser")
+	    $('#status').html("Error: Su dispositivo no soporta geolocalización.").fadeIn('fast')
 	    return;
 	  }
 
 	  navigator.geolocation.watchPosition(success, function() {
-	    alert("Unable to retrieve your location")
+	    $('#status').html("Error: No pude obtener ubicación").fadeIn('fast')
 	  });
 	}
 	, icon : function(data){
@@ -26,7 +29,7 @@ var H = {
 	        border: 2px solid #FFFFFF`
 
 	    const icon = L.divIcon({
-	      //'icon',
+	      className,
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
@@ -48,5 +51,13 @@ var H = {
 	        if(status=='idle')
 	            return "Break"
 	    }
+    }
+    , notif : {
+    	show : function(){
+    		$("#notification").fadeIn('fast')
+    	}
+    	, hide : function(){
+    		$("#notification").fadeOut('fast')
+    	}
     }
 }

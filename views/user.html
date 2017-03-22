@@ -14,21 +14,60 @@
 </head>
 
 <body data-userId="<%= userId %>">
+
+    <div id="status" class="container-fluid text-right">
+    </div>
+
     <div id="notification" class="container-fluid">
     </div>
+
     <div id='map'>
     </div>
+
     <div class="container-fluid">
-        <div class="col-lg-12">
-            <div class="alert">
-                <!--input type="text" class="form-control hidden-lg-down" placeholder="Destino" /-->
-                <button class="btn btn-success" onclick="requestForHelp()">
-                    Solicitar envío
-                </button>                    
-            </div>
-        </div>
         <div id="carrierDetails"></div>
     </div>
+
+    <script id="eligedestino" type="text/x-jsrender">
+        <div class="title">
+            <h3>Quieres llevar algo hasta acá?</h3>
+            <small>Puedes cancelar y refinar la selección.</small>
+        </div>
+        <div class="message">
+        {{if !features}}
+            <dd>Sin resultados</dd>
+            <dd><input type="text" class="form-control" id="eligedestino_text" placeholder="Av. Rivadavia 1234, CABA" /></dd>
+        {{else}}
+            <dd><input type="text" class="form-control" id="eligedestino_text" placeholder="{{:features[0].properties.address}}" /></dd>
+            {{for features}}
+                <dd class="eligedestino_option">{{:properties.address}} - {{:place_name}}</dd>
+            {{/for}}
+        {{/if}}
+            <button class="btn btn-success" onclick="acceptPointer()">
+                Aceptar
+            </button>   
+            <button class="btn btn-danger" onclick="cancelPointer()">
+                Cancelar
+            </button>
+
+        </div>    
+    </script>
+
+    <script id="quieresllevar" type="text/x-jsrender">
+        <h3>Quieres llevar algo hasta acá? Puedes cancelar y refinar la selección.</h3>
+        <div class="alert">
+            <dd><strong>Dirección</strong> {{:displayName}}</dd>
+            <dd><strong>Tiempo estimado</strong> {{:time}}</dd>
+            <dd><strong>Distancia estimada</strong> {{:distance}} <br>{{:customMsg}}</dd>
+            <dd><strong>Posición</strong> <span>{{:location.latitude}} {{:location.longitude}}</span></dd>
+            <button class="btn btn-success" onclick="acceptPointer()">
+                Aceptar
+            </button>   
+            <button class="btn btn-danger" onclick="cancelPointer()">
+                Cancelar
+            </button>   
+        </div>    
+    </script>
 
     <script id="mensajeroencamino" type="text/x-jsrender">
         <h3>Un mensajero está llegando a tu dirección</h3>
@@ -70,6 +109,7 @@
         , map
         , lastpos
         , pos 
+        , pointer
         , marker
         , markers = []
         , requestDetails = {
@@ -83,16 +123,29 @@
         }
         , acceptJob = function () {
             //On clicking the button, emit a 'request-accepted' event/signal and send relevant info back to server
-            $("#notification").fadeOut('fast')
+            H.notif.hide()
         }
         , cancelJob = function () {
             //On clicking the button, emit a 'request-accepted' event/signal and send relevant info back to server
             socket.emit('request-canceled', {
                 requestDetails: requestDetails
-            });
+            })
         }
+        , acceptPointer = function(){
+            cancelPointer()
 
-        function requestForHelp() { //When button is clicked, emit an event
+            setTimeout(function(){
+                //Display Carrier details
+                $('#notification').html($.templates("#mensajeroencamino").render(carrierDetails, H.carrier)).fadeIn('fast')
+            },200)
+        }
+        , cancelPointer = function(){
+            $("#notification").fadeOut('fast')
+            map.removeLayer(pointer)
+            console.log(pos)
+            map.setView(pos ? pos : [-34.608724, -58.376867], 15)            
+        }
+        , requestForHelp = function () { //When button is clicked, emit an event
             socket.emit('request-for-help', requestDetails);
         }
 
@@ -122,8 +175,6 @@
             //Display Carrier details
             $('#notification').html($.templates("#mensajeroencamino").render(carrierDetails, H.carrier)).fadeIn('fast')
 
-            //document.getElementById("notification").innerHTML = "Un mensajero está llegando a tu dirección \n" + JSON.stringify(carrierDetails);
-
             //Show carrier location on the map
             L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude],{icon:H.icon(data)}).addTo(map)
 
@@ -137,7 +188,7 @@
 
         });
 
-        L.mapbox.accessToken = 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A';
+        L.mapbox.accessToken = H.mb.accesstoken
 
         //Load the map and set it to a given lat-lng
         map = L.mapbox.map('map', 'mapbox.streets');
@@ -146,6 +197,7 @@
         //Display a default marker
         marker = L.marker([-34.608724, -58.376867], {icon:H.icon({colorId:2})}).addTo(map);
 
+        /*
         //Use MapBox geo-coding API
         map.addControl(L.mapbox.geocoderControl('mapbox.places', {
             autocomplete: true,
@@ -165,15 +217,35 @@
             };
 
             //Set the marker to new location
-            marker.setLatLng([data.feature.center[1], data.feature.center[0]]);
-        }));
+            marker.setLatLng([data.feature.center[1], data.feature.center[0]])
+        }))
+        */
+
+        map.on('click', function(e) {
+            pointer = L.marker([e.latlng.lat,e.latlng.lng], {
+                icon: L.icon({
+                    iconUrl: '/images/pointer.png',
+                    iconSize: [100,100]
+                })
+            }).addTo(map)
+
+            map.setView([e.latlng.lat,e.latlng.lng], 19)
+
+            setTimeout(function(){
+                $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  e.latlng.lng + ',' + e.latlng.lat + '.json?country=ar&access_token=' + H.mb.accesstoken,function(res){
+
+                    $('#notification').html($.templates("#eligedestino").render({features:res.features})).fadeIn('fast')    
+                })                
+            },500)
+        })
 
         H.geo(function(position) {
-            var latitude  = position.coords.latitude;
-            var longitude = position.coords.longitude;
+            var latitude  = position.coords.latitude
+            , longitude = position.coords.longitude
 
             marker.setLatLng([latitude, longitude]).update()
-            map.setView([latitude,longitude], 15);
+            map.setView([latitude,longitude], 15)
+            pos = [latitude,longitude]
         })        
         
     </script>
