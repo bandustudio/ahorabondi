@@ -51,7 +51,7 @@ var socket = io()
     if(pointer) map.removeLayer(pointer)
 
     pointer = L.marker([e.latlng.lat,e.latlng.lng], {
-        icon: H.icon({colorId:5,sizeId:3})
+        icon: H.icon({colorId:5,displayName:"Mi envío"})
     }).addTo(map)
 
     map.setView([e.latlng.lat,e.latlng.lng], 19)

@@ -35,14 +35,14 @@ var H = {
 	    	display: block;
 			text-align: center;
     		font-weight: 600;
-	    	transform: rotate(-45deg);`
+	    	transform: rotate(-50deg);`
 
 	    const icon = L.divIcon({
 	      className,
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
-	      html: `<span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}">${data.displayName}</span></span>`
+	      html: `<span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}">${data.displayName || ''}</span></span>`
 	    })
 
 	    return icon
