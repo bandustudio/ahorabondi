@@ -26,7 +26,7 @@ var H = {
 	        position: relative;
 	        border-radius: 3rem 3rem 0;
 	        transform: rotate(45deg);
-	        border: 2px solid #FFFFFF`
+	        border: 4px solid #FFFFFF`
 
 	    const icon = L.divIcon({
 	      className,

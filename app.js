@@ -31,6 +31,10 @@ server.listen(portNumber, function() { //Runs the server on port 8000
     mongoClient.connect(url, function(err, db) { //a connection with the mongodb is established here.
         console.log("Connected to Database")
 
+        app.get('/', function(req, res) {
+            res.render('index.html')
+        });
+
         app.get('/user.html', function(req, res) { //a request to /user.html will render our user.html page
             //Substitute the variable userId in user.html with the userId value extracted from query params of the request.
             res.render('user.html', {

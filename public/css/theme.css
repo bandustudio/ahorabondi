@@ -1,11 +1,50 @@
-body {
-	height: 100%
+html, body {
+	font-family: 'Raleway';
+	height: 100%;
 }
 
 dd {
 	margin: 1rem;
     margin-top: 0;
     margin-bottom: -.1rem;
+}
+
+.splash {
+	background-color: #583470;
+	height: 100%;	
+}
+
+.container-table {
+    display: table;
+	height: 100%;    
+}
+
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.pin {
+	background-color: #46e166;
+    width: 6rem;
+    height: 6rem;
+    display: block;
+    left: -3rem;
+    top: -3rem;
+    position: relative;
+    border-radius: 6rem 6rem 0;
+    transform: rotate(45deg);
+    border: 6px solid #FFFFFF
+}
+
+.pin h1 {
+	color: #fff;
+	font-weight: 800;
+	font-size: 3.5em;
+	letter-spacing: -3px;
+	position: relative;
+	top: .1rem;
+	transform: rotate(-50deg);
 }
 
 .container-fluid {
