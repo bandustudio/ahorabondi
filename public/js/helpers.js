@@ -1,10 +1,3 @@
-$(function(){
-	$(document).on('click','.with-options li', function(e){
-		console.log("cccc")
-		$('#eligedestino_text').val($(this).text())
-		e.preventDefault()
-	})
-})
 var H = {
 	mb : {
 		accesstoken : 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A'
@@ -72,3 +65,16 @@ var H = {
     	}
     }
 }
+
+
+window.onerror = function(error) {
+    alert(error)
+}
+
+$(function(){
+	$(document).on('click','.with-options li', function(e){
+		console.log("cccc")
+		$('#eligedestino_text').val($(this).text())
+		e.preventDefault()
+	})
+})
