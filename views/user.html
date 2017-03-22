@@ -158,7 +158,7 @@
         , initPointer = function(e) {
 
             if(pointer) map.removeLayer(pointer)
-                
+
             pointer = L.marker([e.latlng.lat,e.latlng.lng], {
                 icon: L.icon({
                     iconUrl: '/images/pointer.png',
@@ -260,7 +260,7 @@
             , longitude = position.coords.longitude
 
             marker.setLatLng([latitude, longitude]).update()
-            map.setView([latitude,longitude], 15)
+            //map.setView([latitude,longitude], 15)
             pos = [latitude,longitude]
         })        
         
