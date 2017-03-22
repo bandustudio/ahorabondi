@@ -1,6 +1,6 @@
-### Uber POC
+# Uber POC
 
-# A Node + Mongodb + Socket.io API delivery system project. Based on the example published in "Code for my blog" post - [How to build your own Uber-for-X App](https://medium.freecodecamp.com/how-to-build-your-own-uber-for-x-app-33237955e253#.hhddn3s2m)
+## A Node + Mongodb + Socket.io API delivery system project. Based on the example published in "Code for my blog" post - [How to build your own Uber-for-X App](https://medium.freecodecamp.com/how-to-build-your-own-uber-for-x-app-33237955e253#.hhddn3s2m)
 
 ### Online Demo (https://uberpoc.devmeta.net/):
 
