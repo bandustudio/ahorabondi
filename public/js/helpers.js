@@ -1,3 +1,10 @@
+$(function(){
+	$(document).on('click','.with-options li', function(e){
+		console.log("cccc")
+		$('#eligedestino_text').val($(this).text())
+		e.preventDefault()
+	})
+})
 var H = {
 	mb : {
 		accesstoken : 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A'
@@ -53,8 +60,12 @@ var H = {
 	    }
     }
     , notif : {
-    	show : function(){
-    		$("#notification").fadeIn('fast')
+    	set : function(a,b,c,d){
+    		if(d==undefined) d = {};
+            $(a).html($.templates(b).render(c)).css(d).fadeIn('fast')        		
+    	}
+    	, show : function(){
+    		$("#notification").css({display:'flex'}).fadeIn('fast')
     	}
     	, hide : function(){
     		$("#notification").fadeOut('fast')

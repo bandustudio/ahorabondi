@@ -28,26 +28,35 @@
 
     <script id="eligedestino" type="text/x-jsrender">
         <div class="title">
-            <h3>Quieres llevar algo hasta acá?</h3>
-            <p>Puedes cancelar y refinar la selección.</p>
+            <h3>Nuevo Envío</h3>
         </div>
         <div class="message">
-        {{if !features}}
-            <dd>Sin resultados</dd>
-            <dd><input type="text" class="form-control" id="eligedestino_text" placeholder="Av. Rivadavia 1234, CABA" /></dd>
-        {{else}}
-            <dd><input type="text" class="form-control" id="eligedestino_text" value="{{:features[0].properties.address}}" /></dd>
-            {{for features}}
-                <dd class="eligedestino_option">{{:properties.address}} - {{:place_name}}</dd>
-            {{/for}}
-        {{/if}}
-            <button class="btn btn-success" onclick="acceptPointer()">
-                Aceptar
-            </button>   
-            <button class="btn btn-danger" onclick="cancelPointer()">
-                Cancelar
-            </button>
-
+            <div class="with-options">
+            {{if !features}}
+                <dd>Sin resultados</dd>
+                <dd><input type="text" class="form-control" id="eligedestino_text" placeholder="Av. Rivadavia 1234, CABA" /></dd>
+            {{else}}
+                <dd><input type="text" class="form-control" id="eligedestino_text" value="{{:features[0].properties.address}}" /></dd>
+                <ul>
+                {{for features}}
+                    <li class="eligedestino_option"><span>{{:properties.address}} - {{:place_name}}</span></li>
+                {{/for}}
+                </ul>
+            {{/if}}
+            <div class="clearfix"></div>
+            <div class="group-control">&nbsp;</div>
+            <div class="col-sm-9">
+                <div class="btn-group" role="group" aria-label="Elige una acción">
+                    <label class="btn btn-danger" onclick="cancelPointer()">
+                        Cancelar</label>
+                    <label class="btn btn-warning" onclick="fixPointer()">
+                        Corregir</label>
+                    <label class="btn btn-success" onclick="acceptPointer()">
+                        Siguiente</label>
+                    <!--label class="btn btn-primary" onclick="schedulePointer()">
+                        Programar</label-->
+                </div>
+            </div>
         </div>    
     </script>
 
@@ -140,8 +149,30 @@
         , cancelPointer = function(){
             $("#notification").fadeOut('fast')
             map.removeLayer(pointer)
-            console.log(pos)
             map.setView(pos ? pos : [-34.608724, -58.376867], 15)            
+        }
+        , fixPointer = function(){
+            $("#notification").fadeOut('fast')
+            map.setView(pos ? pos : [-34.608724, -58.376867], 18)
+        }
+        , initPointer = function(e) {
+
+            if(pointer) map.removeLayer(pointer)
+                
+            pointer = L.marker([e.latlng.lat,e.latlng.lng], {
+                icon: L.icon({
+                    iconUrl: '/images/pointer.png',
+                    iconSize: [100,100]
+                })
+            }).addTo(map)
+
+            map.setView([e.latlng.lat,e.latlng.lng], 19)
+
+            setTimeout(function(){
+                $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  e.latlng.lng + ',' + e.latlng.lat + '.json?country=ar&access_token=' + H.mb.accesstoken,function(res){
+                    H.notif.set('#notification','#eligedestino',{features:res.features})
+                })                
+            },500)
         }
         , requestForHelp = function () { //When button is clicked, emit an event
             socket.emit('request-for-help', requestDetails);
@@ -219,22 +250,9 @@
         }))
         */
 
-        map.on('click', function(e) {
-            pointer = L.marker([e.latlng.lat,e.latlng.lng], {
-                icon: L.icon({
-                    iconUrl: '/images/pointer.png',
-                    iconSize: [100,100]
-                })
-            }).addTo(map)
-
-            map.setView([e.latlng.lat,e.latlng.lng], 19)
-
-            setTimeout(function(){
-                $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  e.latlng.lng + ',' + e.latlng.lat + '.json?country=ar&access_token=' + H.mb.accesstoken,function(res){
-
-                    $('#notification').html($.templates("#eligedestino").render({features:res.features})).fadeIn('fast')    
-                })                
-            },500)
+        map.on('click', function(e){
+            initPointer(e)
+            pos = [e.latlng.lat,e.latlng.lng]
         })
 
         H.geo(function(position) {

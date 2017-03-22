@@ -3,10 +3,8 @@ html, body {
 	height: 100%;
 }
 
-dd {
-	margin: 1rem;
-    margin-top: 0;
-    margin-bottom: -.3rem;
+h1,h2,h3,h4,h5,h6, span{
+	font-family: 'Raleway';
 }
 
 .splash {
@@ -77,6 +75,7 @@ dd {
 
 #notification .message {	
 	position: relative;
+	width: 100%;
 	display: inline-block;
 	z-index: 2;	
 }
@@ -86,6 +85,31 @@ dd {
 	z-index: 1;
 	width: 100%;
 	height: 100%;
+}
+
+
+.actions {
+	bottom:0;
+	width: 100%;
+	padding: 2rem;
+	text-align: center;
+}
+
+.with-options ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.with-options ul li {	
+	flex-direction: row;
+	margin-bottom: 4px;    
+	padding: 0.5em 1em;  
+	font-size: 14px;
+	font-weight: 400;
+    background: rgba(40, 49, 46, 0.61);
+    color: #ffffff;
+    border-radius: 4px;
+	cursor: pointer;
 }
 
 @media (min-width: 767px) { 
