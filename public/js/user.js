@@ -1,14 +1,9 @@
 var socket = io()
 , i = 0
 , userId = document.body.getAttribute("data-userId")
-
-socket.emit('join', {
-    userId: userId
-}); //Join a room, roomname is the userId itself!
-
-//Empty variables to store information. This will get filled later
-var requestDetails = {}
+, requestDetails = {}
 , carrierDetails = {}
+, carrierList = []
 , map
 , lastpos
 , pos 
@@ -49,17 +44,14 @@ var requestDetails = {}
 }
 , fixPointer = function(){
     $("#notification").fadeOut('fast')
-    map.setView(pos ? pos : [-34.608724, -58.376867], 18)
+    map.setView(pos ? pos : [-34.608724, -58.376867], 19)
 }
 , initPointer = function(e) {
 
     if(pointer) map.removeLayer(pointer)
 
     pointer = L.marker([e.latlng.lat,e.latlng.lng], {
-        icon: L.icon({
-            iconUrl: '/images/pointer.png',
-            iconSize: [100,100]
-        })
+        icon: H.icon({colorId:5,sizeId:3})
     }).addTo(map)
 
     map.setView([e.latlng.lat,e.latlng.lng], 19)
@@ -74,14 +66,25 @@ var requestDetails = {}
     socket.emit('request-for-help', requestDetails);
 }
 
+socket.emit('join', {
+    userId: userId
+}); //Join a room, roomname is the userId itself!
+
 //Listen for a 'request-accepted' event
-socket.on('location', function(data) {
+socket.on('location', function(res) {
 
-    if(markers[data.carrier]){
-        markers[data.carrier].setLatLng(new L.LatLng(data.location.lat, data.location.lng))
+    var match = _.indexOf(carrierList, _.find(res, {id: 1}));
+
+    if(match){
+        carrierList.splice(match, 1, res);
     } else {
+        carrierList.push(res);
+    }
 
-        markers[data.carrier] = L.marker([data.location.lat, data.location.lng],{icon:H.icon(data)}).addTo(map)
+    if(markers[res.displayName]){
+        markers[res.displayName].setLatLng(new L.LatLng(res.location.lat, res.location.lng))
+    } else {
+        markers[res.displayName] = L.marker([res.location.lat, res.location.lng],{icon:H.icon(res)}).addTo(map)
         /*
         markers[data.carrier] = L.marker([data.location.lat, data.location.lng], {
             icon: L.icon({
@@ -90,6 +93,8 @@ socket.on('location', function(data) {
             })
         }).addTo(map)*/
     }
+
+    $('#carrierDetails').html($.templates("#details").render(carrierList, H.carrier))
 })
 
 socket.on('request-accepted', function(data) {
@@ -120,7 +125,7 @@ map = L.mapbox.map('map', 'mapbox.streets');
 map.setView([-34.608724, -58.376867], 15);
 
 //Display a default marker
-marker = L.marker([-34.608724, -58.376867], {icon:H.icon({colorId:2})}).addTo(map);
+marker = L.marker([-34.608724, -58.376867], {icon:H.icon({displayName:"Yo",colorId:2})}).addTo(map);
 
 /*
 //Use MapBox geo-coding API
@@ -157,6 +162,10 @@ H.geo(function(position) {
     , longitude = position.coords.longitude
 
     marker.setLatLng([latitude, longitude]).update()
-    if(i==1) map.setView([latitude,longitude], 15)
+
+    if(i==1) {
+        map.setView([latitude,longitude], 15)
+    }
+
     pos = [latitude,longitude]
-})        
+})

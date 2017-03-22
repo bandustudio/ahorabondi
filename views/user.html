@@ -1,104 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>TUENVIO - User <%= userId %></title>
-    <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
-    <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,200' rel='stylesheet' type='text/css'>  
-    <link href='/css/theme.css' rel='stylesheet' />
-    <link href='/css/bootstrap.min.css' rel='stylesheet' />
-    <link href='/css/tether.min.css' rel='stylesheet' />    
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <title>TUENVIO - User <%= userId %></title>
+        <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+        <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,200' rel='stylesheet' type='text/css'>  
+        <link href='/css/bootstrap.min.css' rel='stylesheet' />
+        <link href='/css/tether.min.css' rel='stylesheet' />    
+        <link href='/css/theme.css' rel='stylesheet' />
+    </head>
 
-<body data-userId="<%= userId %>">
+    <body data-userId="<%= userId %>">
 
-    <div id="status" class="container-fluid text-right">
-    </div>
-
-    <div id="notification" class="container-fluid">
-    </div>
-
-    <div id='map'>
-    </div>
-
-    <div class="container-fluid">
-        <div id="carrierDetails"></div>
-    </div>
-
-    <script id="eligedestino" type="text/x-jsrender">
-        <div class="title">
-            <h3>Nuevo Envío</h3>
+        <div id="status" class="container-fluid text-right">
         </div>
-        <div class="message">
-            <div class="with-options">
-            {{if !features}}
-                <dd>Sin resultados</dd>
-                <dd><input type="text" class="form-control" id="eligedestino_text" placeholder="Av. Rivadavia 1234, CABA" /></dd>
-            {{else}}
-                <dd><input type="text" class="form-control" id="eligedestino_text" value="{{:features[0].properties.address}}" /></dd>
-                <ul>
-                {{for features}}
-                    <li class="eligedestino_option"><span>{{:properties.address}} - {{:place_name}}</span></li>
-                {{/for}}
-                </ul>
-            {{/if}}
-            <div class="clearfix"></div>
-            <div class="group-control">&nbsp;</div>
-            <div class="col-sm-9">
-                <div class="btn-group" role="group" aria-label="Elige una acción">
-                    <label class="btn btn-danger" onclick="cancelPointer()">
-                        Cancelar</label>
-                    <label class="btn btn-warning" onclick="fixPointer()">
-                        Corregir</label>
-                    <label class="btn btn-success" onclick="acceptPointer()">
-                        Siguiente</label>
-                    <!--label class="btn btn-primary" onclick="schedulePointer()">
-                        Programar</label-->
-                </div>
+
+        <div id="notification" class="container-fluid">
+        </div>
+
+        <div id='map'>
+        </div>
+
+        <div id="overlay" class="container-fluid text-right">
+            <div id="carrierDetails"></div>
+        </div>
+
+        <script id="eligedestino" type="text/x-jsrender">
+            <div class="title">
+                <h1>Nuevo Envío</h1>
             </div>
-        </div>    
-    </script>
+            <div class="message">
+                <div class="with-options">
+                {{if !features}}
+                    <dd>Sin resultados</dd>
+                    <dd><input type="text" class="form-control" id="eligedestino_text" placeholder="Av. Rivadavia 1234, CABA" /></dd>
+                {{else}}
+                    <dd><span>1. Dirección de destino</span><br /><input type="text" class="form-control" id="eligedestino_text" value="{{:features[0].properties.address}}" /></dd>
+                    <ul>
+                    {{for features}}
+                        <li class="eligedestino_option"><span>{{:properties.address}} - {{:place_name}}</span></li>
+                    {{/for}}
+                    </ul>
+                {{/if}}
+                <div class="clearfix"></div>
+                <div class="group-control">&nbsp;</div>
+                <div class="col-sm-9">
+                    <div class="btn-group" role="group" aria-label="Elige una acción">
+                        <label class="btn btn-danger" onclick="cancelPointer()">
+                            Cancelar</label>
+                        <label class="btn btn-warning" onclick="fixPointer()">
+                            Corregir</label>
+                        <label class="btn btn-success" onclick="acceptPointer()">
+                            Siguiente</label>
+                        <!--label class="btn btn-primary" onclick="schedulePointer()">
+                            Programar</label-->
+                    </div>
+                </div>
+            </div>    
+        </script>
 
-    <script id="quieresllevar" type="text/x-jsrender">
-        <h3>Quieres llevar algo hasta acá? Puedes cancelar y refinar la selección.</h3>
-        <div class="alert">
-            <dd><strong>Dirección</strong> {{:displayName}}</dd>
-            <dd><strong>Tiempo estimado</strong> {{:time}}</dd>
-            <dd><strong>Distancia estimada</strong> {{:distance}} <br>{{:customMsg}}</dd>
-            <dd><strong>Posición</strong> <span>{{:location.latitude}} {{:location.longitude}}</span></dd>
-            <button class="btn btn-success" onclick="acceptPointer()">
-                Aceptar
-            </button>   
-            <button class="btn btn-danger" onclick="cancelPointer()">
-                Cancelar
-            </button>   
-        </div>    
-    </script>
+        <script id="quieresllevar" type="text/x-jsrender">
+            <h3>Quieres llevar algo hasta acá? Puedes cancelar y refinar la selección.</h3>
+            <div class="alert">
+                <dd><strong>Dirección</strong> {{:displayName}}</dd>
+                <dd><strong>Tiempo estimado</strong> {{:time}}</dd>
+                <dd><strong>Distancia estimada</strong> {{:distance}} <br>{{:customMsg}}</dd>
+                <dd><strong>Posición</strong> <span>{{:location.latitude}} {{:location.longitude}}</span></dd>
+                <button class="btn btn-success" onclick="acceptPointer()">
+                    Aceptar
+                </button>   
+                <button class="btn btn-danger" onclick="cancelPointer()">
+                    Cancelar
+                </button>   
+            </div>    
+        </script>
 
-    <script id="mensajeroencamino" type="text/x-jsrender">
-        <h3>Un mensajero está llegando a tu dirección</h3>
-        <div class="alert">
-            <dd><strong>Mensajero</strong> {{:displayName}}</dd>
-            <dd><strong>Patente</strong> {{:plate}}</dd>
-            <dd><strong>Estado</strong> {{:~isLabelByStatus(status)}} <br>{{:customMsg}}</dd>
-            <dd><strong>Posición</strong> <span>{{:location.latitude}} {{:location.longitude}}</span></dd>
-            <button class="btn btn-success" onclick="acceptJob()">
-                Aceptar
-            </button>   
-            <button class="btn btn-danger" onclick="cancelJob()">
-                Cancelar
-            </button>   
-        </div>    
-    </script>
+        <script id="mensajeroencamino" type="text/x-jsrender">
+            <h3>Un mensajero está llegando a tu dirección</h3>
+            <div class="alert">
+                <dd><strong>Mensajero</strong> {{:displayName}}</dd>
+                <dd><strong>Patente</strong> {{:plate}}</dd>
+                <dd><strong>Estado</strong> {{:~isLabelByStatus(status)}} <br>{{:customMsg}}</dd>
+                <dd><strong>Posición</strong> <span>{{:location.latitude}} {{:location.longitude}}</span></dd>
+                <button class="btn btn-success" onclick="acceptJob()">
+                    Aceptar
+                </button>   
+                <button class="btn btn-danger" onclick="cancelJob()">
+                    Cancelar
+                </button>   
+            </div>    
+        </script>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
-    <script type="text/javascript" src="/js/tether.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/jsrender.min.js"></script>
-    <script type="text/javascript" src="/js/helpers.js"></script>
-    <script type="text/javascript" src="/js/user.js"></script>
-</body>
+
+        <script id="details" type="text/x-jsrender">
+            <div class="alert">
+                <dd><strong>{{:displayName}}</strong> <span>{{:customMsg}}</span> <!--strong>Mensajero</strong--></dd>
+                <dd><strong>{{:~isLabelByStatus(status)}}</strong> <!--strong>Estado</strong--></dd>
+                <dd><strong>{{:plate}}</strong> <!--strong>Patente</strong--></dd>
+                <dd><strong><span class="pos">{{:location.latitude}} {{:location.longitude}}</span></strong> <!--strong>Posición</strong--></dd>
+            </div>
+        </script>
+            
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+        <script type="text/javascript" src="/js/lodash.min.js"></script>
+        <script type="text/javascript" src="/js/tether.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/jsrender.min.js"></script>
+        <script type="text/javascript" src="/js/helpers.js"></script>
+        <script type="text/javascript" src="/js/user.js"></script>
+    </body>
 </html>

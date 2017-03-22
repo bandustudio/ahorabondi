@@ -69,10 +69,10 @@ $(function(){
                 var latitude = position.coords.latitude
                 var longitude = position.coords.longitude
 
-                $('.pos').html(latitude + ' ' + longitude + ' d : ' + i )
+                $('.pos').html(latitude + ' ' + longitude + ' (' + i + ')' )
                 marker.setLatLng([latitude, longitude]).update()
                 map.setView([latitude,longitude], 15)
-                socket.emit('location',{carrier: '<%= userId %>', colorId: carrierDetails.colorId, location:{lat:latitude,lng:longitude}})
+                socket.emit('location',{displayName: userId, colorId: carrierDetails.colorId, location:{lat:latitude,lng:longitude}})
             })
         },
         error: function(httpRequest, status, error) {

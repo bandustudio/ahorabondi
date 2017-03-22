@@ -21,7 +21,7 @@
         <div id='map'>
         </div>
 
-        <div class="container-fluid">
+        <div id="overlay" class="container-fluid text-right">
             <div id="carrierDetails"></div>
         </div>
 
@@ -40,10 +40,10 @@
 
         <script id="details" type="text/x-jsrender">
             <div class="alert">
-                <dd><strong>Mensajero</strong> {{:displayName}}</dd>
-                <dd><strong>Patente</strong> {{:plate}}</dd>
-                <dd><strong>Estado</strong> {{:~isLabelByStatus(status)}} <br>{{:customMsg}}</dd>
-                <dd><strong>Posición</strong> <span class="pos">{{:location.latitude}} {{:location.longitude}}</span></dd>
+                <dd><strong>{{:displayName}}</strong> <span>{{:customMsg}}</span> <!--strong>Mensajero</strong--></dd>
+                <dd><strong>{{:~isLabelByStatus(status)}}</strong> <!--strong>Estado</strong--></dd>
+                <dd><strong>{{:plate}}</strong> <!--strong>Patente</strong--></dd>
+                <dd><strong><span class="pos">{{:location.latitude}} {{:location.longitude}}</span></strong> <!--strong>Posición</strong--></dd>
             </div>
         </script>
 
