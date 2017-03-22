@@ -6,7 +6,7 @@ html, body {
 dd {
 	margin: 1rem;
     margin-top: 0;
-    margin-bottom: -.1rem;
+    margin-bottom: -.3rem;
 }
 
 .splash {
@@ -70,18 +70,14 @@ dd {
 	color: #fff;
 	position: absolute;
 	z-index: 10;
+	padding-top: 10px;
 	width: 100%;
 	height: 100%;
 }
 
-#notification .title {
-	padding: 2rem 10rem;
-}
-
-#notification .message {
-	padding: 2rem 10rem;
+#notification .message {	
 	position: relative;
-	/*display: flex;*/
+	display: inline-block;
 	z-index: 2;	
 }
 
@@ -90,6 +86,17 @@ dd {
 	z-index: 1;
 	width: 100%;
 	height: 100%;
+}
+
+@media (min-width: 767px) { 
+	#notification .title {
+		padding: 2rem 10rem;
+	}
+
+	#notification .message {
+		display: flex;
+		padding: 2rem 10rem;
+	}
 }
 
 @media (max-width: 480px) { 
