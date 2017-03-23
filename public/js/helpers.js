@@ -17,6 +17,7 @@ var H = {
 	    	color : ["#fc0d1b","#46e166","#583470","#f313b5","#1369f3","#cdf313","#f39d13"]
 	    	, size : ["2rem","4rem","6rem","8rem"]
 	    }
+	    var className = data.className || 'icon'
 	    const markerHtmlStyles = `
 	        background-color: ${properties.color[data.colorId] || '#583470'};
 	        width: ${properties.size[data.sizeId] || '3rem'};
@@ -37,7 +38,7 @@ var H = {
 	    	transform: rotate(-50deg);`
 
 	    const icon = L.divIcon({
-	      data.className || 'icon',
+	      className,
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
