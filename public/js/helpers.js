@@ -35,7 +35,6 @@ var H = {
 			text-align: center;
     		font-weight: 600;
 	    	transform: rotate(-50deg);`
-
 	    const icon = L.divIcon({
 	      className: data.className || 'icon',
 	      iconAnchor: [0, 24],
