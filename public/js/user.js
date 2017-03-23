@@ -72,7 +72,7 @@ socket.emit('join', {
 
 //Listen for a 'request-accepted' event
 socket.on('location', function(res) {
-    var match = _.indexOf(carrierList, _.find(res, {displayName: res.displayName}));
+    var match = _.findIndex(carrierList, {displayName: res.displayName})
     if(match>-1){
         carrierList.splice(match, 1, res);
     } else {
