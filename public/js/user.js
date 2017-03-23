@@ -72,14 +72,14 @@ socket.emit('join', {
 
 //Listen for a 'request-accepted' event
 socket.on('location', function(res) {
-
-    var match = _.indexOf(carrierList, _.find(res, {id: 1}));
-
-    if(match){
+    var match = _.indexOf(carrierList, _.find(res, {displayName: res.displayName}));
+    if(match>-1){
         carrierList.splice(match, 1, res);
     } else {
         carrierList.push(res);
     }
+    
+    $('#carrierDetails').html($.templates("#details").render(carrierList, H.carrier))
 
     if(markers[res.displayName]){
         markers[res.displayName].setLatLng(new L.LatLng(res.location.lat, res.location.lng))
@@ -92,9 +92,7 @@ socket.on('location', function(res) {
                 iconSize: [60, 28]
             })
         }).addTo(map)*/
-    }
-
-    $('#carrierDetails').html($.templates("#details").render(carrierList, H.carrier))
+    }    
 })
 
 socket.on('request-accepted', function(data) {

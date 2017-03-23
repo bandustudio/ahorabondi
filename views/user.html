@@ -92,14 +92,11 @@
             </div>    
         </script>
 
-
         <script id="details" type="text/x-jsrender">
-            <div class="alert">
-                <dd><strong>{{:displayName}}</strong> <span>{{:customMsg}}</span> <!--strong>Mensajero</strong--></dd>
-                <dd><strong>{{:~isLabelByStatus(status)}}</strong> <!--strong>Estado</strong--></dd>
-                <dd><strong>{{:plate}}</strong> <!--strong>Patente</strong--></dd>
-                <dd><strong><span class="pos">{{:location.latitude}} {{:location.longitude}}</span></strong> <!--strong>Posición</strong--></dd>
-            </div>
+            <dd><strong>{{:displayName}}</strong> <span>{{:customMsg}}</span> <!--strong>Mensajero</strong--></dd>
+            <!--dd><strong>{{:~isLabelByStatus(status)}}</strong> <strong>Estado</strong></dd>
+            <dd><strong>{{:plate}}</strong> <strong>Patente</strong></dd>
+            <dd><strong><span class="pos">{{:location.latitude}} {{:location.longitude}}</span></strong> <strong>Posición</strong></dd-->
         </script>
             
         <script src="/socket.io/socket.io.js"></script>
