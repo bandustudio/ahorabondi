@@ -63,14 +63,14 @@ var H = {
     	$('#status').html(a).fadeIn('fast')
     }
     , notif : {
-    	set : function(a,b,c,d,e){
-    		if(d==undefined) d = {};
-            $(a).html($.templates(b).render(c)).css(d).fadeIn('fast').promise().done(function(){
-            	if(typeof e == 'function') e.call(this)
+    	set : function(a,b,c,d){
+    		if(c==undefined) c = {};
+            $('#notification').html($.templates(a).render(b,c)).fadeIn('fast').promise().done(function(){
+            	if(typeof d == 'function') d.call(this)
             })
     	}
     	, show : function(){
-    		$("#notification").css({display:'flex'}).fadeIn('fast')
+    		$("#notification").css({display:'inline-block'}).fadeIn('fast')
     	}
     	, hide : function(){
     		$("#notification").fadeOut('fast')

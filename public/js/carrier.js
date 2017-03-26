@@ -74,7 +74,7 @@ $(function(){
         requestDetails = data; //Save request details
 
         //display user info
-        $('#notification').html($.templates("#nuevoenvio").render(requestDetails, H.carrier)).fadeIn(600)
+        H.notif.set('#nuevoenvio',requestDetails,H.carrier)
 
         //Show user location on the map
         L.marker([requestDetails.location.latitude, requestDetails.location.longitude] , {

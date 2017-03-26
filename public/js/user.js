@@ -32,11 +32,12 @@ var socket = io()
     cancelPointer()
 
     setTimeout(function(){
-        $('#notification').html($.templates("#mensajeroencamino").render(carrierDetails, H.carrier)).fadeIn('fast')
+        //$('#notification').html($.templates("#mensajeroencamino").render(carrierDetails, H.carrier)).fadeIn('fast')
+        H.notif.set('#mensajeroencamino',carrierDetails,H.carrier)
     },200)
 }
 , cancelPointer = function(){
-    $("#map.selection,icon.selection").removeClass('selection')
+    $(".selection").removeClass('selection')
     map.removeLayer(pointer)
     map.setView(pos ? pos : [-34.608724, -58.376867], 15)
     $("#notification").fadeOut('fast')
@@ -57,7 +58,7 @@ var socket = io()
 
     setTimeout(function(){
         $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  e.latlng.lng + ',' + e.latlng.lat + '.json?country=ar&access_token=' + H.mb.accesstoken,function(res){
-            H.notif.set('#notification','#eligedestino',{features:res.features},null,function(){
+            H.notif.set('#eligedestino',{features:res.features},{},function(){
                 // show carriers
                 $(".choosecarrier").html($('#carrierDetails').html())
             })
@@ -100,6 +101,7 @@ socket.on('request-accepted', function(data) {
 
     //Display Carrier details
     $('#notification').html($.templates("#mensajeroencamino").render(carrierDetails, H.carrier)).fadeIn('fast')
+    H.notif.set('#mensajeroencamino',carrierDetails,H.carrier)
 
     //Show carrier location on the map
     L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude],{icon:H.icon(data)}).addTo(map)
