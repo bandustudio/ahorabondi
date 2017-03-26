@@ -23,9 +23,16 @@
         </div>
 
         <div id="overlay" class="container text-center">
-            <div class="form-group">
-                <input class="form-control wherefrom" type="text" placeholder="Desde donde?" />
-                <input class="form-control whereto" type="text" placeholder="Hasta dónde?" hidden />
+            <ul>
+                <li>
+                    <input class="form-control d-inline-block" id="step_from" type="text" placeholder="Desde donde?" />
+                </li>
+                <li>
+                    <input class="form-control d-inline-block" id="step_to" type="text" placeholder="Hasta dónde?" hidden />
+                </li>
+            </ul>
+            <div class="navbar fixed-bottom" id="step_ready" hidden>
+                <button class="btn btn-lg btn-block btn-primary">Listo</button>
             </div>
             <div id="carrierDetails" hidden></div>
         </div>

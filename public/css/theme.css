@@ -84,6 +84,22 @@ dd.selection {
 	z-index: 10
 }
 
+#overlay ul {
+	margin-left: 2rem;
+}
+
+#overlay li {
+	list-style: disc;
+}
+
+#overlay input {
+	background-color: #fff;
+}
+
+#overlay input:focus {
+	background-color: #baffae;
+}
+
 #status {
 	display: none;
 	background-color: transparent;

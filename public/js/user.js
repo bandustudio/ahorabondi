@@ -7,6 +7,7 @@ var socket = io()
 , carrierList = []
 , map
 , lastpos
+, inputstep = 'step_from'
 , pos 
 , pointer
 , marker
@@ -74,6 +75,15 @@ var socket = io()
     })
     return deferred.promise()
 }
+, setAddressFromLatLng = function(res){
+    $('#'+inputstep).val(res[0].properties.address||"")
+    if(inputstep=="step_from" && res[0].properties.address){
+        $('#step_to').attr('hidden',false).slideDown('slow').focus()
+    }
+    if($.trim($('#step_from').val()) != '' && $.trim($('#step_to').val()) != ''){
+        $('#step_ready').attr('hidden',false).slideDown('slow')
+    }
+}
 
 socket.emit('join', {
     userId: userId
@@ -127,8 +137,7 @@ map.on('mouseup', function(e){
         var center = map.getCenter().wrap()
         getAddressFromLatLng(center.lat, center.lng).then(function(res){
             if(res){
-                $('.wherefrom').val(res[0].properties.address)
-                $('.whereto').attr('hidden',false).slideDown('slow').focus()
+                setAddressFromLatLng(res)
             }
         })
     },100)    
@@ -160,6 +169,10 @@ $(document).on('click','.icon:not(.me)', function(){
     }
 })
 */
+$(document).on('focus','#overlay input', function(){
+    inputstep = $(this).attr('id')
+})
+
 $(document).on('click','.icon.me', function(){
     stopPropagation = 1
     H.notif.set('#miperfil')
@@ -178,6 +191,11 @@ H.geo(function(position) {
     marker.setLatLng([latitude, longitude]).update()
 
     if(i==1) {
+        getAddressFromLatLng(latitude,longitude).then(function(res){
+            if(res){
+                setAddressFromLatLng(res)
+            }
+        })        
         map.setView([latitude,longitude], 15)
     }
 
