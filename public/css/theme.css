@@ -45,6 +45,10 @@ h1,h2,h3,h4,h5,h6, span{
 	transform: rotate(-50deg);
 }
 
+.icon > .selection {
+	box-shadow: 0 0 0 5px #2a6b02;
+}
+
 .container-fluid {
 	background: transparent
 }
@@ -90,6 +94,15 @@ h1,h2,h3,h4,h5,h6, span{
 	z-index: 1;
 	width: 100%;
 	height: 100%;
+}
+
+#map.selection {
+	cursor: url('../images/choose.png'), auto;	
+}
+
+#carrierList {
+	display: inline-flex;
+	overflow: auto
 }
 
 .actions {

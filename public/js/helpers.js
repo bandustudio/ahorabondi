@@ -36,7 +36,7 @@ var H = {
     		font-weight: 600;
 	    	transform: rotate(-50deg);`
 	    const icon = L.divIcon({
-	      className: data.className || 'icon',
+	      className: data.className ? data.className + ' icon' : 'icon',
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
@@ -63,9 +63,11 @@ var H = {
     	$('#status').html(a).fadeIn('fast')
     }
     , notif : {
-    	set : function(a,b,c,d){
+    	set : function(a,b,c,d,e){
     		if(d==undefined) d = {};
-            $(a).html($.templates(b).render(c)).css(d).fadeIn('fast')        		
+            $(a).html($.templates(b).render(c)).css(d).fadeIn('fast').promise().done(function(){
+            	if(typeof e == 'function') e.call(this)
+            })
     	}
     	, show : function(){
     		$("#notification").css({display:'flex'}).fadeIn('fast')

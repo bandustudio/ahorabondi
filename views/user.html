@@ -30,6 +30,7 @@
             <div class="title">
                 <h1>Nuevo Envío</h1>
             </div>
+            <div class="choosecarrier"></div>
             <div class="message">
                 <div class="with-options">
                 {{if !features}}
@@ -48,11 +49,11 @@
                 <div class="col-sm-9">
                     <div class="btn-group" role="group" aria-label="Elige una acción">
                         <label class="btn btn-danger" onclick="cancelPointer()">
-                            Cancelar</label>
+                            ✋ Cancelar</label>
                         <label class="btn btn-warning" onclick="fixPointer()">
-                            Corregir</label>
+                            👆 Corregir</label>
                         <label class="btn btn-success" onclick="acceptPointer()">
-                            Siguiente</label>
+                            👍 Iniciar</label>
                         <!--label class="btn btn-primary" onclick="schedulePointer()">
                             Programar</label-->
                     </div>
@@ -93,19 +94,16 @@
         </script>
 
         <script id="details" type="text/x-jsrender">
-            <dd><strong>{{:displayName}}</strong> <span>{{:customMsg}}</span> <!--strong>Mensajero</strong--></dd>
-            <!--dd><strong>{{:~isLabelByStatus(status)}}</strong> <strong>Estado</strong></dd>
-            <dd><strong>{{:plate}}</strong> <strong>Patente</strong></dd>
-            <dd><strong><span class="pos">{{:location.latitude}} {{:location.longitude}}</span></strong> <strong>Posición</strong></dd-->
+            <dd><strong>{{:displayName}}</strong> {{:~isLabelByStatus(status)}}
         </script>
             
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
-        <script type="text/javascript" src="/js/lodash.min.js"></script>
-        <script type="text/javascript" src="/js/tether.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/js/jsrender.min.js"></script>
+        <script type="text/javascript" src="/js/lib/lodash.min.js"></script>
+        <script type="text/javascript" src="/js/lib/tether.min.js"></script>
+        <script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/lib/jsrender.min.js"></script>
         <script type="text/javascript" src="/js/helpers.js"></script>
         <script type="text/javascript" src="/js/user.js"></script>
     </body>

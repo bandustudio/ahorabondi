@@ -48,31 +48,20 @@ $(function(){
             //Display a default marker
             marker = L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude], {icon:H.icon(carrierDetails)}).addTo(map);
 
-            //Use MapBox geo-coding API
-            map.addControl(L.mapbox.geocoderControl('mapbox.places', {
-                autocomplete: true,
-            }).on('select', function(data) {
-                //This function runs when a place is selected
-
-                //data contains the geocding results
-                //console.log(data);
-
-                //Do something with the results
-
-                //Set the marker to new location
-                marker.setLatLng([data.feature.center[1], data.feature.center[0]]);
-            }));
-
 
             H.geo(function(position) {
                 i++
                 var latitude = position.coords.latitude
-                var longitude = position.coords.longitude
+                , longitude = position.coords.longitude
+
+                carrierDetails.location.latitude = latitude
+                carrierDetails.location.longitude = longitude
+
 
                 $('.pos').html(latitude + ' ' + longitude + ' (' + i + ')' )
                 marker.setLatLng([latitude, longitude]).update()
                 map.setView([latitude,longitude], 15)
-                socket.emit('location',{displayName: userId, colorId: carrierDetails.colorId, location:{lat:latitude,lng:longitude}})
+                socket.emit('location',carrierDetails)
             })
         },
         error: function(httpRequest, status, error) {
@@ -86,8 +75,6 @@ $(function(){
 
         //display user info
         $('#notification').html($.templates("#nuevoenvio").render(requestDetails, H.carrier)).fadeIn(600)
-
-        //$("notification").html("Tenés un nuevo envío! \n" + JSON.stringify(requestDetails)).fadeIn('fast');
 
         //Show user location on the map
         L.marker([requestDetails.location.latitude, requestDetails.location.longitude] , {
