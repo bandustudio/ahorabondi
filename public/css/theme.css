@@ -7,6 +7,10 @@ h1,h2,h3,h4,h5,h6, span{
 	font-family: 'Raleway';
 }
 
+dd {
+	margin-left: 1rem;
+}
+
 .splash {
 	background-color: #583470;
 	height: 100%;	
@@ -28,7 +32,8 @@ h1,h2,h3,h4,h5,h6, span{
     height: 6rem;
     display: block;
     left: -3rem;
-    top: -3rem;
+    top: 1rem;
+    /*top: -3rem;*/
     position: relative;
     border-radius: 6rem 6rem 0;
     transform: rotate(45deg);
@@ -101,7 +106,9 @@ h1,h2,h3,h4,h5,h6, span{
 }
 
 #map.selection {
-	cursor: url('../images/choose.png'), auto;	
+    cursor:  auto;
+    cursor:  url(../images/choose.png) 62 102, auto;	
+	/*cursor: url('../images/choose.png'), auto;*/
 }
 
 #carrierList {
@@ -120,7 +127,9 @@ h1,h2,h3,h4,h5,h6, span{
 	list-style: none;
 	padding: 0;
 	margin: 0;
+	margin-left: 1rem;
 }
+
 .with-options ul li {	
 	flex-direction: row;
 	margin-bottom: 4px;    
@@ -131,6 +140,10 @@ h1,h2,h3,h4,h5,h6, span{
     color: #ffffff;
     border-radius: 4px;
 	cursor: pointer;
+}
+
+.alert {
+	display: inline-flex;
 }
 
 @media (min-width: 767px) { 

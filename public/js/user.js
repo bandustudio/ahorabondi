@@ -127,6 +127,8 @@ map.on('click', function(e){
 })
 
 $(document).on('click','.icon:not(.me)', function(){
+    stopPropagation = 1
+
     var $span = $(this).find("> span")
     , sel = 'selection'
 
@@ -137,8 +139,15 @@ $(document).on('click','.icon:not(.me)', function(){
         $span.removeClass(sel)
         $('#map').removeClass(sel)
     }
-    stopPropagation = 1
 })
+
+$(document).on('click','.icon.me', function(){
+    stopPropagation = 1
+
+    console.log("goto me")
+    H.notif.set('#miperfil')
+})
+
 
 H.geo(function(position) {
     i++
