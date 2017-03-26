@@ -34,13 +34,14 @@ var H = {
 	    	display: block;
 			text-align: center;
     		font-weight: 600;
+    		line-height: 1rem;
 	    	transform: rotate(-50deg);`
 	    const icon = L.divIcon({
 	      className: data.className ? data.className + ' icon' : 'icon',
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
-	      html: `<span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}">${data.displayName || ''}</span></span>`
+	      html: `<span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}"><code>${data.displayName || ''}</code> <span style="display:none">${data.carrierId}</span></span>`
 	    })
 
 	    return icon

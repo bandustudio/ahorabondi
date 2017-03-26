@@ -37,7 +37,7 @@ var socket = io()
     },200)
 }
 , cancelPointer = function(){
-    $(".selection").removeClass('selection')
+    $("icon.selection").removeClass('selection')
     map.removeLayer(pointer)
     map.setView(pos ? pos : [-34.608724, -58.376867], 15)
     $("#notification").fadeOut('fast')
@@ -51,7 +51,7 @@ var socket = io()
     if(pointer) map.removeLayer(pointer)
 
     pointer = L.marker([e.latlng.lat,e.latlng.lng], {
-        icon: H.icon({colorId:5,displayName:"Tu envío"})
+        icon: H.icon({colorId:5,displayName:"<span>TU ENVÍO</span>"})
     }).addTo(map)
 
     map.setView([e.latlng.lat,e.latlng.lng], 16)
@@ -130,21 +130,20 @@ $(document).on('click','.icon:not(.me)', function(){
     stopPropagation = 1
 
     var $span = $(this).find("> span")
+    , $spans = [$span, $("#carrierDetails > ." + $span.find("> span > span").text())]
     , sel = 'selection'
 
-    if(!$span.hasClass(sel)){
-        $span.addClass(sel)
-        $('#map').addClass(sel)
-    } else {
-        $span.removeClass(sel)
-        $('#map').removeClass(sel)
+    for(var i in $spans){
+        if(!$spans[i].hasClass(sel)){
+            $spans[i].addClass(sel)
+        } else {
+            $spans[i].removeClass(sel)
+        }
     }
 })
 
 $(document).on('click','.icon.me', function(){
     stopPropagation = 1
-
-    console.log("goto me")
     H.notif.set('#miperfil')
 })
 

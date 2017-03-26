@@ -11,6 +11,11 @@ dd {
 	margin-left: 1rem;
 }
 
+dd.selection {
+	border: 4px solid green;
+	border-radius: 5px;
+}
+
 .splash {
 	background-color: #583470;
 	height: 100%;	
@@ -43,11 +48,17 @@ dd {
 .pin h1 {
 	color: #fff;
 	font-weight: 800;
-	font-size: 3.5em;
+	font-size: 3.8em;
 	letter-spacing: -3px;
+	word-spacing: 1rem;
 	position: relative;
 	top: .1rem;
+	left: -.6rem;
 	transform: rotate(-50deg);
+}
+
+.icon code {
+	white-space: nowrap;
 }
 
 .icon > .selection {
@@ -107,8 +118,7 @@ dd {
 
 #map.selection {
     cursor:  auto;
-    cursor:  url(../images/choose.png) 62 102, auto;	
-	/*cursor: url('../images/choose.png'), auto;*/
+    cursor:  url(../images/Map-Marker-Ball-Chartreuse.png) 64 118, auto;
 }
 
 #carrierList {
