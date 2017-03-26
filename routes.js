@@ -3,8 +3,8 @@ var query = require('./db-query');
 function initialize(app, db, socket, io) {
     // '/carriers?lat=12.9718915&&lng=77.64115449999997'
     app.get('/carriers', function(req, res) {
-        /*
-            extract the latitude and longitude info from the request. 
+        /*  
+            Extract the latitude and longitude info from the request. 
             Then, fetch the nearest carriers using MongoDB's geospatial queries and return it back to the client.
         */
         var latitude = Number(req.query.lat);

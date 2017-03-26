@@ -30,7 +30,6 @@ var socket = io()
 }
 , acceptPointer = function(){
     cancelPointer()
-
     setTimeout(function(){
         //$('#notification').html($.templates("#mensajeroencamino").render(carrierDetails, H.carrier)).fadeIn('fast')
         H.notif.set('#mensajeroencamino',carrierDetails,H.carrier)
@@ -57,7 +56,7 @@ var socket = io()
     map.setView([e.latlng.lat,e.latlng.lng], 16)
 
     setTimeout(function(){
-        $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  e.latlng.lng + ',' + e.latlng.lat + '.json?country=ar&access_token=' + H.mb.accesstoken,function(res){
+        $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  e.latlng.lng + ',' + e.latlng.lat + '.json?country=ar&access_token=' + H.mapbox.accessToken,function(res){
             H.notif.set('#eligedestino',{features:res.features},{},function(){
                 // show carriers
                 $(".choosecarrier").html($('#carrierDetails').html())
@@ -67,6 +66,13 @@ var socket = io()
 }
 , requestForHelp = function () { //When button is clicked, emit an event
     socket.emit('request-for-help', requestDetails);
+}
+, getAddressFromLatLng = function(lat,lng){
+    var deferred = new $.Deferred()
+    $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  lng + ',' + lat + '.json?country=ar&access_token=' + H.mapbox.accessToken,function(res){
+        deferred.resolve(res.features)
+    })
+    return deferred.promise()
 }
 
 socket.emit('join', {
@@ -107,7 +113,7 @@ socket.on('request-accepted', function(data) {
     L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude],{icon:H.icon(data)}).addTo(map)
 });
 
-L.mapbox.accessToken = H.mb.accesstoken
+L.mapbox.accessToken = H.mapbox.accessToken
 
 //Load the map and set it to a given lat-lng
 map = L.mapbox.map('map', 'mapbox.streets');
@@ -116,6 +122,19 @@ map.setView([-34.608724, -58.376867], 15);
 //Display a default marker
 marker = L.marker([-34.608724, -58.376867], {icon:H.icon({displayName:"Yo",className:'me',colorId:2})}).addTo(map);
 
+map.on('mouseup', function(e){
+    setTimeout(function(){
+        var center = map.getCenter().wrap()
+        getAddressFromLatLng(center.lat, center.lng).then(function(res){
+            if(res){
+                $('.wherefrom').val(res[0].properties.address)
+                $('.whereto').attr('hidden',false).slideDown('slow').focus()
+            }
+        })
+    },100)    
+})
+
+/*
 map.on('click', function(e){
     setTimeout(function(){
         var sp = stopPropagation
@@ -131,22 +150,25 @@ $(document).on('click','.icon:not(.me)', function(){
 
     var $span = $(this).find("> span")
     , $spans = [$span, $("#carrierDetails > ." + $span.find("> span > span").text())]
-    , sel = 'selection'
 
     for(var i in $spans){
-        if(!$spans[i].hasClass(sel)){
-            $spans[i].addClass(sel)
+        if(!$spans[i].hasClass('selection')){
+            $spans[i].addClass('selection')
         } else {
-            $spans[i].removeClass(sel)
+            $spans[i].removeClass('selection')
         }
     }
 })
-
+*/
 $(document).on('click','.icon.me', function(){
     stopPropagation = 1
     H.notif.set('#miperfil')
 })
-
+/*
+$(document).on('click','.with-options li', function(e){
+    $('#eligedestino_text').val($(this).text())
+    e.preventDefault()
+})*/
 
 H.geo(function(position) {
     i++

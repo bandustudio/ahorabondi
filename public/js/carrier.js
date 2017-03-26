@@ -14,7 +14,7 @@ var socket = io()
         carrierDetails: carrierDetails
     });
 
-    $("#notification").fadeOut('fast')
+    H.notif.hide()
 }
 
 $(function(){
@@ -40,14 +40,13 @@ $(function(){
 
             $('#carrierDetails').html($.templates("#details").render(carrierDetails, H.carrier))
             
-            L.mapbox.accessToken = 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A';
+            L.mapbox.accessToken = H.mapbox.accessToken;
             //Load the map and set it to a carrier's lat-lng
             map = L.mapbox.map('map', 'mapbox.streets');
             map.setView([carrierDetails.location.latitude, carrierDetails.location.longitude], 15);
 
             //Display a default marker
             marker = L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude], {icon:H.icon(carrierDetails)}).addTo(map);
-
 
             H.geo(function(position) {
                 i++
@@ -57,8 +56,7 @@ $(function(){
                 carrierDetails.location.latitude = latitude
                 carrierDetails.location.longitude = longitude
 
-
-                $('.pos').html(latitude + ' ' + longitude + ' (' + i + ')' )
+                //$('.pos').html(latitude + ' ' + longitude + ' (' + i + ')' )
                 marker.setLatLng([latitude, longitude]).update()
                 map.setView([latitude,longitude], 15)
                 socket.emit('location',carrierDetails)
@@ -83,7 +81,5 @@ $(function(){
                 iconSize: [50, 50]
             })
         }).addTo(map)
-
-        //$('form, form *').removeClass("hidden-lg-down").fadeIn('slow')
-    });
+    })
 })

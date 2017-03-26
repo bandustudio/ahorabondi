@@ -1,6 +1,6 @@
 var H = {
-	mb : {
-		accesstoken : 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A'
+	mapbox : {
+		accessToken : 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A'
 	},
 	geo : function(success, error) {
 	  if (!navigator.geolocation){
@@ -34,7 +34,7 @@ var H = {
 	    	display: block;
 			text-align: center;
     		font-weight: 600;
-    		line-height: 1rem;
+    		line-height: 2rem;
 	    	transform: rotate(-50deg);`
 	    const icon = L.divIcon({
 	      className: data.className ? data.className + ' icon' : 'icon',
@@ -80,12 +80,5 @@ var H = {
 }
 
 window.onerror = function(error) {
-    alert(error)
+    H.status(error)
 }
-
-$(function(){
-	$(document).on('click','.with-options li', function(e){
-		$('#eligedestino_text').val($(this).text())
-		e.preventDefault()
-	})
-})

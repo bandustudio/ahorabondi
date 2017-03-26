@@ -5,7 +5,7 @@
         <meta content="width=device-width, initial-scale=1" name="viewport">
         <title>TUENVIO - User <%= userId %></title>
         <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
-        <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,200' rel='stylesheet' type='text/css'>  
+        <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,200' rel='stylesheet' type='text/css'>
         <link href='/css/bootstrap.min.css' rel='stylesheet' />
         <link href='/css/tether.min.css' rel='stylesheet' />    
         <link href='/css/theme.css' rel='stylesheet' />
@@ -13,7 +13,7 @@
 
     <body data-userId="<%= userId %>">
 
-        <div id="status" class="container-fluid text-right">
+        <div id="status" class="container-fluid text-left">
         </div>
 
         <div id="notification" class="container-fluid">
@@ -22,8 +22,12 @@
         <div id='map' class="selection">
         </div>
 
-        <div id="overlay" class="container-fluid text-right">
-            <div id="carrierDetails"></div>
+        <div id="overlay" class="container text-center">
+            <div class="form-group">
+                <input class="form-control wherefrom" type="text" placeholder="Desde donde?" />
+                <input class="form-control whereto" type="text" placeholder="Hasta dónde?" hidden />
+            </div>
+            <div id="carrierDetails" hidden></div>
         </div>
 
         <script id="miperfil" type="text/x-jsrender">
