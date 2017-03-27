@@ -132,7 +132,7 @@ map.setView([-34.608724, -58.376867], 15);
 //Display a default marker
 marker = L.marker([-34.608724, -58.376867], {icon:H.icon({displayName:"Yo",className:'me',colorId:2})}).addTo(map);
 
-map.on('mouseup', function(e){
+$('body').on('mouseup touchend', function(e){
     setTimeout(function(){
         var center = map.getCenter().wrap()
         getAddressFromLatLng(center.lat, center.lng).then(function(res){

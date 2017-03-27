@@ -85,11 +85,8 @@ dd.selection {
 }
 
 #overlay ul {
-	margin-left: 2rem;
-}
-
-#overlay li {
-	list-style: disc;
+	padding-left: 0;
+	list-style: none
 }
 
 #overlay input {
