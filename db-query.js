@@ -1,9 +1,9 @@
-function fetchNearestCarriers(db, coordinates, callback) {
+function fetchNearestDrivers(db, coordinates, callback) {
 
-    db.collection("carriers").createIndex({
+    db.collection("drivers").createIndex({
         "location": "2dsphere"
     }, function() {
-        db.collection("carriers").find({
+        db.collection("drivers").find({
             location: {
                 $near: {
                     $geometry: {
@@ -23,15 +23,15 @@ function fetchNearestCarriers(db, coordinates, callback) {
     });
 }
 
-function fetchCarrierDetails(db, userId, callback) {
-    db.collection("carriers").findOne({
+function fetchDriverDetails(db, userId, callback) {
+    db.collection("drivers").findOne({
         userId: userId
     }, function(err, results) {
         if (err) {
             console.log(err)
         } else {
             callback({
-                carrierId: results.userId,
+                driverId: results.userId,
                 colorId: results.colorId,
                 status: results.status,
                 plate: results.plate,
@@ -60,13 +60,13 @@ function saveRequest(db, requestId, requestTime, location, userId, status, callb
     });
 }
 
-function updateRequest(db, issueId, carrierId, status, callback) {
+function updateRequest(db, issueId, driverId, status, callback) {
     db.collection("requests").update({
         "_id": issueId
     }, {
         $set: {
             status: status,
-            carrierId: carrierId
+            driverId: driverId
         }
     }, function(err, results) {
         if (err) {
@@ -98,8 +98,8 @@ function fetchRequests(db, callback) {
     });
 }
 
-exports.fetchNearestCarriers = fetchNearestCarriers;
-exports.fetchCarrierDetails = fetchCarrierDetails;
+exports.fetchNearestDrivers = fetchNearestDrivers;
+exports.fetchDriverDetails = fetchDriverDetails;
 exports.saveRequest = saveRequest;
 exports.updateRequest = updateRequest;
 exports.fetchRequests = fetchRequests;

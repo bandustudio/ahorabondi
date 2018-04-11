@@ -42,8 +42,8 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             });
         });
 
-        app.get('/carrier.html', function(req, res) {
-            res.render('carrier.html', {
+        app.get('/driver.html', function(req, res) {
+            res.render('driver.html', {
                 userId: req.query.userId
             });
         });

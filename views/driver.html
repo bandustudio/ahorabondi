@@ -22,7 +22,22 @@
         </div>
 
         <div id="overlay" class="container-fluid text-right">
-            <div id="carrierDetails"></div>
+            <div id="driverDetails"></div>
+            <div class="navbar fixed-bottom">
+                <div class="dropdown dropup">
+                    <button class="btn btn-lg btn-block btn-secondary dropdown-toggle" type="button" id="dropdownMenuStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Consultando estado...
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuStatus">
+                        <a class="dropdown-item" href="#">Disponible</a>
+                        <a class="dropdown-item" href="#">Ocupado</a>
+                        <a class="dropdown-item" href="#">Desconectado</a>
+                        <a class="dropdown-item" href="#">No disponible</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Actualizar estado</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script id="nuevoenvio" type="text/x-jsrender">
@@ -55,6 +70,6 @@
         <script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/lib/jsrender.min.js"></script>
         <script type="text/javascript" src="/js/helpers.js"></script>        
-        <script type="text/javascript" src="/js/carrier.js"></script>        
+        <script type="text/javascript" src="/js/driver.js"></script>        
     </body>    
 </html>

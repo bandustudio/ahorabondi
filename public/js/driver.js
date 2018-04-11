@@ -2,7 +2,7 @@ var socket = io()
 , i = 0
 , userId = document.body.getAttribute("data-userId")
 , requestDetails = {}
-, carrierDetails = {}
+, driverDetails = {}
 , map
 , marker
 , pos = null
@@ -11,7 +11,7 @@ var socket = io()
     //On clicking the button, emit a 'request-accepted' event/signal and send relevant info back to server
     socket.emit('request-accepted', {
         requestDetails: requestDetails,
-        carrierDetails: carrierDetails
+        driverDetails: driverDetails
     });
 
     H.notif.hide()
@@ -19,47 +19,47 @@ var socket = io()
 
 $(function(){
 
-   //Join a room, roomname is the userId itself!
+   //Join a room, roomname is sthe userId itself!
     socket.emit('join', {
         userId: userId
     });
 
-    //First send a GET request using JQuery AJAX and get the carrier's details and save it
+    //First send a GET request using JQuery AJAX and get the driver's details and save it
     $.ajax({
-        url: '/carriers/info?userId=' + userId,
+        url: '/drivers/info?userId=' + userId,
         type: 'GET',
         dataType: 'json',
         success: function(data) {
             
-            carrierDetails = data.carrierDetails;
-            carrierDetails.location = {
-                address: carrierDetails.location.address,
-                longitude: carrierDetails.location.coordinates[0],
-                latitude: carrierDetails.location.coordinates[1]
+            driverDetails = data.driverDetails;
+            driverDetails.location = {
+                address: driverDetails.location.address,
+                longitude: driverDetails.location.coordinates[0],
+                latitude: driverDetails.location.coordinates[1]
             }
 
-            $('#carrierDetails').html($.templates("#details").render(carrierDetails, H.carrier))
-            
+            $('#driverDetails').html($.templates("#details").render(driverDetails, H.driver))
+            $('#dropdownMenuStatus').text(H.driver.isLabelByStatus(driverDetails.status))
             L.mapbox.accessToken = H.mapbox.accessToken;
-            //Load the map and set it to a carrier's lat-lng
+            //Load the map and set it to a driver's lat-lng
             map = L.mapbox.map('map', 'mapbox.streets');
-            map.setView([carrierDetails.location.latitude, carrierDetails.location.longitude], 15);
+            map.setView([driverDetails.location.latitude, driverDetails.location.longitude], 15);
 
             //Display a default marker
-            marker = L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude], {icon:H.icon(carrierDetails)}).addTo(map);
+            marker = L.marker([driverDetails.location.latitude, driverDetails.location.longitude], {icon:H.icon(driverDetails)}).addTo(map);
 
             H.geo(function(position) {
                 i++
                 var latitude = position.coords.latitude
                 , longitude = position.coords.longitude
 
-                carrierDetails.location.latitude = latitude
-                carrierDetails.location.longitude = longitude
+                driverDetails.location.latitude = latitude
+                driverDetails.location.longitude = longitude
 
                 //$('.pos').html(latitude + ' ' + longitude + ' (' + i + ')' )
                 marker.setLatLng([latitude, longitude]).update()
                 map.setView([latitude,longitude], 15)
-                socket.emit('location',carrierDetails)
+                socket.emit('location',driverDetails)
             })
         },
         error: function(httpRequest, status, error) {
@@ -72,7 +72,7 @@ $(function(){
         requestDetails = data; //Save request details
 
         //display user info
-        H.notif.set('#nuevoenvio',requestDetails,H.carrier)
+        H.notif.set('#nuevoenvio',requestDetails,H.driver)
 
         //Show user location on the map
         L.marker([requestDetails.location.latitude, requestDetails.location.longitude] , {

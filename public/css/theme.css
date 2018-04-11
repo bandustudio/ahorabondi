@@ -74,7 +74,7 @@ dd.selection {
 	padding: 10px;
 }
 
-.choosecarrier {
+.choosedriver {
 	display: inline-flex;
 }
 
@@ -165,7 +165,7 @@ dd.selection {
   animation: rotate 1s linear infinite;
 }
 
-#carrierList {
+#driverList {
 	display: inline-flex;
 	overflow: auto
 }

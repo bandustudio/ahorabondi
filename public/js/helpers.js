@@ -41,23 +41,21 @@ var H = {
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
-	      html: `<span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}"><code>${data.displayName || ''}</code> <span style="display:none">${data.carrierId}</span></span>`
+	      html: `<span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}"><code>${data.displayName || ''}</code> <span style="display:none">${data.driverId}</span></span>`
 	    })
 
 	    return icon
 	}
-    , carrier : {
+    , driver : {
 	    isLabelByStatus : function(status){
 	        if(status=='waiting')
-	            return "Esperando Envío"
+	            return "Disponible"
 	        if(status=='engaged')
-	            return "Trabajando"
+	            return "Ocupado"
 	        if(status=='offline')
 	            return "Desconectado"
-	        if(status=='online')
-	            return "Conectado"
 	        if(status=='idle')
-	            return "Break"
+	            return "No disponible"
 	    }
     }
     , status : function(a){

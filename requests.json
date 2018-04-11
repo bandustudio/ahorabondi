@@ -9,7 +9,7 @@
     },
     "userId" : "user1",
     "status" : "engaged",
-    "copId" : "06"
+    "driverId" : "06"
 }
 {
     "requestTime" : {$date:"2016-10-30T11:12:37.321Z"},
@@ -23,7 +23,7 @@
     },
     "userId" : "user2",
     "status" : "engaged",
-    "copId" : "02"
+    "driverId" : "02"
 }
 {
     "requestTime" : {$date:"2016-10-29T10:12:37.321Z"},
@@ -36,7 +36,7 @@
     },
     "userId" : "user3",
     "status" : "engaged",
-    "copId" : "06"
+    "driverId" : "06"
 }
 {
     "requestTime" : {$date:"2016-10-28T01:12:37.321Z"},
@@ -50,7 +50,7 @@
 
     "userId" : "user4",
     "status" : "engaged",
-    "copId" : "01"
+    "driverId" : "01"
 }
 {
     "requestTime" : {$date:"2016-10-27T02:12:37.321Z"},

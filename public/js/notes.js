@@ -1,7 +1,7 @@
         /*
-        markers[data.carrier] = L.marker([data.location.lat, data.location.lng], {
+        markers[data.driver] = L.marker([data.location.lat, data.location.lng], {
             icon: L.icon({
-                iconUrl: '/images/carrier.png',
+                iconUrl: '/images/driver.png',
                 iconSize: [60, 28]
             })
         }).addTo(map)*/
@@ -9,9 +9,9 @@
 
 
     /*
-    L.marker([carrierDetails.location.latitude, carrierDetails.location.longitude], {
+    L.marker([driverDetails.location.latitude, driverDetails.location.longitude], {
         icon: L.icon({
-            iconUrl: '/images/carrier.png',
+            iconUrl: '/images/driver.png',
             iconSize: [60, 28]
         })
     }).addTo(map);*/
