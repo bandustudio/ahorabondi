@@ -4,8 +4,8 @@
   "description": "Ubicá el bondi en tiempo real",
   "main": "app.js",
   "scripts": {
-    "start" : "node app.js",
-    "postinstall": "mongoimport --db myUberApp --collection drivers --drop --file ./drivers.json"
+    "postinstall": "mongoimport --db myUberApp --collection drivers --drop --file ./drivers.json",
+    "start" : "node app.js"
   },
   "dependencies": {
     "async": "^1.4.2",
