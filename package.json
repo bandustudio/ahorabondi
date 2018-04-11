@@ -1,7 +1,12 @@
 {
-  "name": "myapp",
+  "name": "ahorabondi",
   "version": "0.0.1",
-  "private": true,
+  "description": "Ubicá el bondi en tiempo real",
+  "main": "app.js",
+  "scripts": {
+    "start" : "node app.js",
+    "postinstall": "mongoimport --db myUberApp --collection drivers --drop --file ./drivers.json"
+  },
   "dependencies": {
     "async": "^1.4.2",
     "bcrypt": "^0.8.5",
@@ -21,7 +26,6 @@
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.3.7",
     "underscore": "^1.8.3",
-    //"jade": "*",
     "mongoose": "~3.8.8",
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.2",
