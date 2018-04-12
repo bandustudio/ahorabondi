@@ -6,7 +6,6 @@ var socket = io()
 , driverList = []
 , map
 , lastpos
-, inputstep = 'step_from'
 , pos 
 , pointer
 , marker
@@ -127,7 +126,7 @@ map = L.mapbox.map('map', 'mapbox.streets');
 map.setView([-34.608724, -58.376867], 15);
 
 //Display a default marker
-marker = L.marker([-34.608724, -58.376867], {icon:H.icon({displayName:"Yo",className:'me',colorId:2})}).addTo(map);
+marker = L.marker([-34.608724, -58.376867], {icon:H.icon({displayName:"",className:'me',colorId:2})}).addTo(map);
 
 // events
 
@@ -166,16 +165,12 @@ $(document).on('click','.icon:not(.me)', function(){
     }
 })
 
-$(document).on('focus','#overlay input', function(){
-    inputstep = $(this).attr('id')
-})
-
+/*
 $(document).on('click','.icon.me', function(){
     stopPropagation = 1
     H.notif.set('#miperfil')
 })
 
-/*
 $(document).on('click','.with-options li', function(e){
     $('#eligedestino_text').val($(this).text())
     e.preventDefault()

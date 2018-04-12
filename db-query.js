@@ -30,16 +30,7 @@ function fetchDriverDetails(db, userId, callback) {
         if (err) {
             console.log(err)
         } else {
-            callback({
-                driverId: results.userId,
-                colorId: results.colorId,
-                status: results.status,
-                plate: results.plate,
-                displayName: results.displayName,
-                customMsg: results.customMsg,
-                phone: results.phone,
-                location: results.location
-            });
+            callback(results);
         }
     });
 }

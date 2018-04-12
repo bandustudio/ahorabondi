@@ -115,7 +115,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         });
 
         io.on('connection', function(socket) { //Listen on the 'connection' event for incoming sockets
-            console.log('A user just connected' + socket.handshake.address)
+            console.log('A user just connected')
             socket.on('join', function(data) { //Listen to any join event from connected users
                 socket.join("map") //User joins a unique room/channel that's named after the userId 
                 console.log("User joined map")
