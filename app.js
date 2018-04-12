@@ -76,7 +76,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
     //var url = 'mongodb://user01:1234@ds241699.mlab.com:41699/ahorabondi'
     var url = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.PORT+'/'+process.env.DB;
 
-    //mongoClient.connect(url, function(err, db) { //a connection with the mongodb is established here.
+    mongoClient.connect(url, function(err, db) { //a connection with the mongodb is established here.
 
         /*
         var drivers = db.collection('drivers');
@@ -122,7 +122,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
 
             routes.initialize(app, db, socket, io) //Pass socket and io objects that we could use at different parts of our app
         });
-    //});
+    });
 });
 
 /* 1. Not all the template engines work uniformly with express, hence this library in js, (consolidate), is used to make the template engines work uniformly. Altough it doesn't have any 
