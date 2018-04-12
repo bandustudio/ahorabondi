@@ -1,11 +1,25 @@
 {
   "name": "ahorabondi",
-  "version": "0.0.1",
-  "description": "Ubicá el bondi en tiempo real",
-  "main": "app.js",
+  "version": "0.9.1",
+  "description": "Red voluntaria de visualización de transporte público en tiempo real",
+  "type": "project",
+  "keywords": [
+      "transport",
+      "gps"
+  ],
+  "homepage": "https://ahorabondi.glitch.me",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Martin Frith",
+          "email": "devmetasoft@gmail.com",
+          "homepage": "https://ahorabondi.glitch.me",
+          "role": "Developer"
+      }
+  ],  
+  "main": "server.js",
   "scripts": {
-    "postinstall": "mongoimport -h ds241699.mlab.com:41699 -d ahorabondi -c drivers -u user01 -p 1234 --file ./drivers.json",
-    "start": "node app.js"
+    "start" : "node server.js"
   },
   "dependencies": {
     "async": "^1.4.2",
@@ -27,9 +41,6 @@
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.3.7",
     "underscore": "^1.8.3",
-    "mongoose": "~3.8.8",
-    "passport": "~0.2.0",
-    "passport-facebook": "~1.0.2",
-    "passport-twitter": "~1.0.2"
+    "mongoose": "~3.8.8"
   }
 }

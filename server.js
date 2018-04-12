@@ -25,50 +25,6 @@ var server = http.Server(app)
 , portNumber = 8000
 , io = require('socket.io')(server) //Creating a new socket.io instance by passing the HTTP server object
 
-
-// Create seed data
-var driversData = [
-    {
-        "userId" : "1",
-        "colorId" : 1,
-        "displayName" : "Unidad 1 - Ceferino",
-        "customMsg" : "",
-        "phone" : "01",
-        "plate" : "AAA111",
-        "email" : "Driver01@gmail.com",
-        "status" : "waiting",
-        "earnedRatings" : 21,
-        "totalRatings" : 25,
-        "location" : {
-            "type" : "Point",
-            "address" : "C1203AAA CABA Av. Rivadavia 2899, Argentina",
-            "coordinates" : [
-                -58.405758,
-                -34.6103905            
-            ]
-        }
-    },{
-        "userId" : "2",
-        "colorId" : 2,
-        "displayName" : "Unidad 2 - Ceferino",
-        "customMsg" : "",
-        "phone" : "01",
-        "plate" : "AAA222",
-        "email" : "Driver01@gmail.com",
-        "status" : "waiting",
-        "earnedRatings" : 21,
-        "totalRatings" : 25,
-        "location" : {
-            "type" : "Point",
-            "address" : "C1203AAA CABA Av. Rivadavia 2899, Argentina",
-            "coordinates" : [
-                -58.405758,
-                -34.6103905            
-            ]
-        }
-    }
-];
-
 server.listen(portNumber, function() { //Runs the server on port 8000
     console.log('Server listening at port ' + portNumber)
 
@@ -95,20 +51,26 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             res.render('index.html')
         });
 
-        app.get('/user.html', function(req, res) { //a request to /user.html will render our user.html page
+        app.post('/log', function(req, res) {
+            res.render('driver.html', {
+                userId: req.query.userId
+            });
+        });
+
+        app.get('/user', function(req, res) { //a request to /user.html will render our user.html page
             //Substitute the variable userId in user.html with the userId value extracted from query params of the request.
             res.render('user.html', {
                 userId: req.query.userId
             });
         });
 
-        app.get('/driver.html', function(req, res) {
+        app.get('/driver', function(req, res) {
             res.render('driver.html', {
                 userId: req.query.userId
             });
         });
 
-        app.get('/data.html', function(req, res) {
+        app.get('/data', function(req, res) {
             res.render('data.html');
         });
 
