@@ -28,8 +28,10 @@ server.listen(portNumber, function() { //Runs the server on port 8000
     console.log('Server listening at port ' + portNumber)
 
     //var url = 'mongodb://localhost:27017/myUberApp' //Db name
-    var url = 'mongodb://glitch:glitch123@ds241699.mlab.com:41699/ahorabondi'
-    
+    var url = 'mongodb://user01:1234@ds241699.mlab.com:41699/ahorabondi'
+
+
+
     mongoClient.connect(url, function(err, db) { //a connection with the mongodb is established here.
         console.log("Connected to Database")
 
