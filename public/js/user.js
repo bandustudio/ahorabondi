@@ -103,7 +103,7 @@ socket.on('location', function(res) {
         driverList.push(res);
     }
     
-    $('#driverDetails').html($.templates("#details").render(driverList, H.driver))
+    $('#driverDetails').html($.templates("#details").render({count:driverList.length}, H.driver))
 
     if(markers[res.displayName]){
         markers[res.displayName].setLatLng(new L.LatLng(res.location.latitude, res.location.longitude))

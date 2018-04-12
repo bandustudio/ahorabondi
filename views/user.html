@@ -4,14 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>TUENVIO - User
-        <%= userId %>
-    </title>
+    <title>AhoraBondi</title>
     <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,200' rel='stylesheet' type='text/css'>
-    <link href='/css/bootstrap.min.css' rel='stylesheet' />
-    <link href='/css/tether.min.css' rel='stylesheet' />
-    <link href='/css/theme.css' rel='stylesheet' />
+    <link href='/css/bulma.css' rel='stylesheet' />
+    <link href='/css/map.css' rel='stylesheet' />
 </head>
 
 <body data-userId="<%= userId %>">
@@ -22,7 +19,7 @@
     <div id='map' class="selection">
     </div>
     <div id="overlay" class="container text-center">
-        <ul>
+        <!--ul>
             <li>
                 <input class="form-control d-inline-block" id="step_from" type="text" placeholder="Desde dónde?" />
             </li>
@@ -32,9 +29,10 @@
         </ul>
         <div class="navbar fixed-bottom" id="step_ready" hidden>
             <button class="btn btn-lg btn-block btn-primary">Listo</button>
-        </div>
+        </div-->
         <div id="driverDetails"></div>
     </div>
+
     <script id="miperfil" type="text/x-jsrender">
         <div class="title">
             <h1>Mi perfil</h1>
@@ -50,6 +48,7 @@
             </div>
         </div>
     </script>
+
     <script id="eligedestino" type="text/x-jsrender">
         <div class="title">
             <h1>Nuevo Envío</h1>
@@ -89,6 +88,7 @@
                 </div>
             </div>
     </script>
+
     <script id="quieresllevar" type="text/x-jsrender">
         <h3>Quieres llevar algo hasta acá? Puedes cancelar y refinar la selección.</h3>
         <div class="alert">
@@ -105,6 +105,7 @@
             </button>
         </div>
     </script>
+
     <script id="mensajeroencamino" type="text/x-jsrender">
         <h3>Un mensajero está llegando a tu dirección</h3>
         <div class="alert">
@@ -121,9 +122,11 @@
             </button>
         </div>
     </script>
+
     <script id="details" type="text/x-jsrender">
-        <dd class="{{:driverId}}"><strong>{{:displayName}}</strong> {{:~isLabelByStatus(status)}}
+        <div class="{{:driverId}}"><strong>{{:count}}</strong> Unidades</div>
     </script>
+
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
