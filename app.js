@@ -24,15 +24,67 @@ var server = http.Server(app)
 , portNumber = 8000
 , io = require('socket.io')(server) //Creating a new socket.io instance by passing the HTTP server object
 
+
+// Create seed data
+var driversData = [
+  {
+    "userId" : "1",
+    "colorId" : 1,
+    "displayName" : "Unidad 1 - Ceferino",
+    "customMsg" : "",
+    "phone" : "01",
+    "plate" : "AAA111",
+    "email" : "Driver01@gmail.com",
+    "status" : "waiting",
+    "earnedRatings" : 21,
+    "totalRatings" : 25,
+    "location" : {
+        "type" : "Point",
+        "address" : "C1203AAA CABA Av. Rivadavia 2899, Argentina",
+        "coordinates" : [
+            -58.405758,
+            -34.6103905            
+        ]
+    }
+  },
+    "userId" : "2",
+    "colorId" : 2,
+    "displayName" : "Unidad 2 - Ceferino",
+    "customMsg" : "",
+    "phone" : "01",
+    "plate" : "AAA222",
+    "email" : "Driver01@gmail.com",
+    "status" : "waiting",
+    "earnedRatings" : 21,
+    "totalRatings" : 25,
+    "location" : {
+        "type" : "Point",
+        "address" : "C1203AAA CABA Av. Rivadavia 2899, Argentina",
+        "coordinates" : [
+            -58.405758,
+            -34.6103905            
+        ]
+    }
+];
+
 server.listen(portNumber, function() { //Runs the server on port 8000
     console.log('Server listening at port ' + portNumber)
 
     //var url = 'mongodb://localhost:27017/myUberApp' //Db name
-    var url = 'mongodb://user01:1234@ds241699.mlab.com:41699/ahorabondi'
-
-
+    //var url = 'mongodb://user01:1234@ds241699.mlab.com:41699/ahorabondi'
+    var uri = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.PORT+'/'+process.env.DB;
 
     mongoClient.connect(url, function(err, db) { //a connection with the mongodb is established here.
+
+        var drivers = db.collection('drivers');
+
+        console.log("Seeding Database")
+
+        drivers.insert(driversData, function(err, result) {
+            if(err) throw err;
+            console.log("Database seeded")
+        })
+
         console.log("Connected to Database")
 
         app.get('/', function(req, res) {
