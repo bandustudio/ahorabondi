@@ -94,21 +94,19 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         });
 
         app.post('/log', function(req, res) {
-            res.render('driver.html', {
+            res.render('log.html', {
                 userId: req.query.userId
             });
         });
 
-        app.get('/user', function(req, res) { //a request to /user.html will render our user.html page
+        app.get('/mapa', function(req, res) { //a request to /user.html will render our user.html page
             //Substitute the variable userId in user.html with the userId value extracted from query params of the request.
-            res.render('user.html', {
-                userId: req.query.userId
-            });
+            res.render('mapa.html', {});
         });
 
-        app.get('/driver', function(req, res) {
-            res.render('driver.html', {
-                userId: req.query.userId
+        app.get('/emitir/:id', function(req, res) {
+            res.render('emitir.html', {
+                userId: req.params.id
             });
         });
 
@@ -117,11 +115,10 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         });
 
         io.on('connection', function(socket) { //Listen on the 'connection' event for incoming sockets
-            console.log('A user just connected')
-
+            console.log('A user just connected' + socket.handshake.address)
             socket.on('join', function(data) { //Listen to any join event from connected users
-                socket.join(data.userId) //User joins a unique room/channel that's named after the userId 
-                console.log("User joined room: " + data.userId)
+                socket.join("map") //User joins a unique room/channel that's named after the userId 
+                console.log("User joined map")
             });
 
             routes.initialize(app, db, socket, io) //Pass socket and io objects that we could use at different parts of our app

@@ -1,7 +1,6 @@
 var socket = io()
 , i = 0
 , stopPropagation = 0
-, userId = document.body.getAttribute("data-userId")
 , requestDetails = {}
 , driverDetails = {}
 , driverList = []
@@ -13,7 +12,7 @@ var socket = io()
 , marker
 , markers = []
 , requestDetails = {
-    userId: userId,
+    userId: 1,
     colorId:1,
     location: {
         address: "Av. de Mayo 720 C1070AAP CABA, Argentina",
@@ -76,21 +75,14 @@ var socket = io()
     return deferred.promise()
 }
 , setAddressFromLatLng = function(res){
-    $('#'+inputstep).val(res[0].properties.address||"")
-    if(inputstep=="step_from" && res[0].properties.address){
-        $('#step_to').attr('hidden',false).slideDown('slow').focus()
-    }
-    if($.trim($('#step_from').val()) != '' && $.trim($('#step_to').val()) != ''){
-        $('#step_ready').attr('hidden',false).slideDown('slow')
-    }
+    console.log(res)
+    $('#userPosition').val(res[0].properties.address||"")
 }
 
 
 // socket 
 
-socket.emit('join', {
-    userId: userId
-}); //Join a room, roomname is the userId itself!
+socket.emit('join'); //Join a room, roomname is the userId itself!
 
 //Listen for a 'request-accepted' event
 socket.on('location', function(res) {
@@ -102,7 +94,7 @@ socket.on('location', function(res) {
     } else {
         driverList.push(res);
     }
-    
+    console.log(driverList.length);
     $('#driverDetails').html($.templates("#details").render({count:driverList.length}, H.driver))
 
     if(markers[res.displayName]){

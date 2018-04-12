@@ -5,6 +5,17 @@
 	height: 100%;
 }
 
+.icon code {
+  min-width: 150px;
+  position: absolute;
+  padding: 2px;
+  line-height: 15px;
+  top: 10px;
+  left: -20px;
+  border-radius: 5px;
+}
+
+/*
 #map.selection:after,
 #map.selection:before {
   content:'';
@@ -21,6 +32,7 @@
   height:100%;
 }
 
+
 #map.selection:after {
   background:transparent url(../images/Map-Marker-Ball-Chartreuse.png) 50% 50% no-repeat;
   left:50%;
@@ -34,3 +46,4 @@
   -ms-animation: rotate 1s linear infinite;
   animation: rotate 1s linear infinite;
 }
+*/
