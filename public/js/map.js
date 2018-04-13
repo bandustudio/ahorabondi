@@ -44,7 +44,7 @@ socket.on('location', function(res) {
         driverList.push(res);
     }
 
-    $('#driverDetails').html($.templates("#details").render({count:driverList.length}, H.driver))
+    $('#driverDetails').html($.templates("#details").render({drivers:driverList,count:driverList.length}, H.driver))
 
     if(markers[res.userId]){
         markers[res.userId].setLatLng(new L.LatLng(res.location.latitude, res.location.longitude))
@@ -77,7 +77,7 @@ map = L.mapbox.map('map', 'mapbox.streets');
 map.setView([-34.608724, -58.376867], 15);
 
 //Display a default marker
-marker = L.marker([-34.608724, -58.376867], {icon:H.icon({userId:"",displayName:"",className:'me',colorId:2})}).addTo(map);
+marker = L.marker([-34.608724, -58.376867], {icon:H.icon({userId:"",displayName:"",className:'me',colorId:1})}).addTo(map);
 
 // events
 

@@ -8,7 +8,6 @@
   width: 6rem;
   height: 6rem;
   display: block;
-  left: -3rem;
   top: 1rem;
   /*top: -3rem;*/
   position: relative;
@@ -31,8 +30,14 @@
   line-height: 1em;
   position: absolute;
   top: -2rem;
-  left: -2rem;
   transform: rotate(-50deg);
+}
+
+.pin .st {
+  font-size: 20px;
+  background-color: #329200;
+  padding: 4px 6px;
+  color: white;
 }
 
 #overlay {
