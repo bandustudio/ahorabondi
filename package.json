@@ -4,42 +4,34 @@
   "description": "Red voluntaria de visualización de transporte público en tiempo real",
   "type": "project",
   "keywords": [
-      "transport",
-      "gps"
+    "transport",
+    "gps"
   ],
   "homepage": "https://ahorabondi.glitch.me",
   "license": "MIT",
   "authors": [
-      {
-          "name": "Martin Frith",
-          "email": "devmetasoft@gmail.com",
-          "homepage": "https://ahorabondi.glitch.me",
-          "role": "Developer"
-      }
-  ],  
+    {
+      "name": "Martin Frith",
+      "email": "devmetasoft@gmail.com",
+      "homepage": "https://ahorabondi.glitch.me",
+      "role": "Developer"
+    }
+  ],
   "main": "server.js",
   "scripts": {
-    "start" : "node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "async": "^1.4.2",
-    "bcrypt": "^0.8.5",
-    "dotenv": "*",
     "body-parser": "^1.14.1",
-    "connect-redis": "^2.5.1",
     "consolidate": "^0.13.1",
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
-    "googlemaps": "^1.0.2",
-    "jsx-loader": "^0.13.2",
     "mongodb": "^2.0.43",
-    "nodemailer": "^1.5.0",
-    "react": "^0.13.3",
-    "redis": "^2.0.1",
-    "serve-favicon": "^2.3.0",
-    "socket.io": "^1.3.7",
+    "nodemailer": "^4.0.1",
+    "socket.io": "^2.1.0",
     "underscore": "^1.8.3",
     "mongoose": "~3.8.8"
   }
