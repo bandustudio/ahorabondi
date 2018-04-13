@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <title>AhoraBondi - Unidad <%= userId %></title>
+        <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,300,200' rel='stylesheet' type='text/css'>  
+        <link href='/css/bulma.css' rel='stylesheet' />
+        <link href='/css/app.css' rel='stylesheet' />
+    </head>
+
+    <body data-userId="<%= userId %>">
+
+        <div id="overlay" class="container">
+            <div id="driverDetails"></div>
+            <button class="button is-info emit-btn">Transmitir</button><span class="pos"></span>
+        </div>
+
+        <div id="map" class="disabled"></div>
+
+        <script id="details" type="text/x-jsrender">
+            <div class="alert">
+                <dd>{{:displayName}} </dd>
+            </div>
+        </script>
+
+        <script type="text/javascript" src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/lib/jsrender.min.js"></script>
+        <script type="text/javascript" src="/js/helpers.js"></script>        
+        <script type="text/javascript" src="/js/emisor.js"></script>        
+    </body>    
+</html>

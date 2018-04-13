@@ -28,6 +28,7 @@ function initialize(app, db, socket, io) {
 
     //Listen to a 'position' event from connected users
     socket.on('location', function(data) {
+        console.log("location: " + data.location.longitude+' '+ data.location.latitude + ' (' + data.userId + ')')
         io.sockets.emit("location",data)
     })
 

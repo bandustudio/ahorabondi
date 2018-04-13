@@ -12,120 +12,16 @@
 </head>
 
 <body>
-    <div id="status" class="container-fluid text-left">
-    </div>
-    <div id="notification" class="container-fluid">
-    </div>
-    <div id='map' class="selection">
-    </div>
+    <div id="status" class="container-fluid text-left"></div>
+    <div id="notification" class="container-fluid"></div>
+    <div id='map' class="selection"></div>
     <div id="overlay" class="container text-center">
-        <!--ul>
-            <li>
-                <input class="form-control d-inline-block" id="step_from" type="text" placeholder="Desde dónde?" />
-            </li>
-            <li>
-                <input class="form-control d-inline-block" id="step_to" type="text" placeholder="Hasta dónde?" hidden />
-            </li>
-        </ul>
-        <div class="navbar fixed-bottom" id="step_ready" hidden>
-            <button class="btn btn-lg btn-block btn-primary">Listo</button>
-        </div-->
         <div id="userPosition"></div>
         <div id="driverDetails"></div>
     </div>
 
-    <script id="miperfil" type="text/x-jsrender">
-        <div class="title">
-            <h1>Mi perfil</h1>
-        </div>
-        <div class="message">
-            <div class="col-md-4">
-                <div class="h1 text-muted text-center"> 📷 </div>
-            </div>
-            <div class="col-md-7">
-                <dd>
-                    <input type="text" name="yourname" placeholder="" />
-                </dd>
-            </div>
-        </div>
-    </script>
-
-    <script id="eligedestino" type="text/x-jsrender">
-        <div class="title">
-            <h1>Nuevo Envío</h1>
-        </div>
-        <div class="choosedriver"></div>
-        <div class="message">
-            <div class="with-options">
-                {{if !features}}
-                <dd>Sin resultados</dd>
-                <dd>
-                    <input type="text" class="form-control" id="eligedestino_text" placeholder="Av. Rivadavia 1234, CABA" />
-                </dd>
-                {{else}}
-                <dd><span>1. Dirección de destino</span>
-                    <br />
-                    <input type="text" class="form-control" id="eligedestino_text" value="{{:features[0].properties.address}}" />
-                </dd>
-                <ul>
-                    {{for features}}
-                    <li class="eligedestino_option"><span>{{:properties.address}} - {{:place_name}}</span></li>
-                    {{/for}}
-                </ul>
-                {{/if}}
-                <div class="clearfix"></div>
-                <div class="group-control">&nbsp;</div>
-                <div class="col-sm-9">
-                    <div class="btn-group" role="group" aria-label="Elige una acción">
-                        <label class="btn btn-danger" onclick="cancelPointer()">
-                            ✋ Cancelar</label>
-                        <label class="btn btn-warning" onclick="fixPointer()">
-                            👆 Corregir</label>
-                        <label class="btn btn-success" onclick="acceptPointer()">
-                            👍 Iniciar</label>
-                        <!--label class="btn btn-primary" onclick="schedulePointer()">
-                            Programar</label-->
-                    </div>
-                </div>
-            </div>
-    </script>
-
-    <script id="quieresllevar" type="text/x-jsrender">
-        <h3>Quieres llevar algo hasta acá? Puedes cancelar y refinar la selección.</h3>
-        <div class="alert">
-            <dd><strong>Dirección</strong> {{:displayName}}</dd>
-            <dd><strong>Tiempo estimado</strong> {{:time}}</dd>
-            <dd><strong>Distancia estimada</strong> {{:distance}}
-                <br>{{:customMsg}}</dd>
-            <dd><strong>Posición</strong> <span>{{:location.latitude}} {{:location.longitude}}</span></dd>
-            <button class="btn btn-success" onclick="acceptPointer()">
-                Aceptar
-            </button>
-            <button class="btn btn-danger" onclick="cancelPointer()">
-                Cancelar
-            </button>
-        </div>
-    </script>
-
-    <script id="mensajeroencamino" type="text/x-jsrender">
-        <h3>Un mensajero está llegando a tu dirección</h3>
-        <div class="alert">
-            <dd><strong>Mensajero</strong> {{:displayName}}</dd>
-            <dd><strong>Patente</strong> {{:plate}}</dd>
-            <dd><strong>Estado</strong> {{:~isLabelByStatus(status)}}
-                <br>{{:customMsg}}</dd>
-            <dd><strong>Posición</strong> <span>{{:location.latitude}} {{:location.longitude}}</span></dd>
-            <button class="btn btn-success" onclick="acceptJob()">
-                Aceptar
-            </button>
-            <button class="btn btn-danger" onclick="cancelJob()">
-                Cancelar
-            </button>
-        </div>
-    </script>
-
     <script id="details" type="text/x-jsrender">
-        <div class="{{:driverId}}"><strong>{{:count}}</strong> Unidades</div>
+        <div><strong>{{:count}}</strong> Unidades</div>
     </script>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -136,7 +32,7 @@
     <script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/lib/jsrender.min.js"></script>
     <script type="text/javascript" src="/js/helpers.js"></script>
-    <script type="text/javascript" src="/js/user.js"></script>
+    <script type="text/javascript" src="/js/map.js"></script>
 </body>
 
 </html>

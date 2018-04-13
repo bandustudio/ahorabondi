@@ -87,9 +87,15 @@
 
 #map {
 	position: absolute;
+  opacity: 1;
 	z-index: 1;
 	width: 100%;
 	height: 100%;
+  transition: all 1s linear;
+}
+
+#map.disabled {
+  opacity: 0.1;
 }
 
 .icon > .selection {

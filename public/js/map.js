@@ -19,53 +19,6 @@ var socket = io()
         longitude: -58.376867
     }
 }
-, acceptJob = function () {
-    H.notif.hide()
-}
-, cancelJob = function () {
-    socket.emit('request-canceled', {
-        requestDetails: requestDetails
-    })
-}
-, acceptPointer = function(){
-    cancelPointer()
-    setTimeout(function(){
-        //$('#notification').html($.templates("#mensajeroencamino").render(driverDetails, H.driver)).fadeIn('fast')
-        H.notif.set('#mensajeroencamino',driverDetails,H.driver)
-    },200)
-}
-, cancelPointer = function(){
-    $("icon.selection").removeClass('selection')
-    map.removeLayer(pointer)
-    map.setView(pos ? pos : [-34.608724, -58.376867], 15)
-    $("#notification").fadeOut('fast')
-}
-, fixPointer = function(){
-    map.setView(pos ? pos : [-34.608724, -58.376867], 19)
-    $("#notification").fadeOut('fast')
-}
-, initPointer = function(e) {
-
-    if(pointer) map.removeLayer(pointer)
-
-    pointer = L.marker([e.latlng.lat,e.latlng.lng], {
-        icon: H.icon({colorId:5,displayName:"<span>TU ENVÍO</span>"})
-    }).addTo(map)
-
-    map.setView([e.latlng.lat,e.latlng.lng], 16)
-
-    setTimeout(function(){
-        $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  e.latlng.lng + ',' + e.latlng.lat + '.json?country=ar&access_token=' + H.mapbox.accessToken,function(res){
-            H.notif.set('#eligedestino',{features:res.features},{},function(){
-                // show drivers
-                $(".choosedriver").html($('#driverDetails').html())
-            })
-        })                
-    },500)
-}
-, requestForHelp = function () { //When button is clicked, emit an event
-    socket.emit('request-for-help', requestDetails);
-}
 , getAddressFromLatLng = function(lat,lng){
     var deferred = new $.Deferred()
     $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  lng + ',' + lat + '.json?country=ar&access_token=' + H.mapbox.accessToken,function(res){
@@ -74,7 +27,6 @@ var socket = io()
     return deferred.promise()
 }
 , setAddressFromLatLng = function(res){
-    console.log(res)
     $('#userPosition').val(res[0].properties.address||"")
 }
 
@@ -85,37 +37,36 @@ socket.emit('join'); //Join a room, roomname is the userId itself!
 
 //Listen for a 'request-accepted' event
 socket.on('location', function(res) {
-    var match = _.findIndex(driverList, {displayName: res.displayName})
-
-    // order by distance driverList
+    var match = _.findIndex(driverList, {userId: res.userId})
     if(match>-1){
         driverList.splice(match, 1, res)
     } else {
         driverList.push(res);
     }
-    console.log(driverList.length);
+
     $('#driverDetails').html($.templates("#details").render({count:driverList.length}, H.driver))
 
-    if(markers[res.displayName]){
-        markers[res.displayName].setLatLng(new L.LatLng(res.location.latitude, res.location.longitude))
+    if(markers[res.userId]){
+        markers[res.userId].setLatLng(new L.LatLng(res.location.latitude, res.location.longitude))
     } else {
-        markers[res.displayName] = L.marker([res.location.latitude, res.location.longitude],{icon:H.icon(res)}).addTo(map)
+        markers[res.userId] = L.marker([res.location.latitude, res.location.longitude],{icon:H.icon(res)}).addTo(map)
     }    
 })
 
-socket.on('request-accepted', function(data) {
-    console.log("request-accepted")
-    
-    driverDetails = data; //Save driver details
-    driverDetails.className = 'icon-driver'
+socket.on('disconnect', function(data) {
+    var match = _.findIndex(driverList, {userId: data.userId})
+    // order by distance driverList
+    if(match>-1){
+        driverList.splice(match, 1)
+    } 
 
-    //Display Driver details
-    $('#notification').html($.templates("#mensajeroencamino").render(driverDetails, H.driver)).fadeIn('fast')
-    H.notif.set('#mensajeroencamino',driverDetails,H.driver)
+    $('#driverDetails').html($.templates("#details").render({count:driverList.length}, H.driver))
 
-    //Show driver location on the map
-    L.marker([driverDetails.location.latitude, driverDetails.location.longitude],{icon:H.icon(data)}).addTo(map)
-});
+    if(markers[data.userId]){
+        map.removeLayer(markers[data.userId])
+        delete markers[data.userId]
+    }
+})
 
 // map
 
@@ -126,7 +77,7 @@ map = L.mapbox.map('map', 'mapbox.streets');
 map.setView([-34.608724, -58.376867], 15);
 
 //Display a default marker
-marker = L.marker([-34.608724, -58.376867], {icon:H.icon({displayName:"",className:'me',colorId:2})}).addTo(map);
+marker = L.marker([-34.608724, -58.376867], {icon:H.icon({userId:"",displayName:"",className:'me',colorId:2})}).addTo(map);
 
 // events
 
@@ -151,7 +102,7 @@ map.on('click', function(e){
         initPointer(e)        
     },100)
 })
-*/
+
 $(document).on('click','.icon:not(.me)', function(){
     var $span = $(this).find("> span")
     , $spans = [$span, $("#driverDetails > ." + $span.find("> span > span").text())]
@@ -164,7 +115,7 @@ $(document).on('click','.icon:not(.me)', function(){
         }
     }
 })
-
+*/
 /*
 $(document).on('click','.icon.me', function(){
     stopPropagation = 1
