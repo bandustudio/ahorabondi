@@ -30,18 +30,87 @@
     	<link href='/css/app.css' rel='stylesheet' />
     </head>
 	<body>
+
 		<section class="section splash">
-		    <div class="container is-fullhd">
-		    	<div class="pin">	
-		      		<h1 class="st">BETA</h1>
-		      		<h1>AhoraBondi</h1>
-		      	</div>
+		    <div class="container">
+				<nav class="navbar is-transparent">
+				  <div class="navbar-brand">
+			    	<div class="pin">	
+			      		<h1>AhoraBondi <span class="st">BETA</span></h1>
+					</div>
+				    <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+				      <span></span>
+				      <span></span>
+				      <span></span>
+				    </div>
+				  </div>
+
+				  <div id="navbarExampleTransparentExample" class="navbar-menu">
+				    <div class="navbar-start">
+				      <a class="navbar-item" href="/mapa">
+				        Bondis en mi área
+				      </a>
+
+				      <a class="navbar-item" href="/quiero-participar">
+				        ¿Querés participar?
+				      </a>
+
+				      <a class="navbar-item" href="/quienes-somos">
+				        Quienes somos
+				      </a>		
+
+				      <!--div class="navbar-item has-dropdown is-hoverable">
+				        <a class="navbar-link" href="/documentation/overview/start/">
+				          Docs
+				        </a>
+				        <div class="navbar-dropdown is-boxed">
+				          <a class="navbar-item" href="/documentation/overview/start/">
+				            Overview
+				          </a>
+				          <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
+				            Modifiers
+				          </a>
+				          <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+				            Columns
+				          </a>
+				          <a class="navbar-item" href="https://bulma.io/documentation/layout/container/">
+				            Layout
+				          </a>
+				          <a class="navbar-item" href="https://bulma.io/documentation/form/general/">
+				            Form
+				          </a>
+				          <hr class="navbar-divider">
+				          <a class="navbar-item" href="https://bulma.io/documentation/elements/box/">
+				            Elements
+				          </a>
+				          <a class="navbar-item is-active" href="https://bulma.io/documentation/components/breadcrumb/">
+				            Components
+				          </a>
+				        </div>
+				      </div-->
+				    </div>
+				  </div>
+				</nav>		      		
+		     
 		      	<p class="subtitle">
-		        	Red voluntaria de visualización de transporte público en tiempo real.
+		        	AhoraBondi es una red voluntaria de visualización de transporte público en tiempo real. <a href="/quienes-somos">Conocer más</a>.
 		      	</p>
-				<a href="/mapa" class="button is-large is-link">Ver Ahora Bondis</a>
-		      	<!--a href="/agregar-mi-empresa" class="button is-large  is-primary">Soy dueño de una línea y quiero sumarme</a-->
+		      	<div class="content has-text-centered">
+			      	<a href="/mapa" class="button is-large is-link">Ver Ahora Bondis</a>
+		      	</div>
 		    </div>
-		</section>
+
+			<footer class="footer">
+			  <div class="container">
+			    <div class="content has-text-centered">
+			      <p>
+			        <strong>AhoraBondi</strong> 2018. Motorizado con <a href="https://glitch.com" target="_blank">Glitch</a> y <a href="https://mlab.com" target="_blank">mLab</a>. Hecho con <span class="icon has-text-danger"><i class="fa fa-heart"></i></span> por <a href="https://devmeta.glitch.me" target="_blank">devmeta</a>.
+			      </p>
+			    </div>
+			  </div>
+			</footer>			    
+		</section>	
+		<script type="text/javascript" src="/js/app.js"></script>
+		<script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 	</body>
 </html>

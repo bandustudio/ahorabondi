@@ -16,14 +16,13 @@ app.use(bodyParser.json({
 }))
 
 app.set('views', 'views') //Set the folder-name from where you serve the html page. 
-app.use(express.static('./public')) //setting the folder name (public) where all the static files like css, js, images etc are made available
+app.use(express.static('./static')) //setting the folder name (public) where all the static files like css, js, images etc are made available
 app.set('view engine', 'html')
 app.engine('html', consolidate.underscore) //Use underscore to parse templates when we do res.render
 
 var server = http.Server(app)
 , portNumber = 8000
 , io = require('socket.io')(server) //Creating a new socket.io instance by passing the HTTP server object
-
 
 // Create seed data
 var driversData = [
@@ -112,6 +111,15 @@ server.listen(portNumber, function() { //Runs the server on port 8000
 
         app.get('/data', function(req, res) {
             res.render('data.html');
+        });
+
+        app.get('/quiero-participar', function(req, res) {
+            res.render('quiero-participar.html');
+        });
+
+
+        app.get('/quienes-somos', function(req, res) {
+            res.render('quienes-somos.html');
         });
 
         io.on('connection', function(socket) { //Listen on the 'connection' event for incoming sockets

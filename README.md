@@ -16,10 +16,8 @@
 - Install NodeJS and MongoDB
 - Run `sudo npm install`
 - run `mongoimport --db myUberApp --collection drivers --drop --file ./drivers.json` to import sample cop information in MongoDB
-- run `mongoimport --db myUberApp --collection requests --drop --file ./requests.json` to import sample crime information in MongoDB
 
 ### How to run: 
 
-- run `node app.js`
-- Open a demo user page by going to http://localhost:8000/user?userId=user1
-- Open 3 or more driver pages from the imported driver profiles on separate tabs - [01](http://localhost:8000/emitir/01), [02](http://localhost:8000/emitir/2), [03](http://localhost:8000/emitir/3), [04](http://localhost:8000/emitir/4), [05](http://localhost:8000/emitir/5), [06](http://localhost:8000/emitir/6), [07](http://localhost:8000/emitir/7)
+- run `node server.js`
+- Open a demo user page by going to http://localhost:8000

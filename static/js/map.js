@@ -30,7 +30,6 @@ var socket = io()
     $('#userPosition').val(res[0].properties.address||"")
 }
 
-
 // socket 
 
 socket.emit('join'); //Join a room, roomname is the userId itself!

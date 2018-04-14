@@ -22,8 +22,8 @@ var H = {
 	        width: ${properties.size[data.sizeId] || '3rem'};
 	        height: ${properties.size[data.sizeId] || '3rem'};
 	        display: block;
-	        left: -${parseInt(properties.size[data.sizeId])/2 || '1.5'}rem;
-	        top: -${parseInt(properties.size[data.sizeId])/2 || '1.5'}rem;
+	        left: -${parseInt(properties.size[data.sizeId])/2 || '.5'}rem;
+	        top: -${parseInt(properties.size[data.sizeId])/2 || '.8'}rem;
 	        position: relative;
 	        border-radius: ${properties.size[data.sizeId] || '3rem'} ${properties.size[data.sizeId] || '3rem'} 0;
 	        transform: rotate(45deg);

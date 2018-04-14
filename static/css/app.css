@@ -1,3 +1,14 @@
+.is-nav {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  z-index: 2;
+}
+
+.navbar {
+  background-color: transparent;
+}
+
 .splash {
   background-color: whitesmoke;
   height: 100vh;
@@ -8,8 +19,7 @@
   width: 6rem;
   height: 6rem;
   display: block;
-  top: 1rem;
-  /*top: -3rem;*/
+  top: -.6rem;
   position: relative;
   border-radius: 6rem 6rem 0;
   transform: rotate(45deg);
@@ -21,21 +31,26 @@
   white-space: nowrap;
   color: #329200;
   background-color: white;
-  padding-left: 5px;
   border-radius: 10px;
   font-weight: 800;
   font-size: 2.5em;
   letter-spacing: -2px;
   word-spacing: 1rem;
-  line-height: 1em;
+  line-height: 1.2em;
+  padding: 0 10px;
+  padding-top: 5px;
   position: absolute;
-  top: -2rem;
+  top: -4.5rem;
+  left: -1em;
   transform: rotate(-50deg);
 }
 
 .pin .st {
+  position: relative;
+  left: -.5em;
+  top: -.3em;  
   font-size: 20px;
-  background-color: #329200;
+  background-color: #ffc600;
   padding: 4px 6px;
   color: white;
 }
@@ -101,6 +116,10 @@
 
 #map.disabled {
   opacity: 0.1;
+}
+
+#map .leaflet-control {
+  display: none;
 }
 
 .icon > .selection {
