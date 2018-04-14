@@ -18,6 +18,14 @@ html, body {
   height: 100vh;
 }
 
+.splash .content.has-text-centered {
+  padding: 10vh 0;
+}
+.footer {
+  padding-top: 10em;
+  background-color: transparent;
+}
+
 .pin {
   background-color: #46e166;
   width: 6rem;
