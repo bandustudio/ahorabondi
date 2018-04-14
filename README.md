@@ -15,7 +15,7 @@
 - Clone or fork this repo
 - Install NodeJS and MongoDB
 - Run `sudo npm install`
-- run `mongoimport --db myUberApp --collection drivers --drop --file ./drivers.json` to import sample cop information in MongoDB
+- run `mongoimport --db ahorabondi --collection drivers --drop --file ./drivers.json` to import sample cop information in MongoDB
 
 ### How to run: 
 

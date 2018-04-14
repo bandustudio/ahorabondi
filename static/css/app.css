@@ -1,5 +1,12 @@
 html, body {
+  background-color: whitesmoke;
   font-family: 'Raleway';
+}
+
+.faq h4 {
+  margin-top: 2em;
+  border-top:1px solid #00d2ff;
+  padding-top: 2em;
 }
 
 .is-nav {
@@ -19,10 +26,10 @@ html, body {
 }
 
 .splash .content.has-text-centered {
-  padding: 10vh 0;
+  padding-top: 8vh;
 }
 .footer {
-  padding-top: 10em;
+  padding-top: 2em;
   background-color: transparent;
 }
 
