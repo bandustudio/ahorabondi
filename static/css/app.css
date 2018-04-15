@@ -129,6 +129,19 @@ html, body {
   z-index: 2; 
 }
 
+#driverDetails {
+  position: absolute;
+  left: 1em;
+  top: 10em;
+  max-height: 50vh;
+  max-width: 40vh;
+  overflow-y: auto;
+  z-index: 1;
+  background-color: rgba(255,255,255,0.1);
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
 .pos {
   padding: 5px 10px;
   font-size: 15px;

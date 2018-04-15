@@ -51,19 +51,23 @@
     <div id="status" class="container-fluid text-left"></div>
     <div id="notification" class="container-fluid"></div>
     <div id='map' class="selection"></div>
- 
-    <div id="overlay" class="container text-center">
-        <div id="userPosition"></div>
-        <div id="driverDetails"></div>
-    </div>
+
+    <div id="driverDetails"></div> 
+    <div id="userPosition"></div>
 
     <script id="details" type="text/x-jsrender">
-        {{if count > 1}}
-        <div><strong>{{:count}}</strong> Unidades</div>
-        {{/if}}
-        {{for drivers}}
-            <p>{{:displayName}}</p>
-        {{/for}}
+        <div class="content">
+        <ul>
+    {{for drivers}}
+        <li>{{:displayName}} <small>{{:customMsg}}</small></li>
+    {{/for}}
+        </ul>
+    {{if count > 0}}
+        <div><strong>{{:count}}</strong> Unidad{{if count > 1}}es{{/if}}</div>
+    {{else}}
+        <div>Sin actividad por el momento.</div>
+    {{/if}}
+        </div>
     </script>
 
     <script src="/socket.io/socket.io.js"></script>
