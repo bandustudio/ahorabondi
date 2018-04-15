@@ -33,6 +33,11 @@ html, body {
   background-color: transparent;
 }
 
+.footer .icon {
+  position: relative;
+  top: 3px;
+}
+
 .pin {
   background-color: #46e166;
   width: 6rem;
