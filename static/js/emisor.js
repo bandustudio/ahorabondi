@@ -37,14 +37,14 @@ $(function(){
             paused = 0
             $('#map').removeClass('disabled')
             $('.pos').html("Conectando...")
-            $(this).addClass('online is-primary').html('Pausar')  
+            $(this).addClass('online is-danger').html('Detener')  
             socket.emit('join', {userId: userId})
             startJob()
         } else {
             paused = 1
             $('.pos').html("Desconectado")
             $('#map').addClass('disabled')
-            $(this).removeClass('online').addClass('is-info').html('Transmitir')
+            $(this).removeClass('online').addClass('is-success').html('Transmitir')
             socket.emit('forcedisconnect', {userId: userId})
         }
     })    
@@ -76,3 +76,12 @@ $(function(){
         }
     });
 })
+
+window.onbeforeunload = function () {
+    return "Estás seguro que querés dejar de transmitir?";
+};
+
+window.onunload = function () {
+    paused = 1
+    socket.emit('forcedisconnect', {userId: userId})
+};

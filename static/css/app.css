@@ -129,6 +129,16 @@ html, body {
   z-index: 2; 
 }
 
+.pos {
+  padding: 5px 10px;
+  font-size: 15px;
+  background-color: #ffdd57;
+  border-radius: 7px;
+  position: relative;
+  top: 6px;
+  left: 6px;
+}
+
 #map {
 	position: absolute;
   opacity: 1;

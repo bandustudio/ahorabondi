@@ -89,6 +89,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         console.log("Connected to Database")
 
         app.get('/', function(req, res) {
+            console.log("/");
             res.render('index.html')
         });
 
@@ -104,6 +105,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         });
 
         app.get('/emitir/:id', function(req, res) {
+            console.log("/emitir/" + req.params.id);
             res.render('emisor.html', {
                 userId: req.params.id
             });
@@ -114,11 +116,13 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         });
 
         app.get('/quiero-participar', function(req, res) {
+            console.log("/quiero-participar");
             res.render('quiero-participar.html');
         });
 
 
         app.get('/quienes-somos', function(req, res) {
+            console.log("/quienes-somos");
             res.render('quienes-somos.html');
         });
 

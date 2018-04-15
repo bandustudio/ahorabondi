@@ -34,14 +34,15 @@
 
         <div id="overlay" class="container">
             <div id="driverDetails"></div>
-            <button class="button is-info emit-btn">Transmitir</button><span class="pos"></span>
+            <button class="button is-success emit-btn">Transmitir</button><span class="pos">Detenido</span>
         </div>
 
         <div id="map" class="disabled"></div>
 
         <script id="details" type="text/x-jsrender">
             <div class="alert">
-                <dd>{{:displayName}} </dd>
+                <p><span>{{:displayName}} </span></p>
+                <p><span>{{:customMsg}} </span></p>
             </div>
         </script>
 
