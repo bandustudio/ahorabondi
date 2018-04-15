@@ -1,8 +1,6 @@
 var socket = io()
 , i = 0
 , stopPropagation = 0
-, requestDetails = {}
-, driverDetails = {}
 , driverList = []
 , map
 , lastpos
@@ -77,6 +75,8 @@ map.setView([-34.608724, -58.376867], 15);
 
 //Display a default marker
 marker = L.marker([-34.608724, -58.376867], {icon:H.icon({userId:"",displayName:"",className:'me',colorId:1})}).addTo(map);
+
+$('#driverDetails').html($.templates("#details").render({drivers:driverList,count:driverList.length}, H.driver))
 
 // events
 
