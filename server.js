@@ -120,7 +120,6 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             res.render('quiero-participar.html');
         });
 
-
         app.get('/quienes-somos', function(req, res) {
             console.log("/quienes-somos");
             res.render('quienes-somos.html');
