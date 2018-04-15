@@ -63,7 +63,7 @@
         {{/if}}
             <ul>
             {{for drivers}}
-                <li>{{:displayName}} <small>{{:customMsg}}</small></li>
+                <li class="pointer" href="#" onclick="setPos('{{:location.latitude}}','{{:location.longitude}}',15)">{{:displayName}} <!--small>{{:customMsg}}</small--></li>
             {{/for}}
             </ul>
         </div>

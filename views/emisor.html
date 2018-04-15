@@ -31,9 +31,10 @@
     </head>
 
     <body data-userId="<%= userId %>">
+        
+        <div id="driverDetails"></div>
 
         <div id="overlay" class="container">
-            <div id="driverDetails"></div>
             <button class="button is-success emit-btn">Transmitir</button><span class="pos">Detenido</span>
         </div>
 
@@ -41,8 +42,7 @@
 
         <script id="details" type="text/x-jsrender">
             <div class="alert">
-                <p><span>{{:displayName}} </span></p>
-                <p><span>{{:customMsg}} </span></p>
+                <p><span>{{:displayName}}</span><br><small>{{:customMsg}}</small></p>
             </div>
         </script>
 

@@ -53,6 +53,7 @@ html, body {
 
 .pin.scaledown {
   transform: rotate(45deg) scale(0.6);
+  left: -1rem;
 }
 
 .pin h1 {
@@ -85,7 +86,7 @@ html, body {
 
 #overlay {
   position: relative;
-  padding: 3rem;
+  padding: 1rem;
   z-index: 10
 }
 
@@ -164,12 +165,13 @@ html, body {
 
 .pos {
   padding: 5px 10px;
-  font-size: 15px;
+  font-size: 12px;
+  font-weight: 600;
   background-color: #e2e2e2;
   border-radius: 7px;
   position: relative;
-  top: 6px;
-  left: 6px;
+  top: 5px;
+  left: 5px;
 }
 
 #map {

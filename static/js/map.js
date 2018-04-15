@@ -18,6 +18,9 @@ var socket = io()
         longitude: -58.376867
     }
 }
+, setPos = function(latitude,longitude,zoom){
+    map.setView([latitude||0,longitude||0], zoom||15)
+}
 , getAddressFromLatLng = function(lat,lng){
     var deferred = new $.Deferred()
     $.get('https://api.mapbox.com/geocoding/v5/mapbox.places/' +  lng + ',' + lat + '.json?country=ar&access_token=' + H.mapbox.accessToken,function(res){
