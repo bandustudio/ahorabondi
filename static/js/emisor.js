@@ -30,21 +30,21 @@ var socket = io()
 $(function(){
 
     $('.emit-btn').click(function(){
-        if(!$(this).hasClass('online')){
+        if(!$(this).hasClass('is-danger')){
             if(!socket.connected){
                 socket.connect()     
             }
             paused = 0
             $('#map').removeClass('disabled')
             $('.pos').html("Conectando...")
-            $(this).addClass('online is-danger').html('Detener')  
+            $(this).removeClass('is-success').addClass('is-danger').html('Detener')  
             socket.emit('join', {userId: userId})
             startJob()
         } else {
             paused = 1
             $('.pos').html("Desconectado")
             $('#map').addClass('disabled')
-            $(this).removeClass('online').addClass('is-success').html('Transmitir')
+            $(this).removeClass('is-danger').addClass('is-success').html('Transmitir')
             socket.emit('forcedisconnect', {userId: userId})
         }
     })    
