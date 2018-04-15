@@ -51,6 +51,10 @@ html, body {
   margin-bottom: 3em;
 }
 
+.pin.scaledown {
+  transform: rotate(45deg) scale(0.6);
+}
+
 .pin h1 {
   white-space: nowrap;
   color: #329200;
@@ -131,15 +135,31 @@ html, body {
 
 #driverDetails {
   position: absolute;
+  bottom: 1em;
   left: 1em;
-  top: 10em;
-  max-height: 50vh;
-  max-width: 40vh;
+  right: 1em;
   overflow-y: auto;
   z-index: 10;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255,255,255,0.4);
   padding: 10px 15px;
   border-radius: 10px;
+}
+
+#driverDetails .content {
+  cursor: pointer;
+}
+
+#driverDetails .content ul {
+  transition: all 1s ease-in;
+  display: none;
+}
+
+#driverDetails .content p {
+  margin: 0;
+}
+
+#driverDetails .show ul {
+  display: block;
 }
 
 .pos {

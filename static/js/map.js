@@ -1,6 +1,7 @@
 var socket = io()
 , i = 0
 , stopPropagation = 0
+, showList = 0
 , driverList = []
 , map
 , lastpos
@@ -41,7 +42,7 @@ socket.on('location', function(res) {
         driverList.push(res);
     }
 
-    $('#driverDetails').html($.templates("#details").render({drivers:driverList,count:driverList.length}, H.driver))
+    $('#driverDetails').html($.templates("#details").render({drivers:driverList,count:driverList.length,showList:showList}, H.driver))
 
     if(markers[res.userId]){
         markers[res.userId].setLatLng(new L.LatLng(res.location.latitude, res.location.longitude))
@@ -57,7 +58,7 @@ socket.on('disconnect', function(data) {
         driverList.splice(match, 1)
     } 
 
-    $('#driverDetails').html($.templates("#details").render({count:driverList.length}, H.driver))
+    $('#driverDetails').html($.templates("#details").render({count:driverList.length,showList:showList}, H.driver))
 
     if(markers[data.userId]){
         map.removeLayer(markers[data.userId])
@@ -76,7 +77,7 @@ map.setView([-34.608724, -58.376867], 15);
 //Display a default marker
 marker = L.marker([-34.608724, -58.376867], {icon:H.icon({userId:"",displayName:"",className:'me',colorId:1})}).addTo(map);
 
-$('#driverDetails').html($.templates("#details").render({drivers:driverList,count:driverList.length}, H.driver))
+$('#driverDetails').html($.templates("#details").render({drivers:driverList,count:driverList.length,showList:showList}, H.driver))
 
 // events
 
@@ -90,6 +91,17 @@ $('body').on('mouseup touchend', function(e){
         })
     },100)    
 })
+
+
+$(document).on('click','#driverDetails .content', function(){
+    if($(this).hasClass('show')){
+        $(this).removeClass('show')
+        showList = 0
+    } else {
+        showList = 1
+        $(this).addClass('show')
+    }
+});
 
 /*
 map.on('click', function(e){

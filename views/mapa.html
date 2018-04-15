@@ -43,7 +43,7 @@
 <body>
 
     <div class="container is-nav">
-        <a href="/" class="pin">   
+        <a href="/" class="pin scaledown">   
             <h1>AhoraBondi <span class="st">BETA</span></h1>
         </a>
     </div>   
@@ -55,17 +55,17 @@
     <div id='map' class="selection"></div>
 
     <script id="details" type="text/x-jsrender">
-        <div class="content">
+        <div class="content{{if showList}} show{{/if}}">
+        {{if count > 0}}
+            <p><strong>{{:count}}</strong> Bondi{{if count > 1}}s{{/if}}</p>
+        {{else}}
+            <p>Sin Bondis por el momento. ¿Ansioso por ver alguna actividad? <a href="/quiero-participar#quiero-colaborar-desde-donde-estoy-ahora">Transmití en vivo ahora.</a></p>
+        {{/if}}
             <ul>
             {{for drivers}}
                 <li>{{:displayName}} <small>{{:customMsg}}</small></li>
             {{/for}}
             </ul>
-        {{if count > 0}}
-            <p><strong>{{:count}}</strong> Unidad{{if count > 1}}es{{/if}}</p>
-        {{else}}
-            <p>Sin actividad por el momento. ¿Ansioso por ver alguna actividad? <a href="/quiero-participar#quiero-colaborar-desde-donde-estoy-ahora">Transmití vos en vivo ahora.</a></p>
-        {{/if}}
         </div>
     </script>
 
