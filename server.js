@@ -1,12 +1,20 @@
 var http = require("http")
-, express = require("express")
-, consolidate = require("consolidate")
-, _ = require("underscore")
-, bodyParser = require('body-parser')
-, routes = require('./routes')
-, mongoClient = require("mongodb").MongoClient
-, app = express()
+var path = require('path')
+var express = require("express")
+var consolidate = require("consolidate")
+var _ = require("underscore")
+var bodyParser = require('body-parser')
+var routes = require('./routes')
+var mongoClient = require("mongodb").MongoClient
+var app = express()
+var expressLayouts = require('express-ejs-layouts');
+const JWT = require('simple-jwt')
+const locals = {
+    title: "AhoraBondi",
+    text: "AhoraBondi es una red voluntaria de visualización de transporte público en tiempo real."
+}
 
+/*
 app.use(bodyParser.urlencoded({
     extended: true,
 }))
@@ -14,11 +22,19 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({
     limit: '5mb'
 }))
+*/
 
-app.set('views', 'views') //Set the folder-name from where you serve the html page. 
+//app.set('views', 'views') //Set the folder-name from where you serve the html page. 
+app.set('views', path.join(__dirname, 'views'))
 app.use(express.static('./static')) //setting the folder name (public) where all the static files like css, js, images etc are made available
-app.set('view engine', 'html')
-app.engine('html', consolidate.underscore) //Use underscore to parse templates when we do res.render
+//app.set('view engine', 'html')
+app.set('view engine', 'ejs')
+app.set('layout extractScripts', true)
+app.set('layout extractStyles', true)
+
+app.use(expressLayouts);
+
+//app.engine('html', consolidate.underscore) //Use underscore to parse templates when we do res.render
 
 var server = http.Server(app)
 , portNumber = 8000
@@ -68,7 +84,7 @@ var driversData = [
 ];
 
 server.listen(portNumber, function() { //Runs the server on port 8000
-    console.log('Server listening at port ' + portNumber)
+    console.log('Server listening at http://localhost:' + portNumber)
 
     //var url = 'mongodb://localhost:27017/myUberApp' //Db name
     //var url = 'mongodb://user01:1234@ds241699.mlab.com:41699/ahorabondi'
@@ -90,39 +106,70 @@ server.listen(portNumber, function() { //Runs the server on port 8000
 
         app.get('/', function(req, res) {
             console.log("/");
-            res.render('index.html')
+            res.locals = locals
+            res.locals.path = req.path;               
+            res.render('index')
         });
 
         app.post('/log', function(req, res) {
-            res.render('log.html', {
+            console.log("/log")
+            res.locals = locals
+            res.locals.path = req.path;            
+            res.render('log', {
                 userId: req.query.userId
             });
         });
 
-        app.get('/mapa', function(req, res) { //a request to /user.html will render our user.html page
-            //Substitute the variable userId in user.html with the userId value extracted from query params of the request.
-            res.render('mapa.html', {});
+        app.get('/mapa', function(req, res) { //a request to /user will render our user page
+            console.log("/mapa")
+            res.locals = locals
+            res.locals.path = req.path;
+            res.render('mapa', { layout: 'fullscreen' });
         });
 
         app.get('/emitir/:id', function(req, res) {
             console.log("/emitir/" + req.params.id);
-            res.render('emisor.html', {
+            res.locals = locals
+            res.locals.path = req.path;
+            res.render('emisor', {
+                layout: 'fullscreen',
                 userId: req.params.id
             });
         });
 
         app.get('/data', function(req, res) {
-            res.render('data.html');
+            console.log("/data")
+            res.locals = locals
+            res.locals.path = req.path;
+            res.render('data', { layout: 'fullscreen' });
         });
 
         app.get('/quiero-participar', function(req, res) {
             console.log("/quiero-participar");
-            res.render('quiero-participar.html');
+            res.locals = locals
+            res.locals.path = req.path;            
+            res.render('quiero-participar');
         });
 
         app.get('/quienes-somos', function(req, res) {
             console.log("/quienes-somos");
-            res.render('quienes-somos.html');
+            res.locals = locals
+            res.locals.path = req.path;            
+            res.render('quienes-somos');
+        });
+
+        app.post('/signin', function(req, res) {
+            console.log("/signin");
+            res.locals = locals
+            res.locals.path = req.path;            
+            res.render('quienes-somos');
+        });
+
+        app.post('/signup', function(req, res) {
+            console.log("/signup");
+            res.locals = locals
+            res.locals.path = req.path;            
+            res.render('quienes-somos');
         });
 
         io.on('connection', function(socket) { //Listen on the 'connection' event for incoming sockets

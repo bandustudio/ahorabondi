@@ -28,10 +28,13 @@
     "cookie-parser": "^1.4.0",
     "debug": "^2.6.9",
     "express": "^4.16.3",
+    "express-ejs-layouts": "^2.4.0",
     "express-session": "^1.15.6",
+    "ejs": "^2.5.8",
     "mongodb": "^2.2.35",
     "mongoose": "~3.8.8",
     "nodemailer": "^4.0.1",
+    "simple-jwt": "^1.0.3",
     "socket.io": "^2.1.0",
     "underscore": "^1.8.3"
   }

@@ -3,6 +3,18 @@ html, body {
   font-family: 'Raleway';
 }
 
+.navbar-brand {
+  padding: 1.5em 1em;
+}
+
+.navbar-item {
+  border-top: 4px solid transparent;
+}
+
+.navbar-item.is-active {
+  border-top: 4px solid #00d2ff;
+}
+
 .faq h4 {
   margin-top: 2em;
   border-top:1px solid #00d2ff;
@@ -53,6 +65,7 @@ html, body {
 
 .pin.scaledown {
   transform: rotate(45deg) scale(0.6);
+  top: -1rem;
   left: -1rem;
 }
 
@@ -165,10 +178,8 @@ html, body {
 
 .pos {
   padding: 5px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  background-color: #e2e2e2;
-  border-radius: 7px;
+  background-color: white;
+  border-radius: 15px;
   position: relative;
   top: 5px;
   left: 5px;

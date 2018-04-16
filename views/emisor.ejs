@@ -1,0 +1,16 @@
+<%- contentFor('body') %>
+
+        <input type="hidden" id="userId" value="<%= userId %>">
+        <div id="driverDetails"></div>
+        <div id="map" class="disabled"></div>
+
+        <script id="details" type="text/x-jsrender">
+            <div class="content">
+                <p><span>{{:displayName}}</span><br><small>{{:customMsg}}</small></p>
+                <button class="button is-success emit-btn">Transmitir</button><span class="pos">Detenido</span>                
+            </div>
+        </script>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+        <script type="text/javascript" src="/js/emisor.js"></script>

@@ -1,6 +1,6 @@
 var socket = io()
 , i = 0
-, userId = document.body.getAttribute("data-userId")
+, userId = document.getElementById('userId').getAttribute("value")
 , requestDetails = {}
 , driverDetails = {}
 , map
@@ -28,27 +28,6 @@ var socket = io()
 }
 
 $(function(){
-
-    $('.emit-btn').click(function(){
-        if(!$(this).hasClass('is-danger')){
-            if(!socket.connected){
-                socket.connect()     
-            }
-            paused = 0
-            $('#map').removeClass('disabled')
-            $('.pos').html("Conectando...")
-            $(this).removeClass('is-success').addClass('is-danger').html('Detener')  
-            socket.emit('join', {userId: userId})
-            startJob()
-        } else {
-            paused = 1
-            $('.pos').html("Desconectado")
-            $('#map').addClass('disabled')
-            $(this).removeClass('is-danger').addClass('is-success').html('Transmitir')
-            socket.emit('forcedisconnect', {userId: userId})
-        }
-    })    
-
     $.ajax({
         url: '/drivers/info?userId=' + userId,
         type: 'GET',
@@ -76,6 +55,26 @@ $(function(){
         }
     });
 })
+
+$(document).on('click','.emit-btn', function(){
+    if(!$(this).hasClass('is-danger')){
+        if(!socket.connected){
+            socket.connect()     
+        }
+        paused = 0
+        $('#map').removeClass('disabled')
+        $('.pos').html("Conectando...")
+        $(this).removeClass('is-success').addClass('is-danger').html('Detener')  
+        socket.emit('join', {userId: userId})
+        startJob()
+    } else {
+        paused = 1
+        $('.pos').html("Desconectado")
+        $('#map').addClass('disabled')
+        $(this).removeClass('is-danger').addClass('is-success').html('Transmitir')
+        socket.emit('forcedisconnect', {userId: userId})
+    }
+})    
 
 window.onbeforeunload = function () {
     return "Estás seguro que querés dejar de transmitir?";
