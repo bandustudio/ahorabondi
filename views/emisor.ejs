@@ -3,11 +3,12 @@
         <input type="hidden" id="userId" value="<%= userId %>">
         <div id="driverDetails"></div>
         <div id="map" class="disabled"></div>
+        <span id="pos">Detenido</span>
 
         <script id="details" type="text/x-jsrender">
             <div class="content">
                 <p><span>{{:displayName}}</span><br><small>{{:customMsg}}</small></p>
-                <button class="button is-success emit-btn">Transmitir</button><span class="pos">Detenido</span>                
+                <button class="button is-success emit-btn">Transmitir</button>
             </div>
         </script>
 

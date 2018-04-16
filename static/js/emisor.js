@@ -18,7 +18,7 @@ var socket = io()
             driverDetails.location.latitude = latitude
             driverDetails.location.longitude = longitude
 
-            $('.pos').html(latitude + ' ' + longitude + ' (' + i + ')' ).fadeIn().delay(1000).fadeOut()
+            $('#pos').html(latitude + '<br>' + longitude + ' (' + i + ')' ).fadeIn().delay(1000).fadeOut()
             marker.setLatLng([latitude, longitude]).update()
             map.setView([latitude,longitude], 15)
 
@@ -63,13 +63,13 @@ $(document).on('click','.emit-btn', function(){
         }
         paused = 0
         $('#map').removeClass('disabled')
-        $('.pos').html("Conectando...")
+        $('#pos').html("Conectando...")
         $(this).removeClass('is-success').addClass('is-danger').html('Detener')  
         socket.emit('join', {userId: userId})
         startJob()
     } else {
         paused = 1
-        $('.pos').html("Desconectado")
+        $('#pos').html("Desconectado")
         $('#map').addClass('disabled')
         $(this).removeClass('is-danger').addClass('is-success').html('Transmitir')
         socket.emit('forcedisconnect', {userId: userId})
