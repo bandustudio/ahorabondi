@@ -112,23 +112,23 @@ app.get('/quiero-participar', function(req, res) {
     res.render('quiero-participar',{ uuid : uuid.v4() });
 })
 
-app.get('/quienes-somos', function(req, res) {
-    console.log("/quienes-somos");
+app.get('/preguntas-frecuentes', function(req, res) {
+    console.log("/preguntas-frecuentes");
     res.locals = locals
     res.locals.path = req.path;            
-    res.render('quienes-somos');
+    res.render('preguntas-frecuentes');
 })
 
 app.post('/signin', function(req, res) {
     console.log("/signin");
     res.locals = locals
     res.locals.path = req.path;            
-    res.render('quienes-somos');
+    res.render('preguntas-frecuentes');
 })
 
 app.post('/signup', function(req, res) {
     console.log("/signup");
     res.locals = locals
     res.locals.path = req.path;            
-    res.render('quienes-somos');
+    res.render('preguntas-frecuentes');
 })
