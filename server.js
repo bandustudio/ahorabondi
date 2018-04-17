@@ -82,16 +82,6 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             });
         });
 
-        app.get('/emisor/:id', function(req, res) {
-            console.log("/emisor/" + req.params.id);
-            res.locals = locals
-            res.locals.path = req.path;
-            res.render('emisor', {
-                layout: 'fullscreen',
-                uuid: req.params.id
-            });
-        });
-
         app.get('/drivers/info', function(req, res) {
             var id = req.query.id
             var db = database.db('ahorabondi')
@@ -159,6 +149,17 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             res.locals.path = req.path;            
             res.render('quienes-somos');
         })
+
+        app.get('/:id', function(req, res) {
+            console.log("/emisor/" + req.params.id);
+            res.locals = locals
+            res.locals.path = req.path;
+            res.render('emisor', {
+                layout: 'fullscreen',
+                uuid: req.params.id
+            });
+        });
+        
         /*
         var drivers = db.collection('drivers');
 

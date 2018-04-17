@@ -4,7 +4,7 @@ html, body {
 }
 
 .navbar-brand {
-  padding: 1.5em 1em;
+  padding: 1.5em;
 }
 
 .navbar-item {
@@ -78,11 +78,10 @@ html, body {
   font-size: 2em;
   letter-spacing: -1px;
   word-spacing: 1rem;
-  padding: 0 2px;
-  padding-left: 8px;
+  padding: 0 8px;
   position: absolute;
-  top: -2.8rem;
-  left: -1.2em;
+  top: -.5rem;
+  left: -.8em;
   transform: rotate(-50deg);
   margin-right: -2em;
 }
