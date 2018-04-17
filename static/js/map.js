@@ -10,7 +10,7 @@ var socket = io()
 , marker
 , markers = []
 , requestDetails = {
-    userId: 1,
+    uuid: 1,
     colorId:1,
     location: {
         address: "Av. de Mayo 720 C1070AAP CABA, Argentina",
@@ -34,38 +34,45 @@ var socket = io()
 
 // socket 
 
-socket.emit('join'); //Join a room, roomname is the userId itself!
+socket.emit('join'); //Join a room, roomname is the uuid itself!
 
 //Listen for a 'request-accepted' event
 socket.on('location', function(res) {
-    var match = _.findIndex(driverList, {userId: res.userId})
+    var match = _.findIndex(driverList, {uuid: res.uuid})
     if(match>-1){
         driverList.splice(match, 1, res)
     } else {
         driverList.push(res);
     }
 
-    $('#driverDetails').html($.templates("#details").render({drivers:driverList,count:driverList.length,showList:showList}, H.driver))
+    $('#driverDetails').html($.templates("#details").render({
+        drivers:driverList,
+        count:driverList.length,
+        showList:showList
+    }, H.driver))
 
-    if(markers[res.userId]){
-        markers[res.userId].setLatLng(new L.LatLng(res.location.latitude, res.location.longitude))
+    if(markers[res.uuid]){
+        markers[res.uuid].setLatLng(new L.LatLng(res.location.latitude, res.location.longitude))
     } else {
-        markers[res.userId] = L.marker([res.location.latitude, res.location.longitude],{icon:H.icon(res)}).addTo(map)
+        markers[res.uuid] = L.marker([res.location.latitude, res.location.longitude],{icon:H.icon(res)}).addTo(map)
     }    
 })
 
 socket.on('disconnect', function(data) {
-    var match = _.findIndex(driverList, {userId: data.userId})
+    var match = _.findIndex(driverList, {uuid: data.uuid})
     // order by distance driverList
     if(match>-1){
         driverList.splice(match, 1)
     } 
 
-    $('#driverDetails').html($.templates("#details").render({count:driverList.length,showList:showList}, H.driver))
+    $('#driverDetails').html($.templates("#details").render({
+        count:driverList.length,
+        showList:showList
+    }, H.driver))
 
-    if(markers[data.userId]){
-        map.removeLayer(markers[data.userId])
-        delete markers[data.userId]
+    if(markers[data.uuid]){
+        map.removeLayer(markers[data.uuid])
+        delete markers[data.uuid]
     }
 })
 
@@ -78,9 +85,13 @@ map = L.mapbox.map('map', 'mapbox.streets');
 map.setView([-34.608724, -58.376867], 15);
 
 //Display a default marker
-marker = L.marker([-34.608724, -58.376867], {icon:H.icon({userId:"",displayName:"",className:'me',colorId:1})}).addTo(map);
+marker = L.marker([-34.608724, -58.376867], {icon:H.icon({uuid:"",displayName:"",className:'me',colorId:1})}).addTo(map);
 
-$('#driverDetails').html($.templates("#details").render({drivers:driverList,count:driverList.length,showList:showList}, H.driver))
+$('#driverDetails').html($.templates("#details").render({
+    drivers:driverList,
+    count:driverList.length,
+    showList:showList
+}, H.driver))
 
 // events
 

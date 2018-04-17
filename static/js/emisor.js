@@ -1,6 +1,6 @@
 var socket = io()
 , i = 0
-, userId = document.getElementById('userId').getAttribute("value")
+, uuid = document.getElementById('uuid').getAttribute("value")
 , requestDetails = {}
 , driverDetails = {}
 , map
@@ -29,11 +29,10 @@ var socket = io()
 
 $(function(){
     $.ajax({
-        url: '/drivers/info?userId=' + userId,
+        url: '/drivers/info?id=' + uuid,
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-            
             driverDetails = data.driverDetails;
             driverDetails.location = {
                 address: driverDetails.location.address,
@@ -65,14 +64,14 @@ $(document).on('click','.emit-btn', function(){
         $('#map').removeClass('disabled')
         $('#pos').html("Conectando...")
         $(this).removeClass('is-success').addClass('is-danger').html('Detener')  
-        socket.emit('join', {userId: userId})
+        socket.emit('join', {uuid: uuid})
         startJob()
     } else {
         paused = 1
         $('#pos').html("Desconectado")
         $('#map').addClass('disabled')
         $(this).removeClass('is-danger').addClass('is-success').html('Transmitir')
-        socket.emit('forcedisconnect', {userId: userId})
+        socket.emit('forcedisconnect', {uuid: uuid})
     }
 })    
 
@@ -82,5 +81,5 @@ window.onbeforeunload = function () {
 
 window.onunload = function () {
     paused = 1
-    socket.emit('forcedisconnect', {userId: userId})
+    socket.emit('forcedisconnect', {uuid: uuid})
 };

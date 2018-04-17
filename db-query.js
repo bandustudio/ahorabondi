@@ -23,24 +23,29 @@ function fetchNearestDrivers(db, coordinates, callback) {
     });
 }
 
-function fetchDriverDetails(db, userId, callback) {
-    db.collection("drivers").findOne({
-        userId: userId
-    }, function(err, results) {
-        if (err) {
-            console.log(err)
-        } else {
-            callback(results);
-        }
-    });
+function fetchDriverDetails(db, uuid, callback) {
+
+    /*
+    db.collection("drivers").findOneAndUpdate({uuid: uuid},{colorId:1,displayName:"Mi viaje",customMsg:"Editar este viaje."},{new: true})
+
+    */
+
+    db.collection("drivers").update({
+        uuid: uuid
+    }, {
+        colorId:1,
+        displayName:"Mi viaje",
+        customMsg:"Editar este viaje."
+    },
+    {upsert: true});
 }
 
-function saveRequest(db, requestId, requestTime, location, userId, status, callback) {
+function saveRequest(db, requestId, requestTime, location, uuid, status, callback) {
     db.collection("requests").insert({
         "_id": requestId,
         requestTime: requestTime,
         location: location,
-        userId: userId,
+        uuid: uuid,
         status: status
     }, function(err, results) {
         if (err) {

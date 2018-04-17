@@ -1,113 +1,134 @@
-var query = require('./db-query');
+exports.function(){
 
-function initialize(app, db, socket, io) {
-    // '/drivers?lat=12.9718915&&lng=77.64115449999997'
-    app.get('/drivers', function(req, res) {
-        /*  
-            Extract the latitude and longitude info from the request. 
-            Then, fetch the nearest drivers using MongoDB's geospatial queries and return it back to the client.
-        */
-        var latitude = Number(req.query.lat);
-        var longitude = Number(req.query.lng);
-        query.fetchNearestDrivers(db, [longitude, latitude], function(results) {
-            res.json({
-                drivers: results
-            });
-        });
+app.get('/', function(req, res) {
+    console.log("/");
+    res.locals = locals
+    res.locals.path = req.path;               
+    res.render('index',{ uuid : uuid.v4() })
+});
+
+app.post('/log', function(req, res) {
+    console.log("/log")
+    res.locals = locals
+    res.locals.path = req.path;            
+    res.render('log', {
+        uuid: req.query.uuid
     });
+});
 
-    // '/drivers/info?userId=01'
-    app.get('/drivers/info', function(req, res) {
-        var userId = req.query.userId //extract userId from quert params
-        query.fetchDriverDetails(db, userId, function(results) {
-            res.json({
-                driverDetails: results
-            });
-        });
+app.get('/mapa', function(req, res) { //a request to /user will render our user page
+    console.log("/mapa")
+    res.locals = locals
+    res.locals.path = req.path;
+    res.render('mapa', { 
+        layout: 'fullscreen',
+        uuid : uuid.v4()
     });
+});
 
-    //Listen to a 'position' event from connected users
-    socket.on('location', function(data) {
-        console.log("location: " + data.location.longitude+' '+ data.location.latitude + ' (' + data.userId + ')')
-        io.sockets.emit("location",data)
-    })
-
-    //Listen to a 'request-for-help' event from connected users
-    socket.on('request-for-help', function(eventData) {
-        /*
-            eventData contains userId and location
-            1. First save the request details inside a table requests
-            2. AFTER saving, fetch nearby drivers from user’s location
-            3. Fire a request-for-help event to each of the driver’s room
-        */
-
-        var requestTime = new Date(); //Time of the request
-
-        var ObjectID = require('mongodb').ObjectID;
-        var requestId = new ObjectID; //Generate unique ID for the request
-
-        //1. First save the request details inside a table requests.
-        //Convert latitude and longitude to [longitude, latitude]
-        var location = {
-            coordinates: [
-                eventData.location.longitude, 
-                eventData.location.latitude
-            ],
-            address: eventData.location.address
-        };
-        query.saveRequest(db, requestId, requestTime, location, eventData.userId, 'waiting', function(results) {
-
-            //2. AFTER saving, fetch nearby drivers from user’s location
-            query.fetchNearestDrivers(db, location.coordinates, function(results) {
-                eventData.requestId = requestId;
-                //3. After fetching nearest drivers, fire a 'request-for-help' event to each of them
-                for (var i = 0; i < results.length; i++) {
-                    io.sockets.in(results[i].userId).emit('request-for-help', eventData);
-                }
-            });
-        });
+app.get('/emisor/:id', function(req, res) {
+    console.log("/emisor/" + req.params.id);
+    res.locals = locals
+    res.locals.path = req.path;
+    res.render('emisor', {
+        layout: 'fullscreen',
+        uuid: req.params.id
     });
+});
 
-    socket.on('request-accepted', function(eventData) { //Listen to a 'request-accepted' event from connected drivers
-        console.log(eventData);
-        //Convert string to MongoDb's ObjectId data-type
-        var ObjectID = require('mongodb').ObjectID;
-        var requestId = new ObjectID(eventData.requestDetails.requestId);
+app.get('/drivers/info', function(req, res) {
+    var id = req.query.id //extract uuid from quert params
 
-        //Then update the request in the database with the driver details for given requestId
-        query.updateRequest(db, requestId, eventData.driverDetails.driverId, 'engaged', function(results) {
-            //After updating the request, emit a 'request-accepted' event to the user and send driver details
-            io.sockets.in(eventData.requestDetails.userId).emit('request-accepted', eventData.driverDetails);
+    console.log(database.db)
+
+    database.db.collection("drivers").findOneAndUpdate({
+        uuid: id
+    }, {
+        uuid: id,
+        colorId:1,
+        displayName:"Mi viaje",
+        customMsg:"Editar este viaje."
+    }, {
+        new: true,
+        upsert:true
+    }, function(err,result) {
+        if(err){
+            console.log(err)
+            console.log("Something wrong when updating data!")
+        }
+        console.log("...........")
+        console.log(id)
+        console.log(result)
+        res.json({
+            driverDetails: result
         })
-    });
+    })
+})
 
-    //Fetch all requests
-    app.get('/requests/info', function(req, res) {
-        query.fetchRequests(db, function(results) {
-            var features = [];
-            for (var i = 0; i < results.length; i++) {
-                features.push({
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: results[i].location.coordinates
-                    },
-                    properties: {
-                        status: results[i].status,
-                        requestTime: results[i].requestTime,
-                        address: results[i].location.address
-                    }
-                })
-            }
-            var geoJsonData = {
-                type: 'FeatureCollection',
-                features: features
-            }
+/*
+app.get('/info', function(req, res) {
+    var uuid = req.query.uuid //extract uuid from quert params
 
-            res.json(geoJsonData);
-        });
-    });
+    console.log("info " + uuid);
 
-}
+    return Driver.findOneAndUpdate({
+        uuid: uuid
+    }, {
+        uuid: uuid,
+        colorId:1,
+        displayName:"Mi Viaje",
+        customMsg:"Editar este Viaje."
+    }, {
+        upsert:true
+    }).then(function(result) {
 
-exports.initialize = initialize;
+        console.log("...");
+        console.log(result);
+
+        if(err){
+            console.log(err)
+            console.log("Something wrong when updating data!")
+        }
+        console.log("...........")
+        console.log(uuid)
+        console.log(result)
+        res.json({
+            driverDetails: result
+        })
+    })
+})*/
+
+app.get('/data', function(req, res) {
+    console.log("/data")
+    res.locals = locals
+    res.locals.path = req.path;
+    res.render('data', { layout: 'fullscreen' });
+})
+
+app.get('/quiero-participar', function(req, res) {
+    console.log("/quiero-participar");
+    res.locals = locals
+    res.locals.path = req.path;            
+    res.render('quiero-participar',{ uuid : uuid.v4() });
+})
+
+app.get('/quienes-somos', function(req, res) {
+    console.log("/quienes-somos");
+    res.locals = locals
+    res.locals.path = req.path;            
+    res.render('quienes-somos');
+})
+
+app.post('/signin', function(req, res) {
+    console.log("/signin");
+    res.locals = locals
+    res.locals.path = req.path;            
+    res.render('quienes-somos');
+})
+
+app.post('/signup', function(req, res) {
+    console.log("/signup");
+    res.locals = locals
+    res.locals.path = req.path;            
+    res.render('quienes-somos');
+})
