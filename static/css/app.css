@@ -40,9 +40,14 @@ html, body {
 .splash .content.has-text-centered {
   padding-top: 8vh;
 }
+
 .footer {
   padding-top: 2em;
   background-color: transparent;
+}
+
+.footer p {
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
 }
 
 .footer .icon {
