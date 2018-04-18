@@ -37,6 +37,7 @@
     "simple-jwt": "^1.0.3",
     "socket.io": "^2.1.0",
     "underscore": "^1.8.3",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "mapbox-gl": "^0.44.2"
   }
 }

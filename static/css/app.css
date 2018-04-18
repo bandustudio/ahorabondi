@@ -28,6 +28,10 @@ html, body {
   z-index: 2;
 }
 
+.custom-btns .button {
+  min-width: 280px;
+}
+
 .navbar {
   background-color: transparent;
 }
