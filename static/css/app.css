@@ -1,6 +1,6 @@
 html, body {
   background-color: whitesmoke;
-  font-family: 'Raleway';
+  font-family: 'PT Sans';
 }
 
 .navbar-brand {
@@ -9,6 +9,8 @@ html, body {
 
 .navbar-item {
   border-top: 4px solid transparent;
+  font-size: 18px;
+  font-weight: 500;  
 }
 
 .navbar-item.is-active {
@@ -290,11 +292,14 @@ html, body {
   position: absolute;
   z-index: 11;
   font-size: 14px;
-  padding: 4px 8px;
+  padding: 4px 10px;
   background-color: white;
   border-radius: 10px;
-  top: 7em;
-  left: 1em;
+  top: 5em;
+  left: 6em;
+  color: #6f6f6f;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  font-weight: 500;  
 }
 
 #map {
