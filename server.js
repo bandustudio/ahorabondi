@@ -156,9 +156,10 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             res.locals.path = req.path;
             res.render('emisor', {
                 layout: 'fullscreen',
-                uuid: req.params.id
-            });
-        });
+                uuid: req.params.id,
+                displayName: req.params.id.split('-')[0]
+            })
+        })
         
         /*
         var drivers = db.collection('drivers');

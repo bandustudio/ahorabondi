@@ -173,7 +173,14 @@ H.geo(function(position) {
     pos = [latitude,longitude]
 })
 
-
 $(window).on('hashchange', function(){
-    setPos($(this).attr('lat'),$(this).attr('lng'),$(this).attr('zoom'))
+    var $t = $(location.hash)
+    if(location.hash && location.hash != '#'){
+        var $t = $(location.hash)
+        if($t.length){
+            setPos($t.attr('lat'),$t.attr('lng'),$t.attr('zoom'))
+        } else {
+            alert("El viaje " + location.hash + " dejó de transmitir")
+        }
+    }
 }).trigger('hashchange')
