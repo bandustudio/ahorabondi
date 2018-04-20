@@ -36,7 +36,8 @@ html, body {
   padding: 1em;
   position: fixed;
   z-index: 99;
-  bottom: 50%;
+  top: 50%;
+  transform: translateY(-50%);
   right: -10px; 
 }
 
@@ -51,14 +52,9 @@ html, body {
   margin-bottom: 5px;
   text-align: center;
   display: block;
-  font-size: 50px;
-  padding: 0.3em;
+  font-size: 35px;
+  padding: 0.2em;
   transition: all 0.1s ease-out;
-  border: 4px solid transparent;
-}
-
-.sharetools .fa:hover {
-  border: 4px solid #e2e2e2;
 }
 
 .sharetools .fa-linkedin {
@@ -77,13 +73,29 @@ html, body {
   color: #3b5999;
 }
 
+.sharetools .fa-facebook:hover {
+  background-color: #3b5999;
+  color: white;
+}
+
 .sharetools .fa-twitter {
   color: #55acee;
+}
+
+.sharetools .fa-twitter:hover {
+  background-color: #55acee;
+  color: white;
 }
 
 .sharetools .fa-whatsapp {
   color: #4dc247;
 }
+
+.sharetools .fa-whatsapp:hover {
+  background-color: #4dc247;
+  color: white;
+}
+
 
 @keyframes fadeInLeft{
   from{
