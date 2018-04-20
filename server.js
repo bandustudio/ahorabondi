@@ -92,7 +92,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             }, {
                 uuid: id,
                 colorId:1,
-                displayName:"Viaje " + pid,
+                displayName:pid,
                 customMsg:"Estás listo para iniciar?",
                 location: {
                     "type" : "Point",

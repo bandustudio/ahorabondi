@@ -12,11 +12,11 @@
             <p><strong>{{:count}}</strong> viaje{{if count > 1}}s{{/if}}</p>
         {{else}}
             <p>Sin Viajes por el momento. ¿Ansioso por ver actividad? </p>
-            <a href="/<%=uuid%>" title="Transmitir en vivo ahora" class="button is-success"><span class="icon is-text-success"><span class="fa fa-bus"></span></span> &nbsp;&nbsp;Crear viaje</a>
+            <a href="/<%=uuid%>" title="Transmitir en vivo ahora" class="button is-large is-primary"><span class="icon is-text-success"><span class="fa fa-bus"></span></span> &nbsp;&nbsp;Crear viaje</a>
         {{/if}}
             <ul>
             {{for drivers}}
-                <li class="pointer" href="#" onclick="setPos('{{:location.latitude}}','{{:location.longitude}}',15)">{{:displayName}} <!--small>{{:customMsg}}</small--></li>
+                <li class="pointer"><a href="#{{:displayName}}" id="{{:displayName}}" lat="{{:location.latitude}}" lng="{{:location.longitude}}" zoom="15">{{:displayName}} <!--small>{{:customMsg}}</small--></li>
             {{/for}}
             </ul>
         </div>

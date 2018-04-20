@@ -66,12 +66,14 @@ $(document).on('click','.emit-btn', function(){
         $(this).removeClass('is-success').addClass('is-danger').html('Detener')  
         socket.emit('join', {uuid: uuid})
         startJob()
+        $('.sharetools').show()
     } else {
         paused = 1
         $('#pos').html("Desconectado")
         $('#map').addClass('disabled')
         $(this).removeClass('is-danger').addClass('is-success').html('Transmitir')
         socket.emit('forcedisconnect', {uuid: uuid})
+        $('.sharetools').hide()
     }
 })    
 

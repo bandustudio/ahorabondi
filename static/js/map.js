@@ -106,7 +106,6 @@ $('body').on('mouseup touchend', function(e){
     },100)    
 })
 
-
 $(document).on('click','#driverDetails .content', function(){
     if($(this).hasClass('show')){
         $(this).removeClass('show')
@@ -173,3 +172,8 @@ H.geo(function(position) {
 
     pos = [latitude,longitude]
 })
+
+
+$(window).on('hashchange', function(){
+    setPos($(this).attr('lat'),$(this).attr('lng'),$(this).attr('zoom'))
+}).trigger('hashchange')
