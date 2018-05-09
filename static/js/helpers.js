@@ -9,7 +9,7 @@ var H = {
 	  }
 
 	  navigator.geolocation.watchPosition(success, function(e) {
-	  	H.status("💥 No pude obtener ubicación (" + e + ")")
+	  	H.status("💥 No pude obtener ubicación (" + e.message + ")")
 	  }, {
         enableHighAccuracy: true,
         maximumAge: 5000 // 5 sec.
