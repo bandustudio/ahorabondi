@@ -8,9 +8,12 @@ var H = {
 	    return;
 	  }
 
-	  navigator.geolocation.watchPosition(success, function() {
-	  	H.status("💥 No pude obtener ubicación")
-	  });
+	  navigator.geolocation.watchPosition(success, function(e) {
+	  	H.status("💥 No pude obtener ubicación (" + e + ")")
+	  }, {
+        enableHighAccuracy: true,
+        maximumAge: 5000 // 5 sec.
+      });
 	}
 	, icon : function(data){
 	    const properties = {
