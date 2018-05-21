@@ -185,7 +185,7 @@ $(window).on('hashchange', function(){
                 console.log("setPos: " +$t.attr('lat')+":"+$t.attr('lng')+" z:"+$t.attr('zoom'))
                 setPos($t.attr('lat'),$t.attr('lng'),$t.attr('zoom'))
             } else {
-                alert("El viaje " + location.hash + " dejó de transmitir")
+                alert("El dispositivo " + location.hash + " dejó de transmitir")
             }
         }
     },to)

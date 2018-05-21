@@ -9,10 +9,10 @@
     <script id="details" type="text/x-jsrender">
         <div class="content{{if showList}} show{{/if}}">
         {{if count > 0}}
-            <p><strong>{{:count}}</strong> viaje{{if count > 1}}s{{/if}}</p>
+            <p><strong>{{:count}}</strong> dispositivo{{if count > 1}}s{{/if}}</p>
         {{else}}
             <p>Nadie está compartiendo su ubicación ahora.</p>
-            <a href="/<%=uuid%>" title="Transmitir en vivo ahora" class="button is-large is-primary"><span class="icon is-text-success"><span class="fa fa-bus"></span></span> &nbsp;&nbsp;Compartir ubicación</a>
+            <a href="/<%=uuid%>" title="Transmitir en vivo ahora" class="button is-large is-primary">Compartir ubicación</a>
         {{/if}}
             <ul>
             {{for drivers}}
