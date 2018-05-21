@@ -93,7 +93,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
                 uuid: id,
                 colorId:1,
                 displayName:pid,
-                customMsg:"Estás listo para iniciar?",
+                customMsg:"",
                 location: {
                     "type" : "Point",
                     "address" : "C1203AAA CABA Av. Rivadavia 2899, Argentina",
