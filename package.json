@@ -7,13 +7,13 @@
     "transport",
     "gps"
   ],
-  "homepage": "https://ahorabondi.glitch.me",
+  "homepage": "https://ahora.glitch.me",
   "license": "MIT",
   "authors": [
     {
       "name": "Martin Frith",
       "email": "overlemonsoft@gmail.com",
-      "homepage": "https://ahorabondi.glitch.me",
+      "homepage": "https://ahora.glitch.me",
       "role": "Developer"
     }
   ],
@@ -28,7 +28,7 @@
     "cookie-parser": "^1.4.0",
     "debug": "^2.6.9",
     "ejs": "^2.5.8",
-    "express": "*",
+    "express": "^4.16.3",
     "express-ejs-layouts": "^2.4.0",
     "express-session": "^1.15.6",
     "mongodb": "^3.0.6",
