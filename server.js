@@ -13,8 +13,8 @@ var expressLayouts = require('express-ejs-layouts')
 var uuid = require("uuid")
 const JWT = require('simple-jwt')
 const locals = {
-    title: "AhoraBondi",
-    text: "AhoraBondi es una red voluntaria de visualización de transporte público en tiempo real."
+    title: "Ahora",
+    text: "Ahora es una red voluntaria de visualización de transporte público en tiempo real."
 }
 
 
@@ -172,11 +172,11 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         })*/
 
         io.on('connection', function(socket) { //Listen on the 'connection' event for incoming sockets
-            console.log('A user just connected')
+            //console.log('A user just connected')
 
             socket.on('join', function(data) { //Listen to any join event from connected users
                 socket.join("map") //User joins a unique room/channel that's named after the uuid 
-                console.log("User join")
+                //console.log("User join")
             });
 
             //Listen to a 'position' event from connected users

@@ -164,7 +164,7 @@ html, body {
 }
 
 .pin {
-  background-color: #46e166;
+  background-color: #ff7070;
   width: 6rem;
   height: 6rem;
   display: block;
@@ -184,7 +184,7 @@ html, body {
 
 .pin h1 {
   white-space: nowrap;
-  color: #329200;
+  color: #ff5e5e;
   background-color: white;
   border-radius: 10px;
   font-weight: 600;
@@ -193,8 +193,8 @@ html, body {
   word-spacing: 1rem;
   padding: 0 8px;
   position: absolute;
-  top: -.5rem;
-  left: -.8em;
+  top: .2rem;
+  left: .1em;
   transform: rotate(-50deg);
   margin-right: -2em;
 }

@@ -173,14 +173,20 @@ H.geo(function(position) {
     pos = [latitude,longitude]
 })
 
+var loaded = false;
 $(window).on('hashchange', function(){
-    var $t = $(location.hash)
-    if(location.hash && location.hash != '#'){
+    var to = 1;
+    if(!loaded) to = 5000;
+    setTimeout(function(){
         var $t = $(location.hash)
-        if($t.length){
-            setPos($t.attr('lat'),$t.attr('lng'),$t.attr('zoom'))
-        } else {
-            alert("El viaje " + location.hash + " dejó de transmitir")
+        loaded = true;
+        if(location.hash && location.hash != '#'){
+            if($t.length){
+                console.log("setPos: " +$t.attr('lat')+":"+$t.attr('lng')+" z:"+$t.attr('zoom'))
+                setPos($t.attr('lat'),$t.attr('lng'),$t.attr('zoom'))
+            } else {
+                alert("El viaje " + location.hash + " dejó de transmitir")
+            }
         }
-    }
+    },to)
 }).trigger('hashchange')
