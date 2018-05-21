@@ -57,14 +57,14 @@ server.listen(portNumber, function() { //Runs the server on port 8000
 
 
         app.get('/', function(req, res) {
-            console.log("/");
+            //console.log("/");
             res.locals = locals
             res.locals.path = req.path;               
             res.render('index',{ uuid : uuid.v4() })
         });
 
         app.post('/log', function(req, res) {
-            console.log("/log")
+            //console.log("/log")
             res.locals = locals
             res.locals.path = req.path;            
             res.render('log', {
@@ -73,7 +73,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         });
 
         app.get('/mapa', function(req, res) { //a request to /user will render our user page
-            console.log("/mapa")
+            //console.log("/mapa")
             res.locals = locals
             res.locals.path = req.path;
             res.render('mapa', { 
@@ -116,7 +116,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         })
 
         app.get('/data', function(req, res) {
-            console.log("/data")
+            //console.log("/data")
             res.locals = locals
             res.locals.path = req.path;
             res.render('data', { layout: 'fullscreen' });
@@ -181,13 +181,13 @@ server.listen(portNumber, function() { //Runs the server on port 8000
 
             //Listen to a 'position' event from connected users
             socket.on('location', function(data) {
-                console.log("location: " + data.location.longitude+' '+ data.location.latitude + ' (' + data.uuid + ')')
+                //console.log("location: " + data.location.longitude+' '+ data.location.latitude + ' (' + data.uuid + ')')
                 io.sockets.emit("location",data)
             })
 
             socket.on('forcedisconnect', function (data) {
-                console.log('User has disconnected.');
-                console.log(data);
+                //console.log('User has disconnected.');
+                //console.log(data);
                 io.sockets.emit("disconnect",data)
                 socket.disconnect();
             })
