@@ -7,18 +7,17 @@
     <div id='map' class="selection"></div>
 
     <script id="details" type="text/x-jsrender">
-        <div class="content{{if showList}} show{{/if}}">
+        <div class="content{{if drivers && drivers}} show{{/if}}">
         {{if count > 0}}
             <p><strong>{{:count}}</strong> dispositivo{{if count > 1}}s{{/if}}</p>
-        {{else}}
-            <p>Nadie está compartiendo su ubicación ahora.</p>
-            <a href="/<%=uuid%>" title="Transmitir en vivo ahora" class="button is-large is-primary">Compartir ubicación</a>
-        {{/if}}
             <ul>
             {{for drivers}}
                 <li class="pointer"><a href="#{{:displayName}}" id="{{:displayName}}" lat="{{:location.latitude}}" lng="{{:location.longitude}}" zoom="18">{{:displayName}} <!--small>{{:customMsg}}</small--></li>
             {{/for}}
             </ul>
+        {{else}}
+            <p>Nadie está compartiendo su ubicación ahora. <a href="/<%=uuid%>" title="Transmitir en vivo ahora">Compartir ubicación</a></p>            
+        {{/if}}
         </div>
     </script>
     <script src="/socket.io/socket.io.js"></script>
