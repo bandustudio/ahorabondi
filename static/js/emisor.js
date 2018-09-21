@@ -71,14 +71,14 @@ $(document).on('click','.emit-btn', function(){
         paused = 1
         $('#pos').html("Desconectado")
         $('#map').addClass('disabled')
-        $(this).removeClass('is-danger').addClass('is-success').html('Transmitir')
+        $(this).removeClass('is-danger').addClass('is-success').html('Emitir')
         socket.emit('forcedisconnect', {uuid: uuid})
         $('.sharetools').hide()
     }
 })    
 
 window.onbeforeunload = function () {
-    return "Estás seguro que querés dejar de transmitir?";
+    return "Estás seguro que querés dejar de emitir?";
 };
 
 window.onunload = function () {

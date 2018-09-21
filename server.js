@@ -48,7 +48,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
 
     var url = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.PORT+'/'+process.env.DB;
 
-    mongoClient.connect(url,(err,database) =>{ 
+    mongoClient.connect(url,{ useNewUrlParser: true },(err,database) =>{ 
 
         if (err) return console.log(err)
 
