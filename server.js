@@ -75,7 +75,7 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             var hashedPassword = bcrypt.hashSync(req.body.password, 8);
             var users = db.collection('users');
 
-            User.create({
+            users.create({
                 name : req.body.name,
                 email : req.body.email,
                 password : hashedPassword
@@ -108,25 +108,26 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             var pid = id.split('-')[0]
 
             db.collection("drivers").findOneAndUpdate({
-                uuid: id
+                "uuid": id
             }, {
-                uuid: id,
-                colorId:1,
-                displayName:pid,
-                customMsg:"",
-                location: {
-                    "type" : "Point",
-                    "address" : "C1203AAA CABA Av. Rivadavia 2899, Argentina",
-                    "coordinates" : [
-                        -58.405758,
-                        -34.6103905            
-                    ]
+                $set : {
+                    "uuid": id,
+                    "displayName":pid,
+                    "customMsg":"",
+                    "location": {
+                        "type" : "Point",
+                        "address" : "C1203AAA CABA Av. Rivadavia 2899, Argentina",
+                        "coordinates" : [
+                            -58.405758,
+                            -34.6103905            
+                        ]
+                    }
                 }
             }, {
                 returnOriginal: false, 
                 upsert: true
             }, function(err,result) {
-                               
+
                 if(err){
                     console.log(err)
                 }
