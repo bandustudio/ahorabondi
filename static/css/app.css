@@ -164,7 +164,7 @@ html, body {
 }
 
 .pin {
-  background-color: #ff7070;
+  background-color: #ff006c;
   width: 6rem;
   height: 6rem;
   display: block;
@@ -184,7 +184,7 @@ html, body {
 
 .pin h1 {
   white-space: nowrap;
-  color: #ff5e5e;
+  color: #ff006c;
   background-color: white;
   border-radius: 10px;
   font-weight: 600;
