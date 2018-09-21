@@ -16,13 +16,17 @@ var H = {
       });
 	}
 	, icon : function(data){
-		console.log(data)
 	    const properties = {
 	    	color : ["#fc0d1b","#46e166","#583470","#f313b5","#1369f3","#cdf313","#f39d13"]
 	    	, size : ["2rem","4rem","6rem","8rem"]
 	    }
+	    data.color = '#fc0d1b'
+
+	    if(data.uuid.length){
+	    	data.color = '#' + data.uuid.substr(data.uuid.length - 6)
+	    }
 	    const markerHtmlStyles = `
-	        background-color: ${properties.color[data.colorId] || '#583470'};
+	        background-color: ${data.color};
 	        width: ${properties.size[data.sizeId] || '3rem'};
 	        height: ${properties.size[data.sizeId] || '3rem'};
 	        display: block;
@@ -45,7 +49,7 @@ var H = {
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
-	      html: `<span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}"><code>${data.displayName || ''}</code> <span style="display:none">${data.driverId}</span></span>`
+	      html: `<a href="#${data.displayName || 'me'}"><span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}"><code>${data.displayName || 'me'}</code> <span style="display:none">${data.driverId}</span></span></a>`
 	    })
 
 	    return icon

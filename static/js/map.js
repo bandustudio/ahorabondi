@@ -175,14 +175,14 @@ H.geo(function(position) {
 
 var loaded = false;
 $(window).on('hashchange', function(){
-    var to = 1;
+    var to = 0;
     if(!loaded) to = 5000;
     setTimeout(function(){
         var $t = $(location.hash)
         loaded = true;
         if(location.hash && location.hash != '#'){
             if($t.length){
-                console.log("setPos: " +$t.attr('lat')+":"+$t.attr('lng')+" z:"+$t.attr('zoom'))
+                //console.log("setPos: " +$t.attr('lat')+":"+$t.attr('lng')+" z:"+$t.attr('zoom'))
                 setPos($t.attr('lat'),$t.attr('lng'),$t.attr('zoom'))
             } else {
                 alert("El dispositivo " + location.hash + " dejó de transmitir")

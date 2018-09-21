@@ -11,7 +11,8 @@ var mongoClient = require("mongodb").MongoClient
 var app = express()
 var expressLayouts = require('express-ejs-layouts')
 var uuid = require("uuid")
-const JWT = require('simple-jwt')
+var bcrypt = require('bcryptjs')
+const jwt = require('simple-jwt')
 const locals = {
     title: "Ahora",
     text: "Ahora es una red voluntaria de visualización de transporte público en tiempo real."
@@ -45,8 +46,6 @@ var server = http.Server(app)
 server.listen(portNumber, function() { //Runs the server on port 8000
     console.log('Server listening at http://localhost:' + portNumber)
 
-    //var url = 'mongodb://localhost:27017/myUberApp' //Db name
-    //var url = 'mongodb://user01:1234@ds241699.mlab.com:41699/ahorabondi'
     var url = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.PORT+'/'+process.env.DB;
 
     mongoClient.connect(url,(err,database) =>{ 
@@ -54,7 +53,6 @@ server.listen(portNumber, function() { //Runs the server on port 8000
         if (err) return console.log(err)
 
         console.log("Connected to Database")
-
 
         app.get('/', function(req, res) {
             //console.log("/");
@@ -70,6 +68,28 @@ server.listen(portNumber, function() { //Runs the server on port 8000
             res.render('log', {
                 uuid: req.query.uuid
             });
+        });
+
+        app.post('/register', function(req, res) {
+          
+            var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+            var users = db.collection('users');
+
+            User.create({
+                name : req.body.name,
+                email : req.body.email,
+                password : hashedPassword
+            },
+            function (err, user) {
+                if (err) return res.status(500).send("There was a problem registering the user.")
+
+                // create a token
+                var token = jwt.encode({ id: user._id }, config.secret, {
+                    expiresIn: 86400 // expires in 24 hours
+                });
+
+                res.status(200).send({ auth: true, token: token });
+            }); 
         });
 
         app.get('/mapa', function(req, res) { //a request to /user will render our user page
@@ -191,8 +211,6 @@ server.listen(portNumber, function() { //Runs the server on port 8000
                 io.sockets.emit("disconnect",data)
                 socket.disconnect();
             })
-
-            //routes.initialize(app, db, socket, io) //Pass socket and io objects that we could use at different parts of our app
         });
     });
 });
