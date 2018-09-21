@@ -123,10 +123,10 @@ server.listen(portNumber, function() { //Runs the server on port 8000
                     ]
                 }
             }, {
+                returnOriginal: false, 
                 upsert: true
             }, function(err,result) {
-                console.log("result")
-                console.log(result)
+                               
                 if(err){
                     console.log(err)
                 }
