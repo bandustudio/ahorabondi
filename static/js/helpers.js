@@ -20,7 +20,7 @@ var H = {
 	    	color : ["#fc0d1b","#46e166","#583470","#f313b5","#1369f3","#cdf313","#f39d13"]
 	    	, size : ["2rem","4rem","6rem","8rem"]
 	    }
-	    data.color = '#fc0d1b'
+	    data.color = '#ff006c'
 
 	    if(data.uuid.length){
 	    	data.color = '#' + data.uuid.substr(data.uuid.length - 6)
