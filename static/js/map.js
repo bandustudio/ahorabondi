@@ -19,7 +19,8 @@ var socket = io()
     }
 }
 , setPos = function(latitude,longitude,zoom){
-    map.setView([latitude||0,longitude||0], zoom||15)
+    map.setCenter([longitude,latitude])
+    map.setZoom(zoom)
 }
 , getAddressFromLatLng = function(lat,lng){
     var deferred = new $.Deferred()
@@ -52,9 +53,14 @@ socket.on('location', function(res) {
     }, H.driver))
 
     if(markers[res.uuid]){
-        markers[res.uuid].setLatLng(new L.LatLng(res.location.latitude, res.location.longitude))
+        markers[res.uuid].setLngLat([res.location.longitude,res.location.latitude])
+        $(markers[res.uuid].getElement()).removeClass('pulse').addClass('pulse')
     } else {
-        markers[res.uuid] = L.marker([res.location.latitude, res.location.longitude],{icon:H.icon(res)}).addTo(map)
+        var el = document.createElement('div');
+        el.innerHTML = H.icon(res)
+        markers[res.uuid] = new mapboxgl.Marker(el)
+        markers[res.uuid].setLngLat([res.location.longitude,res.location.latitude])
+        markers[res.uuid].addTo(map)
     }    
 })
 
@@ -78,6 +84,20 @@ socket.on('disconnect', function(data) {
 
 // map
 
+mapboxgl.accessToken = H.mapbox.accessToken
+map = new mapboxgl.Map({
+    container: 'map',
+    style: H.mapbox.style,
+    center: [-58.376867,-34.608724],
+    zoom: 15
+})
+
+var el = document.createElement('div');
+el.innerHTML = H.icon({uuid:"",displayName:"me",className:'me'})
+marker = new mapboxgl.Marker(el)
+marker.setLngLat([-58.376867,-34.608724])
+marker.addTo(map)
+/*         
 L.mapbox.accessToken = H.mapbox.accessToken
 
 //Load the map and set it to a given lat-lng
@@ -86,6 +106,7 @@ map.setView([-34.608724, -58.376867], 15);
 
 //Display a default marker
 marker = L.marker([-34.608724, -58.376867], {icon:H.icon({uuid:"",displayName:"",className:'me',colorId:1})}).addTo(map);
+*/
 
 $('#driverDetails').html($.templates("#details").render({
     drivers:driverList,
@@ -159,7 +180,10 @@ H.geo(function(position) {
     var latitude  = position.coords.latitude
     , longitude = position.coords.longitude
 
-    marker.setLatLng([latitude, longitude]).update()
+    marker.setLngLat([longitude,latitude])
+    marker.addTo(map)
+    $(marker.getElement()).removeClass('pulse').addClass('pulse')
+
 
     if(i==1) {
         getAddressFromLatLng(latitude,longitude).then(function(res){
@@ -167,7 +191,8 @@ H.geo(function(position) {
                 setAddressFromLatLng(res)
             }
         })        
-        map.setView([latitude,longitude], 15)
+        map.setCenter([longitude,latitude])
+        map.setZoom(15)
     }
 
     pos = [latitude,longitude]

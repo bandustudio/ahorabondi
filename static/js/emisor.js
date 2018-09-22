@@ -19,8 +19,13 @@ var socket = io()
             driverDetails.location.longitude = longitude
 
             $('#pos').html(latitude + '<br>' + longitude + ' (' + i + ')' ).fadeIn().delay(1000).fadeOut()
-            marker.setLatLng([latitude, longitude]).update()
-            map.setView([latitude,longitude], 15)
+
+            marker.setLngLat([longitude,latitude])
+            marker.addTo(map)
+
+            $(marker.getElement()).removeClass('pulse').addClass('pulse')
+            map.setCenter([longitude,latitude])
+            map.setZoom(16)
 
             socket.emit('location',driverDetails)
         }
@@ -41,13 +46,25 @@ $(function(){
             }
 
             $('#driverDetails').html($.templates("#details").render(driverDetails, H.driver))
-            L.mapbox.accessToken = H.mapbox.accessToken;
-            //Load the map and set it to a driver's lat-lng
-            map = L.mapbox.map('map', 'mapbox.streets');
-            map.setView([driverDetails.location.latitude, driverDetails.location.longitude], 15);
+
+            mapboxgl.accessToken = H.mapbox.accessToken
+            map = new mapboxgl.Map({
+                container: 'map',
+                style: H.mapbox.style,
+                center: [driverDetails.location.longitude,driverDetails.location.latitude],
+                zoom: 15
+            })
+
+            var el = document.createElement('div');
+            el.innerHTML = H.icon(driverDetails)
+            marker = new mapboxgl.Marker(el)
+            marker.setLngLat([driverDetails.location.longitude,driverDetails.location.latitude])
+            marker.addTo(map)
+
+            //setView([driverDetails.location.latitude, driverDetails.location.longitude], 15);
 
             //Display a default marker
-            marker = L.marker([driverDetails.location.latitude, driverDetails.location.longitude], {icon:H.icon(driverDetails)}).addTo(map);
+            //marker = L.marker([driverDetails.location.latitude, driverDetails.location.longitude], {icon:H.icon(driverDetails)}).addTo(map);
         },
         error: function(httpRequest, status, error) {
             console.log(error);

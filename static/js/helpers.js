@@ -1,6 +1,8 @@
 var H = {
 	mapbox : {
-		accessToken : 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A'
+		accessToken : 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A',
+		//style: 'mapbox://styles/mapbox/bright-v8'
+		style:'mapbox://styles/mapbox/streets-v9'
 	},
 	geo : function(success, error) {
 	  if (!navigator.geolocation){
@@ -44,14 +46,16 @@ var H = {
     		font-weight: 600;
     		line-height: 2rem;
 	    	transform: rotate(-50deg);`
+	    	/*
 	    const icon = L.divIcon({
 	      className: data.className ? data.className + ' icon' : 'icon',
 	      iconAnchor: [0, 24],
 	      labelAnchor: [-6, 0],
 	      popupAnchor: [0, -36],
 	      html: `<a href="#${data.displayName || 'me'}"><span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}"><code>${data.displayName || 'me'}</code> <span style="display:none">${data.driverId}</span></span></a>`
-	    })
+	    })*/
 
+	    const icon = `<a href="#${data.displayName || 'me'}"><span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}"><code>${data.displayName || 'me'}</code> <span style="display:none">${data.driverId}</span></span></a>`
 	    return icon
 	}
     , driver : {
