@@ -182,7 +182,7 @@ H.geo(function(position) {
 
     marker.setLngLat([longitude,latitude])
     marker.addTo(map)
-    $(marker.getElement()).removeClass('pulse').addClass('pulse')
+    $(marker.getElement()).find('span > span').removeClass('pulse').addClass('pulse')
 
 
     if(i==1) {

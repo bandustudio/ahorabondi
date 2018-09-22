@@ -29,18 +29,18 @@ var H = {
 	    }
 	    const markerHtmlStyles = `
 	        background-color: ${data.color};
-	        width: ${properties.size[data.sizeId] || '3rem'};
-	        height: ${properties.size[data.sizeId] || '3rem'};
+	        width: 3rem;
+	        height: 3rem;
 	        display: block;
-	        left: -${parseInt(properties.size[data.sizeId])/2 || '.5'}rem;
-	        top: -${parseInt(properties.size[data.sizeId])/2 || '.8'}rem;
+	        left: -.1rem;
+	        top: -2rem;
 	        position: relative;
-	        border-radius: ${properties.size[data.sizeId] || '3rem'} ${properties.size[data.sizeId] || '3rem'} 0;
+	        border-radius: 3rem 3rem 0;
 	        transform: rotate(45deg);
 	        border: 4px solid #FFFFFF`
 	    const markerHtmlStyles2 = `
-	        width: ${properties.size[data.sizeId] || '3rem'};
-	        height: ${properties.size[data.sizeId] || '3rem'};	    
+	        width: 3rem;
+	        height: 3rem;	    
 	    	display: block;
 			text-align: center;
     		font-weight: 600;
