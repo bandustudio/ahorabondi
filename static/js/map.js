@@ -54,14 +54,15 @@ socket.on('location', function(res) {
 
     if(markers[res.uuid]){
         markers[res.uuid].setLngLat([res.location.longitude,res.location.latitude])
-        $(markers[res.uuid].getElement()).find('span > span').removeClass('pulse').addClass('pulse')
     } else {
         var el = document.createElement('div');
         el.innerHTML = H.icon(res)
         markers[res.uuid] = new mapboxgl.Marker(el)
         markers[res.uuid].setLngLat([res.location.longitude,res.location.latitude])
         markers[res.uuid].addTo(map)
-    }    
+    }
+       
+    $(markers[res.uuid].getElement()).find('span > span').removeClass('pulse').addClass('pulse')
 })
 
 socket.on('disconnect', function(data) {
