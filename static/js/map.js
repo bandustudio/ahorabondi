@@ -52,17 +52,15 @@ socket.on('location', function(res) {
         showList:showList
     }, H.driver))
 
-    if(markers[res.uuid]){
-        markers[res.uuid].setLngLat([res.location.longitude,res.location.latitude])
-    } else {
+    if(!markers[res.uuid]){
         var el = document.createElement('div');
         el.innerHTML = H.icon(res)
         markers[res.uuid] = new mapboxgl.Marker(el)
-        markers[res.uuid].setLngLat([res.location.longitude,res.location.latitude])
-        markers[res.uuid].addTo(map)
     }
-       
-    $(markers[res.uuid].getElement()).find('span > span').removeClass('pulse').addClass('pulse')
+
+    markers[res.uuid].setLngLat([res.location.longitude,res.location.latitude])
+    markers[res.uuid].addTo(map)
+    $(markers[res.uuid].getElement()).find('span').first().removeClass('pulse').addClass('pulse')
 })
 
 socket.on('disconnect', function(data) {
@@ -183,7 +181,7 @@ H.geo(function(position) {
 
     marker.setLngLat([longitude,latitude])
     marker.addTo(map)
-    $(marker.getElement()).find('span > span').removeClass('pulse').addClass('pulse')
+    $(marker.getElement()).find('span').first().removeClass('pulse').addClass('pulse')
 
 
     if(i==1) {

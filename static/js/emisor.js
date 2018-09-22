@@ -23,7 +23,7 @@ var socket = io()
             marker.setLngLat([longitude,latitude])
             marker.addTo(map)
 
-            $(marker.getElement()).find('span > span').removeClass('pulse').addClass('pulse')
+            $(marker.getElement()).find('span').first().removeClass('pulse').addClass('pulse')
             map.setCenter([longitude,latitude])
             map.setZoom(16)
 
