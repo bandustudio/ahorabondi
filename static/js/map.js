@@ -54,7 +54,7 @@ socket.on('location', function(res) {
 
     if(markers[res.uuid]){
         markers[res.uuid].setLngLat([res.location.longitude,res.location.latitude])
-        $(markers[res.uuid].getElement()).removeClass('pulse').addClass('pulse')
+        $(markers[res.uuid].getElement()).find('span > span').removeClass('pulse').addClass('pulse')
     } else {
         var el = document.createElement('div');
         el.innerHTML = H.icon(res)
