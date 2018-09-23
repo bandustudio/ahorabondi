@@ -88,14 +88,14 @@ $(document).on('click','.emit-btn', function(){
         paused = 1
         $('#pos').html("Desconectado")
         $('#map').addClass('disabled')
-        $(this).removeClass('is-danger').addClass('is-success').html('Emitir')
+        $(this).removeClass('is-danger').addClass('is-success').html('Compartir ubicación')
         socket.emit('forcedisconnect', {uuid: uuid})
         $('.sharetools').hide()
     }
 })    
 
 window.onbeforeunload = function () {
-    return "Estás seguro que querés dejar de emitir?";
+    return "Estás seguro que querés dejar de compartir ubicación?";
 };
 
 window.onunload = function () {
