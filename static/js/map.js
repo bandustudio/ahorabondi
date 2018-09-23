@@ -76,7 +76,7 @@ socket.on('disconnect', function(data) {
     }, H.driver))
 
     if(markers[data.uuid]){
-        map.removeLayer(markers[data.uuid])
+        markers[data.uuid].remove()
         delete markers[data.uuid]
     }
 })
