@@ -322,13 +322,14 @@ html, body {
   box-shadow: 0 0 0 5px #2a6b02;
 }
 
-.icon code {
+.marker code {
+  font-family: "Raleway";
   white-space: nowrap;
   position: absolute;
-  padding: 2px;
+  padding: 4px 6px;
   line-height: 15px;
   top: 10px;
-  left: 15px;
+  left: 10px;
   font-weight: 600;
   font-size: 1em;
   border-radius: 5px;

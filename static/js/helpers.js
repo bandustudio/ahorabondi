@@ -23,7 +23,16 @@ var H = {
 	    	, size : ["2rem","4rem","6rem","8rem"]
 	    }
 	    data.color = '#ff006c'
+	    data.border = '#ffffff'
+	    var displayName = data.displayName
 
+	    if(displayName=='me'){
+			displayName = 'Mi viaje'	    	
+	    }
+
+	    if(data.displayName=='me'){
+			data.border = '#ff006c'	    	
+	    }
 	    if(data.uuid.length){
 	    	data.color = '#' + data.uuid.substr(data.uuid.length - 6)
 	    }
@@ -37,7 +46,7 @@ var H = {
 	        position: relative;
 	        border-radius: 3rem 3rem 0;
 	        transform: rotate(45deg);
-	        border: 4px solid #FFFFFF`
+	        border: 4px solid ${data.border}`
 	    const markerHtmlStyles2 = `
 	        width: 3rem;
 	        height: 3rem;	    
@@ -55,7 +64,7 @@ var H = {
 	      html: `<a href="#${data.displayName || 'me'}"><span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}"><code>${data.displayName || 'me'}</code> <span style="display:none">${data.driverId}</span></span></a>`
 	    })*/
 
-	    const icon = `<a href="#${data.displayName || 'me'}"><span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}"><code>${data.displayName || 'me'}</code> <span style="display:none">${data.driverId}</span></span></a>`
+	    const icon = `<a href="#${data.displayName}"><span style="${markerHtmlStyles}"><span style="${markerHtmlStyles2}" class="marker"><code>${displayName}</code> <span style="display:none">${data.driverId}</span></span></a>`
 	    return icon
 	}
     , driver : {

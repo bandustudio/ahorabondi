@@ -46,7 +46,7 @@ app.get('/drivers/info', function(req, res) {
     }, {
         uuid: id,
         colorId:1,
-        displayName:"Mi viaje",
+        displayName:"me",
         customMsg:"Editar este viaje."
     }, {
         new: true,
