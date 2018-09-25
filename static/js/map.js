@@ -86,13 +86,11 @@ socket.on('disconnect', function(data) {
 mapboxgl.accessToken = H.mapbox.accessToken
 map = new mapboxgl.Map({
     container: 'map',
-    style: H.mapbox.style,
     center: [-58.376867,-34.608724],
     zoom: 15
 })
 
-H.mapbox.initLayers()
-H.mapbox.checkStyle(map)
+H.mapbox.initLayers(map)
 
 var el = document.createElement('div');
 el.innerHTML = H.icon({uuid:"",displayName:"me",className:'me'})

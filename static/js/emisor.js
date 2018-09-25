@@ -50,13 +50,11 @@ $(function(){
             mapboxgl.accessToken = H.mapbox.accessToken
             map = new mapboxgl.Map({
                 container: 'map',
-                style: H.mapbox.style,
                 center: [driverDetails.location.longitude,driverDetails.location.latitude],
                 zoom: 15
             })
 
-            H.mapbox.initLayers()
-            H.mapbox.checkStyle(map)
+            H.mapbox.initLayers(map)
 
             var el = document.createElement('div');
             el.innerHTML = H.icon(driverDetails)

@@ -2,26 +2,25 @@ var H = {
 	mapbox : {
 		accessToken : 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A',
 		//style: 'mapbox://styles/mapbox/bright-v8'
-		style:'mapbox://styles/mapbox/streets-v9',
-		checkStyle:function(map){
-			var style = localStorage.getItem("style")||""
-			if(style.length){
-				var layerList = document.getElementById('menu');
-				var inputs = layerList.getElementsByTagName('input');
-				for (var i = 0; i < inputs.length; i++) {
-					var item = $(inputs[i]) 
-					item.prop('selected',(item.val()==style.id))
-				}
-			    map.setStyle(style.url);
-			}
-		},
-		initLayers:function(){
+		style:{name:'basic',url:'mapbox://styles/mapbox/basic-v9'},
+		initLayers:function(map){
 			var layerList = document.getElementById('menu');
 			var inputs = layerList.getElementsByTagName('input');
-
 			for (var i = 0; i < inputs.length; i++) {
 			    inputs[i].onclick = H.mapbox.switchLayer;
 			}
+			H.mapbox.checkStyle(map)
+		},
+		checkStyle:function(map){
+			var style = JSON.parse(localStorage.getItem("style"))||H.mapbox.style
+			var layerList = document.getElementById('menu');
+			var inputs = layerList.getElementsByTagName('input');
+			for (var i = 0; i < inputs.length; i++) {
+				var item = $(inputs[i]) 
+				item.prop('selected',(item.val()==style.id))
+			}
+
+		    map.setStyle(style.url);
 		},
 		switchLayer: function (layer) {
 		    var style = {
