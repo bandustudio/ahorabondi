@@ -91,6 +91,9 @@ map = new mapboxgl.Map({
     zoom: 15
 })
 
+H.mapbox.initLayers()
+H.mapbox.checkStyle(map)
+
 var el = document.createElement('div');
 el.innerHTML = H.icon({uuid:"",displayName:"me",className:'me'})
 marker = new mapboxgl.Marker(el)
@@ -182,7 +185,6 @@ H.geo(function(position) {
     marker.setLngLat([longitude,latitude])
     marker.addTo(map)
     $(marker.getElement()).find('span').first().removeClass('pulse').addClass('pulse')
-
 
     if(i==1) {
         getAddressFromLatLng(latitude,longitude).then(function(res){

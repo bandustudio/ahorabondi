@@ -2,7 +2,35 @@ var H = {
 	mapbox : {
 		accessToken : 'pk.eyJ1IjoibWFydGluZnJlZSIsImEiOiJ5ZFd0U19vIn0.Z7WBxuf0QKPrdzv2o6Mx6A',
 		//style: 'mapbox://styles/mapbox/bright-v8'
-		style:'mapbox://styles/mapbox/streets-v9'
+		style:'mapbox://styles/mapbox/streets-v9',
+		checkStyle:function(map){
+			var style = localStorage.getItem("style")||""
+			if(style.length){
+				var layerList = document.getElementById('menu');
+				var inputs = layerList.getElementsByTagName('input');
+				for (var i = 0; i < inputs.length; i++) {
+					var item = $(inputs[i]) 
+					item.prop('selected',(item.val()==style.id))
+				}
+			    map.setStyle(style.url);
+			}
+		},
+		initLayers:function(){
+			var layerList = document.getElementById('menu');
+			var inputs = layerList.getElementsByTagName('input');
+
+			for (var i = 0; i < inputs.length; i++) {
+			    inputs[i].onclick = H.mapbox.switchLayer;
+			}
+		},
+		switchLayer: function (layer) {
+		    var style = {
+		    	id:layer.target.id,
+		    	url:'mapbox://styles/mapbox/' + layer.target.id + '-v9'
+		    }
+		    localStorage.setItem("style", JSON.stringify(style));
+		    map.setStyle(style.url);
+		}
 	},
 	geo : function(success, error) {
 	  if (!navigator.geolocation){

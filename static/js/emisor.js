@@ -55,6 +55,9 @@ $(function(){
                 zoom: 15
             })
 
+            H.mapbox.initLayers()
+            H.mapbox.checkStyle(map)
+
             var el = document.createElement('div');
             el.innerHTML = H.icon(driverDetails)
             marker = new mapboxgl.Marker(el)
@@ -102,3 +105,4 @@ window.onunload = function () {
     paused = 1
     socket.emit('forcedisconnect', {uuid: uuid})
 };
+

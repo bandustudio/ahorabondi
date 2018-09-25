@@ -318,6 +318,29 @@ html, body {
   display: none;
 }
 
+#menu {
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  background: #fff;
+  padding: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#menu label {
+  font-size: 12px;
+  position: relative;
+  top: -4px;
+}
+
+
+/* mapboxgl tweaks*/
+
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right {
+  bottom: 50px;
+}
+
 .icon > .selection {
   box-shadow: 0 0 0 5px #2a6b02;
 }
