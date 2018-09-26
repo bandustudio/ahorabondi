@@ -89,7 +89,7 @@ $(document).on('click','.emit-btn', function(){
         paused = 1
         $('#pos').html("Desconectado")
         $('#map').addClass('disabled')
-        $(this).removeClass('is-danger').addClass('is-success').html('Compartir tu viaje')
+        $(this).removeClass('is-danger').addClass('is-success').html('Compartir viaje')
         socket.emit('forcedisconnect', {uuid: uuid})
         $('.sharetools').hide()
     }

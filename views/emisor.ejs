@@ -1,5 +1,11 @@
 <%- contentFor('body') %>
-
+    
+    <style>
+        .mapboxgl-ctrl-bottom-left,
+        .mapboxgl-ctrl-bottom-right {
+          bottom: 100px;
+        }
+    </style>
     <input type="hidden" id="uuid" value="<%= uuid %>">
     <div id="driverDetails"></div>
     <div id="map" class="disabled"></div>
@@ -26,7 +32,7 @@
     <script id="details" type="text/x-jsrender">
         <div class="content">
             <p><span>{{:displayName}}</span><br><small>{{:customMsg}}</small></p>
-            <a class="button is-large is-success emit-btn">Compartir tu viaje</a>
+            <a class="button is-large is-success emit-btn">Compartir viaje</a>
         </div>
     </script>
 
