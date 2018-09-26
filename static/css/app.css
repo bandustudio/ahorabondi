@@ -334,7 +334,7 @@ html, body {
   right: 0;
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.5);
-  padding: 10px;
+  padding: 10px 15px;
 }
 
 #menu label {
@@ -415,7 +415,7 @@ html, body {
   }
   .mapboxgl-ctrl-bottom-left,
   .mapboxgl-ctrl-bottom-right {
-    bottom: 90px;
+    bottom: 70px;
   }  
 }
 
