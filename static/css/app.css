@@ -14,6 +14,7 @@ html, body {
 
 .navbar-brand {
   padding: 1.5em;
+  margin-bottom: -4em;
 }
 
 .navbar-item {
@@ -40,7 +41,7 @@ html, body {
 }
 
 .custom-btns .button {
-  min-width: 280px;
+  min-width: 270px;
 }
 
 .sharetools {
@@ -399,15 +400,18 @@ html, body {
   }
 }
 
+@media screen and (max-width: 660px) {
+  .button {
+    margin-top: 0.5em;
+  }
+}
+
 @media screen and (max-width: 440px) {
   .pin {
     margin-top: 2.5em;
   }
   #menu {
     width: 100%;
-  }
-  .button {
-    margin-top: 0.5em;
   }
   .mapboxgl-ctrl-bottom-left,
   .mapboxgl-ctrl-bottom-right {
