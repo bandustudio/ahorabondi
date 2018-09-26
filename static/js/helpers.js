@@ -12,14 +12,16 @@ var H = {
 			H.mapbox.checkStyle(map)
 		},
 		checkStyle:function(map){
-			var style = JSON.parse(localStorage.getItem("style"))||H.mapbox.style
-			var layerList = document.getElementById('menu');
-			var inputs = layerList.getElementsByTagName('input');
-			for (var i = 0; i < inputs.length; i++) {
-				var item = $(inputs[i]) 
-				item.prop('checked',(item.val()==style.id))
+			var storage = JSON.parse(localStorage.getItem("style"))||null
+			var style = storage||H.mapbox.style
+			if(storage){
+				var layerList = document.getElementById('menu');
+				var inputs = layerList.getElementsByTagName('input');
+				for (var i = 0; i < inputs.length; i++) {
+					var item = $(inputs[i]) 
+					item.prop('checked',(item.val()==style.id))
+				}
 			}
-
 		    map.setStyle(style.url);
 		},
 		switchLayer: function (layer) {
