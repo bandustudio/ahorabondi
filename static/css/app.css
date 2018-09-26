@@ -4,6 +4,14 @@ html, body {
   overflow-y: auto;
 }
 
+.navbar-burger {
+  border-radius: 4px;
+}
+.navbar-burger span {
+  height: 4px;
+  border-radius: 4px;
+}
+
 .navbar-brand {
   padding: 1.5em;
 }
@@ -297,7 +305,7 @@ html, body {
   background-color: white;
   border-radius: 7px;
   top: 5em;
-  left: 6em;
+  left: 8em;
   color: #6f6f6f;
   text-shadow: 0 1px 1px rgba(0,0,0,.2);
   font-weight: 500;  
@@ -397,6 +405,9 @@ html, body {
   }
   #menu {
     width: 100%;
+  }
+  .button {
+    margin-top: 0.5em;
   }
   .mapboxgl-ctrl-bottom-left,
   .mapboxgl-ctrl-bottom-right {

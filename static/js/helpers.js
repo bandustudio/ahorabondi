@@ -17,7 +17,7 @@ var H = {
 			var inputs = layerList.getElementsByTagName('input');
 			for (var i = 0; i < inputs.length; i++) {
 				var item = $(inputs[i]) 
-				item.prop('selected',(item.val()==style.id))
+				item.prop('checked',(item.val()==style.id))
 			}
 
 		    map.setStyle(style.url);
